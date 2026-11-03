@@ -6,9 +6,9 @@ Reusable agent skills for planning, assessing, and executing software implementa
 
 | Skill | Use it when |
 | --- | --- |
-| `repository-implementation-planner` | You need a read-only, repository-grounded implementation plan. |
-| `implementation-spec-assessor` | You need evidence-based review or refinement of an implementation specification. |
-| `implementation-plan-executor` | You approved a multi-phase plan and want its work implemented and verified. |
+| `spec-driven-development/01-plan/repository-implementation-planner` | You need a read-only, repository-grounded implementation plan. |
+| `spec-driven-development/02-assessment/implementation-spec-assessor` | You need evidence-based review or refinement of an implementation specification. |
+| `spec-driven-development/03-execution-and-verification/implementation-plan-executor` | You approved a multi-phase plan and want its work implemented and verified. |
 
 ## Recommended workflow
 
@@ -28,10 +28,19 @@ For a small, direct implementation request that does not need a formal plan, imp
 Copy the skill folder you want into your agent's skill directory. For Codex, the default directory is `~/.codex/skills/`.
 
 ```sh
-cp -R implementation-spec-assessor ~/.codex/skills/
+cp -R spec-driven-development/02-assessment/implementation-spec-assessor ~/.codex/skills/
 ```
 
-Replace `implementation-spec-assessor` with the Planner or Executor folder name to install one of those skills. Check the destination first if you already have a skill with that name.
+Replace the Assessor path with the Planner or Executor path to install one of those skills. The installed folder keeps its canonical skill name. Check the destination first if it already exists.
+
+For a local checkout, link the three skills into Codex instead of copying them. Run these commands from the repository root after confirming that the destination names are free. Move any existing skill folders outside `~/.codex/skills/` first.
+
+```sh
+mkdir -p ~/.codex/skills
+ln -s "$PWD/spec-driven-development/01-plan/repository-implementation-planner" ~/.codex/skills/repository-implementation-planner
+ln -s "$PWD/spec-driven-development/02-assessment/implementation-spec-assessor" ~/.codex/skills/implementation-spec-assessor
+ln -s "$PWD/spec-driven-development/03-execution-and-verification/implementation-plan-executor" ~/.codex/skills/implementation-plan-executor
+```
 
 ## Requirements
 
@@ -40,7 +49,7 @@ The Planner and Executor use Markdown instructions and have no runtime dependenc
 ```sh
 python3.11 -m venv .venv
 . .venv/bin/activate
-python -m pip install -r implementation-spec-assessor/requirements.txt
+python -m pip install -r spec-driven-development/02-assessment/implementation-spec-assessor/requirements.txt
 ```
 
 ## Validate
@@ -54,7 +63,7 @@ python scripts/validate_public_package.py
 Run the Assessor tests and report validator from its folder:
 
 ```sh
-cd implementation-spec-assessor
+cd spec-driven-development/02-assessment/implementation-spec-assessor
 python -m pytest -q
 python scripts/validate_assessment.py --report tests/fixtures/reports/excellent.json --source tests/fixtures/excellent-prompt.md
 ```

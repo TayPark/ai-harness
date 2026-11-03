@@ -5,8 +5,9 @@ from the repository root unless the command says otherwise.
 
 ## Passed checks
 
-- `env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/validate_public_package.py` — exit 0; checked 56 files across 3 skills.
-- `env PYTHONDONTWRITEBYTECODE=1 ../.venv/bin/python -m pytest -p no:cacheprovider -q` from `implementation-spec-assessor/` — exit 0; 63 tests passed.
+- `env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/validate_public_package.py` — exit 0; checked 57 files across 3 skills.
+- `env PYTHONDONTWRITEBYTECODE=1 ../../../.venv/bin/python -m pytest -p no:cacheprovider -q` from `spec-driven-development/02-assessment/implementation-spec-assessor/` — exit 0; 63 tests passed.
+- The host skill creator validator reported `Skill is valid!` through all three global Codex symlinks.
 - Assessment CLI checks for the excellent fixture, end-to-end example, improved example, and contradictory fixture — each exited 0 with schema, arithmetic, gates, references, capabilities, and caps passed.
 - The poor fixture exited 0. Its source provenance is unverified because the source was not supplied.
 - The invalid-ready fixture exited 1 with the expected `status mismatch` failure.

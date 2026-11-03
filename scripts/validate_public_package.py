@@ -17,9 +17,9 @@ except ImportError as exc:  # pragma: no cover - exercised by missing dependency
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS = (
-    "implementation-spec-assessor",
-    "repository-implementation-planner",
-    "implementation-plan-executor",
+    "spec-driven-development/01-plan/repository-implementation-planner",
+    "spec-driven-development/02-assessment/implementation-spec-assessor",
+    "spec-driven-development/03-execution-and-verification/implementation-plan-executor",
 )
 REQUIRED_ROOT_FILES = ("README.md", "LICENSE", ".gitignore")
 MARKDOWN_LINK = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
@@ -104,7 +104,7 @@ def main() -> int:
                 if not isinstance(interface, dict) or not interface.get("display_name") or not interface.get("short_description"):
                     fail(errors, f"incomplete UI metadata: {metadata.relative_to(ROOT)}")
 
-    assessor = ROOT / "implementation-spec-assessor"
+    assessor = ROOT / "spec-driven-development" / "02-assessment" / "implementation-spec-assessor"
     manifest_path = assessor / "MANIFEST.txt"
     if manifest_path.is_file():
         listed = {line.strip() for line in manifest_path.read_text(encoding="utf-8").splitlines() if line.strip()}
@@ -117,7 +117,7 @@ def main() -> int:
         if listed != actual:
             fail(errors, f"Assessor MANIFEST.txt differs: missing={sorted(actual - listed)}, extra={sorted(listed - actual)}")
     else:
-        fail(errors, "missing implementation-spec-assessor/MANIFEST.txt")
+        fail(errors, "missing spec-driven-development/02-assessment/implementation-spec-assessor/MANIFEST.txt")
 
     files = package_files()
     for path in files:
