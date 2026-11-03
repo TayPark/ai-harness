@@ -1,0 +1,968 @@
+{
+  "skill_version": "1.0.0",
+  "rubric_version": "1.0.0",
+  "assessment_id": "ledger-csv-sum-v2",
+  "input": {
+    "source_id": "ledger-csv-sum-v2",
+    "source_hash": "a086869c75a18cf387af2582b6ac8e31f5a89bde172878cb8fdf276ef6560dda",
+    "mode": "ASSESS",
+    "source_usable": true
+  },
+  "policy": {
+    "overall_min": 90,
+    "interface_min": 4,
+    "testability_min": 4,
+    "reproducibility_min": 4
+  },
+  "requirements": [
+    {
+      "requirement_id": "R-001",
+      "description": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+      "category": "other",
+      "provenance": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "status": "EXPLICIT",
+      "priority": "evaluator classification: implementation requirement",
+      "related_component_ids": [
+        "C-001"
+      ],
+      "acceptance_criteria_ids": [],
+      "dependencies": []
+    },
+    {
+      "requirement_id": "R-003",
+      "description": "## Objective and scope",
+      "category": "other",
+      "provenance": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "status": "EXPLICIT",
+      "priority": "evaluator classification: implementation requirement",
+      "related_component_ids": [
+        "C-001"
+      ],
+      "acceptance_criteria_ids": [],
+      "dependencies": []
+    },
+    {
+      "requirement_id": "R-004",
+      "description": "Implement a local Python CLI that sums decimal amounts in a UTF-8 CSV file. Use Python 3.11.9 and the standard library. Read one input file. Do not access the network or write files. Support macOS and Ubuntu 24.04. Input is trusted local data; do not execute file contents.",
+      "category": "functional",
+      "provenance": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "status": "EXPLICIT",
+      "priority": "evaluator classification: implementation requirement",
+      "related_component_ids": [
+        "C-001"
+      ],
+      "acceptance_criteria_ids": [],
+      "dependencies": []
+    },
+    {
+      "requirement_id": "R-006",
+      "description": "## Components and ownership",
+      "category": "other",
+      "provenance": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "status": "EXPLICIT",
+      "priority": "evaluator classification: implementation requirement",
+      "related_component_ids": [
+        "C-001"
+      ],
+      "acceptance_criteria_ids": [],
+      "dependencies": []
+    },
+    {
+      "requirement_id": "R-007",
+      "description": "C-001 parser: owned by the data engineer. Accept decoded CSV records and return a Decimal total or a typed validation error. No I/O or mutation.",
+      "category": "functional",
+      "provenance": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "status": "EXPLICIT",
+      "priority": "evaluator classification: implementation requirement",
+      "related_component_ids": [
+        "C-001"
+      ],
+      "acceptance_criteria_ids": [],
+      "dependencies": []
+    },
+    {
+      "requirement_id": "R-008",
+      "description": "C-002 CLI: owned by the application engineer. Parse arguments, read UTF-8 input, call C-001, and write exactly one result line or one error record. Depends on C-001.",
+      "category": "functional",
+      "provenance": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "status": "EXPLICIT",
+      "priority": "evaluator classification: implementation requirement",
+      "related_component_ids": [
+        "C-001"
+      ],
+      "acceptance_criteria_ids": [],
+      "dependencies": []
+    },
+    {
+      "requirement_id": "R-009",
+      "description": "C-003 verifier: owned by the quality engineer. Independently runs unit and end-to-end fixtures after C-001 and C-002 integration. It does not change implementation code.",
+      "category": "functional",
+      "provenance": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "status": "EXPLICIT",
+      "priority": "evaluator classification: implementation requirement",
+      "related_component_ids": [
+        "C-001"
+      ],
+      "acceptance_criteria_ids": [],
+      "dependencies": []
+    },
+    {
+      "requirement_id": "R-011",
+      "description": "## Input and output contract",
+      "category": "other",
+      "provenance": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "status": "EXPLICIT",
+      "priority": "evaluator classification: implementation requirement",
+      "related_component_ids": [
+        "C-001"
+      ],
+      "acceptance_criteria_ids": [],
+      "dependencies": []
+    },
+    {
+      "requirement_id": "R-012",
+      "description": "Input header must contain exactly one `amount` column. Rows may contain additional columns, which are ignored. Accept 0\u20131000 data rows. Each amount must be a finite base-10 decimal with at most two fractional digits. Reject missing values, extra CSV fields, malformed quoting, invalid UTF-8, duplicate or absent amount headers, and more than 1000 data rows.",
+      "category": "functional",
+      "provenance": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "status": "EXPLICIT",
+      "priority": "evaluator classification: implementation requirement",
+      "related_component_ids": [
+        "C-001"
+      ],
+      "acceptance_criteria_ids": [],
+      "dependencies": []
+    },
+    {
+      "requirement_id": "R-013",
+      "description": "Round no values. Sum using Decimal. Format total with exactly two fractional digits and a trailing newline. Empty data produces `0.00`. Success writes only the result to stdout and exits 0.",
+      "category": "functional",
+      "provenance": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "status": "EXPLICIT",
+      "priority": "evaluator classification: implementation requirement",
+      "related_component_ids": [
+        "C-001"
+      ],
+      "acceptance_criteria_ids": [],
+      "dependencies": []
+    },
+    {
+      "requirement_id": "R-014",
+      "description": "On failure, stdout is empty. Stderr contains one JSON object with keys `code`, `message`, and `run_id`, followed by newline. Codes are INVALID_UTF8, INVALID_CSV, INVALID_HEADER, INVALID_AMOUNT, ROW_LIMIT, and IO_ERROR. Exit 2 for input validation errors. Exit 3 for file I/O errors. Messages contain no file contents. Generate a UUID run_id per invocation.",
+      "category": "functional",
+      "provenance": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "status": "EXPLICIT",
+      "priority": "evaluator classification: implementation requirement",
+      "related_component_ids": [
+        "C-001"
+      ],
+      "acceptance_criteria_ids": [],
+      "dependencies": []
+    },
+    {
+      "requirement_id": "R-016",
+      "description": "## Reliability and observability",
+      "category": "other",
+      "provenance": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "status": "EXPLICIT",
+      "priority": "evaluator classification: implementation requirement",
+      "related_component_ids": [
+        "C-001"
+      ],
+      "acceptance_criteria_ids": [],
+      "dependencies": []
+    },
+    {
+      "requirement_id": "R-017",
+      "description": "Do not retry. Do not return partial totals. Propagate parser errors to CLI unchanged. A failed read emits IO_ERROR. Do not mutate inputs. Include run_id in every error. Do not log amounts or file contents. The parser is pure and idempotent for identical records.",
+      "category": "functional",
+      "provenance": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "status": "EXPLICIT",
+      "priority": "evaluator classification: implementation requirement",
+      "related_component_ids": [
+        "C-001"
+      ],
+      "acceptance_criteria_ids": [],
+      "dependencies": []
+    },
+    {
+      "requirement_id": "R-019",
+      "description": "## Reproducibility",
+      "category": "other",
+      "provenance": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "status": "EXPLICIT",
+      "priority": "evaluator classification: implementation requirement",
+      "related_component_ids": [
+        "C-001"
+      ],
+      "acceptance_criteria_ids": [],
+      "dependencies": []
+    },
+    {
+      "requirement_id": "R-020",
+      "description": "Pin Python 3.11.9 and pytest 8.3.5. Use a container image pinned by digest in the release pipeline; the release owner must record and verify the digest before release. Do not invent the digest in this prompt. Set locale to C.UTF-8 and timezone to UTC. Fixtures are committed as UTF-8 text with SHA-256 recorded in the test manifest. Unit tests use fixed run_id injection; CLI tests validate UUID format without comparing generated values.",
+      "category": "functional",
+      "provenance": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "status": "EXPLICIT",
+      "priority": "evaluator classification: implementation requirement",
+      "related_component_ids": [
+        "C-001"
+      ],
+      "acceptance_criteria_ids": [],
+      "dependencies": []
+    },
+    {
+      "requirement_id": "R-022",
+      "description": "## Acceptance and verification",
+      "category": "other",
+      "provenance": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "status": "EXPLICIT",
+      "priority": "evaluator classification: implementation requirement",
+      "related_component_ids": [
+        "C-001"
+      ],
+      "acceptance_criteria_ids": [],
+      "dependencies": []
+    },
+    {
+      "requirement_id": "R-023",
+      "description": "Unit tests cover zero, one, and 1000 rows; empty data; two decimal places; trailing zeros; negative values; malformed UTF-8; bad quoting; missing/duplicate headers; missing amount; >2 fractional digits; 1001 rows; and no partial output. End-to-end tests verify stdout, stderr JSON keys, exit codes, UUID format, and no file writes. Run `python -m pytest -q` in the pinned image. All tests must pass. Run once, repeat in a clean container, and compare stdout, stderr after normalizing run_id, and exit codes. Compare fixture hashes. Record command, image digest, interpreter version, fixture hash, result, and run_id in the report.",
+      "category": "functional",
+      "provenance": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "status": "EXPLICIT",
+      "priority": "evaluator classification: implementation requirement",
+      "related_component_ids": [
+        "C-001"
+      ],
+      "acceptance_criteria_ids": [
+        "R-026"
+      ],
+      "dependencies": []
+    },
+    {
+      "requirement_id": "R-025",
+      "description": "## Agent execution and handoff",
+      "category": "other",
+      "provenance": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "status": "EXPLICIT",
+      "priority": "evaluator classification: implementation requirement",
+      "related_component_ids": [
+        "C-001"
+      ],
+      "acceptance_criteria_ids": [],
+      "dependencies": []
+    },
+    {
+      "requirement_id": "R-026",
+      "description": "Implement C-001, then C-002, then C-003 verification. Each owner records changed files and unit results. Handoff artifact has schema `{component_id: string, status: PASS|FAIL, test_command: string, exit_code: integer, evidence_path: string}`. The integrator verifies dependency order, both component outputs, error propagation and end-to-end fixtures. Tools may read/write only the task checkout and fixture directory. Completion requires all acceptance tests, clean repeat-run comparison, reviewed image digest, and a final evidence report.",
+      "category": "functional",
+      "provenance": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "status": "EXPLICIT",
+      "priority": "evaluator classification: implementation requirement",
+      "related_component_ids": [
+        "C-001"
+      ],
+      "acceptance_criteria_ids": [],
+      "dependencies": []
+    },
+    {
+      "requirement_id": "R-028",
+      "description": "## Explicit release decision",
+      "category": "other",
+      "provenance": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "status": "EXPLICIT",
+      "priority": "evaluator classification: implementation requirement",
+      "related_component_ids": [
+        "C-001"
+      ],
+      "acceptance_criteria_ids": [],
+      "dependencies": []
+    },
+    {
+      "requirement_id": "R-029",
+      "description": "The release owner must choose and approve the container image digest. Until then implementation and local tests may proceed, but release readiness is blocked.",
+      "category": "functional",
+      "provenance": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "status": "DECISION_REQUIRED",
+      "priority": "evaluator classification: implementation requirement",
+      "related_component_ids": [
+        "C-001"
+      ],
+      "acceptance_criteria_ids": [],
+      "dependencies": []
+    }
+  ],
+  "dimensions": [
+    {
+      "dimension_id": "clarity",
+      "weight": 10,
+      "score": 5,
+      "weighted_score": 10.0,
+      "evidence": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "evidence_gaps": [],
+      "score_caps": [],
+      "failure_risks": [],
+      "recommended_changes": []
+    },
+    {
+      "dimension_id": "completeness",
+      "weight": 10,
+      "score": 5,
+      "weighted_score": 10.0,
+      "evidence": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "evidence_gaps": [],
+      "score_caps": [],
+      "failure_risks": [],
+      "recommended_changes": []
+    },
+    {
+      "dimension_id": "decomposition",
+      "weight": 10,
+      "score": 5,
+      "weighted_score": 10.0,
+      "evidence": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "evidence_gaps": [],
+      "score_caps": [],
+      "failure_risks": [],
+      "recommended_changes": []
+    },
+    {
+      "dimension_id": "interface_contracts",
+      "weight": 15,
+      "score": 4,
+      "weighted_score": 12.0,
+      "evidence": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "evidence_gaps": [
+        "Interface compatibility is described in prose; no machine-readable per-component schema or version negotiation is defined"
+      ],
+      "score_caps": [
+        {
+          "maximum": 4,
+          "reason": "Prose component contracts omit machine-readable schema/version compatibility"
+        }
+      ],
+      "failure_risks": [],
+      "recommended_changes": []
+    },
+    {
+      "dimension_id": "implementability",
+      "weight": 10,
+      "score": 5,
+      "weighted_score": 10.0,
+      "evidence": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "evidence_gaps": [],
+      "score_caps": [],
+      "failure_risks": [],
+      "recommended_changes": []
+    },
+    {
+      "dimension_id": "testability",
+      "weight": 15,
+      "score": 5,
+      "weighted_score": 15.0,
+      "evidence": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "evidence_gaps": [],
+      "score_caps": [],
+      "failure_risks": [],
+      "recommended_changes": []
+    },
+    {
+      "dimension_id": "reproducibility",
+      "weight": 10,
+      "score": 5,
+      "weighted_score": 10.0,
+      "evidence": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "evidence_gaps": [],
+      "score_caps": [],
+      "failure_risks": [],
+      "recommended_changes": []
+    },
+    {
+      "dimension_id": "reliability",
+      "weight": 5,
+      "score": 4,
+      "weighted_score": 4.0,
+      "evidence": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "evidence_gaps": [
+        "Retry is intentionally disabled, but recovery after a mid-read operating-system failure is not specified"
+      ],
+      "score_caps": [],
+      "failure_risks": [],
+      "recommended_changes": []
+    },
+    {
+      "dimension_id": "observability",
+      "weight": 5,
+      "score": 4,
+      "weighted_score": 4.0,
+      "evidence": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "evidence_gaps": [
+        "Audit record access control and retention are not specified"
+      ],
+      "score_caps": [],
+      "failure_risks": [],
+      "recommended_changes": []
+    },
+    {
+      "dimension_id": "agent_executability",
+      "weight": 10,
+      "score": 5,
+      "weighted_score": 10.0,
+      "evidence": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "evidence_gaps": [],
+      "score_caps": [],
+      "failure_risks": [],
+      "recommended_changes": []
+    }
+  ],
+  "components": [
+    {
+      "component_id": "C-001",
+      "name": "CSV parser",
+      "critical": true,
+      "responsibility": {
+        "status": "SPECIFIED",
+        "value": "Parse CSV and sum amounts",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "owner": {
+        "status": "SPECIFIED",
+        "value": "developer",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "inputs": {
+        "status": "SPECIFIED",
+        "value": "UTF-8 CSV, at most 1000 rows",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "input_schema": {
+        "status": "SPECIFIED",
+        "value": "header amount; decimal strings",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "outputs": {
+        "status": "SPECIFIED",
+        "value": "decimal string, two fractional digits and newline",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "output_schema": {
+        "status": "SPECIFIED",
+        "value": "decimal text",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "preconditions": {
+        "status": "SPECIFIED",
+        "value": "Specified in section relevant to preconditions",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "postconditions": {
+        "status": "SPECIFIED",
+        "value": "Specified in section relevant to postconditions",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "invariants": {
+        "status": "SPECIFIED",
+        "value": "Specified in section relevant to invariants",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "dependencies": {
+        "status": "SPECIFIED",
+        "value": "Python 3.11.9, standard library only",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "failure_modes": {
+        "status": "SPECIFIED",
+        "value": "Specified in section relevant to failure_modes",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "error_contract": {
+        "status": "SPECIFIED",
+        "value": "Specified in section relevant to error_contract",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "side_effects": {
+        "status": "NOT_APPLICABLE",
+        "value": null,
+        "reason": "Parser contract explicitly states no I/O or mutation.",
+        "evidence": [
+          {
+            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "state_mutations": {
+        "status": "NOT_APPLICABLE",
+        "value": null,
+        "reason": "Parser contract explicitly states no I/O or mutation.",
+        "evidence": [
+          {
+            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "acceptance_criteria": {
+        "status": "SPECIFIED",
+        "value": "1.25 + 2.50 = 3.75; empty = 0.00",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "test_fixtures": {
+        "status": "SPECIFIED",
+        "value": "two values and empty data",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "integration_boundaries": {
+        "status": "SPECIFIED",
+        "value": "parser then CLI; independent verifier",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      }
+    }
+  ],
+  "integration_gaps": [],
+  "findings": [
+    {
+      "finding_id": "F-001",
+      "severity": "LOW",
+      "dimension_id": "interface_contracts",
+      "requirement_ids": [
+        "R-001"
+      ],
+      "component_ids": [
+        "C-001"
+      ],
+      "evidence": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "impact": "Prose contracts need interpretation when APIs evolve",
+      "remediation": "Optionally define versioned JSON schemas for component handoffs",
+      "verification": "Validate handoff payload against a versioned schema",
+      "resolved": false,
+      "external_decision": false
+    },
+    {
+      "finding_id": "F-002",
+      "severity": "LOW",
+      "dimension_id": "reliability",
+      "requirement_ids": [
+        "R-013"
+      ],
+      "component_ids": [
+        "C-001"
+      ],
+      "evidence": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "impact": "Recovery expectations after interrupted reads remain unclear",
+      "remediation": "Document restart behavior for interrupted read",
+      "verification": "Inject read interruption and verify defined outcome",
+      "resolved": false,
+      "external_decision": false
+    },
+    {
+      "finding_id": "F-003",
+      "severity": "LOW",
+      "dimension_id": "observability",
+      "requirement_ids": [
+        "R-014"
+      ],
+      "component_ids": [
+        "C-001"
+      ],
+      "evidence": [
+        {
+          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "impact": "Audit evidence retention cannot be assessed",
+      "remediation": "Specify audit access and retention if required by operating policy",
+      "verification": "Review approved audit policy",
+      "resolved": false,
+      "external_decision": false
+    }
+  ],
+  "critical_blockers": [],
+  "recommendations": [
+    {
+      "recommendation_id": "REC-001",
+      "finding_ids": [
+        "F-001"
+      ],
+      "mandatory": false,
+      "priority": 1,
+      "change": "Optionally define versioned JSON schemas for component handoffs",
+      "verification": "Validate handoff payload against a versioned schema"
+    },
+    {
+      "recommendation_id": "REC-002",
+      "finding_ids": [
+        "F-002"
+      ],
+      "mandatory": false,
+      "priority": 2,
+      "change": "Document restart behavior for interrupted read",
+      "verification": "Inject read interruption and verify defined outcome"
+    },
+    {
+      "recommendation_id": "REC-003",
+      "finding_ids": [
+        "F-003"
+      ],
+      "mandatory": false,
+      "priority": 3,
+      "change": "Specify audit access and retention if required by operating policy",
+      "verification": "Review approved audit policy"
+    }
+  ],
+  "acceptance_gates": {
+    "overall": true,
+    "interface_contracts": true,
+    "testability": true,
+    "reproducibility": true,
+    "critical_blockers": true,
+    "component_readiness": true
+  },
+  "reviewer_disagreements": [],
+  "total_score": 95.0,
+  "status": "READY",
+  "reassessment": null,
+  "run_metadata": {
+    "available_capabilities": [
+      "filesystem",
+      "shell"
+    ],
+    "used_capabilities": [
+      "filesystem"
+    ],
+    "subagents_used": false,
+    "independent_review": false,
+    "reviewers": [],
+    "model_id": "host model identity unavailable",
+    "model_configuration": "unavailable",
+    "executed_commands": [
+      "python scripts/validate_assessment.py --report examples/end-to-end/assessment.json --source examples/end-to-end/source.md"
+    ],
+    "unverified_checks": [
+      "single assessment; semantic scores not repeatability-tested"
+    ],
+    "repeated_scores": [],
+    "observed_variance": null
+  },
+  "validation": {
+    "executed": true,
+    "passed": [
+      "schema",
+      "arithmetic",
+      "gates",
+      "references",
+      "capabilities",
+      "caps"
+    ],
+    "failed": [],
+    "unverified": [
+      "Semantic completeness reviewed by single evaluator; no independent second model"
+    ]
+  }
+}

@@ -1,0 +1,465 @@
+{
+  "skill_version": "1.0.0",
+  "rubric_version": "1.0.0",
+  "assessment_id": "excellent-prompt",
+  "input": {
+    "source_id": "excellent-prompt",
+    "source_hash": "6ff1e59e4f4768b385828d239a400ce594d472624fc361435bed324bb30ae23b",
+    "mode": "ASSESS",
+    "source_usable": true
+  },
+  "policy": {
+    "overall_min": 90,
+    "interface_min": 4,
+    "testability_min": 4,
+    "reproducibility_min": 4
+  },
+  "requirements": [
+    {
+      "requirement_id": "R-001",
+      "description": "Build a local line-count CLI with Python 3.11.9, standard library only. Scope excludes network and persistence. Component C-001 has owner CLI engineer. Input: one UTF-8 file path; output: decimal line count plus newline on stdout. Count logical lines using splitlines(); empty file yields 0. Invalid UTF-8 or unreadable file writes a structured JSON error with run_id and code to stderr and exits 2, with no stdout. Success exits 0. No retries, shared state, concurrency or mutation. OS file reads are the only side effect. Timeout is controlled by the caller. Acceptance: empty input 0, a\\nb input 2, trailing newline adds no extra line, invalid UTF-8 exits 2. Boundary, negative, regression and integration tests run via python -m unittest. Pin container python:3.11.9-slim by a verified digest before release; digest is a release-owned decision, not an assumed value. Developer owns parser and CLI integration, verifier independently runs tests and hands off test evidence. Tools may read only fixture files. Handoff schema: run_id string, exit_code integer, stdout string, stderr string. Verify parser output matches CLI output. Completion requires all fixtures passing and recorded source hash, command, environment and repeat-run results. Diagnostics correlate run_id and file hash without logging contents. File errors propagate without partial result. Repeat-run outputs excluding run_id must match. Feasibility is standard-library-only; verify in pinned environment before release.",
+      "category": "functional",
+      "provenance": [
+        {
+          "quote": "Build a local line-count CLI with Python 3.11.9, standard library only. Scope excludes network and persistence. Component C-001 has owner CLI engineer. Input: one UTF-8 file path; output: decimal line count plus newline on stdout. Count logical lines using splitlines(); empty file yields 0. Invalid UTF-8 or unreadable file writes a structured JSON error with run_id and code to stderr and exits 2, with no stdout. Success exits 0. No retries, shared state, concurrency or mutation. OS file reads are the only side effect. Timeout is controlled by the caller. Acceptance: empty input 0, a\\nb input 2, trailing newline adds no extra line, invalid UTF-8 exits 2. Boundary, negative, regression and integration tests run via python -m unittest. Pin container python:3.11.9-slim by a verified digest before release; digest is a release-owned decision, not an assumed value. Developer owns parser and CLI integration, verifier independently runs tests and hands off test evidence. Tools may read only fixture files. Handoff schema: run_id string, exit_code integer, stdout string, stderr string. Verify parser output matches CLI output. Completion requires all fixtures passing and recorded source hash, command, environment and repeat-run results. Diagnostics correlate run_id and file hash without logging contents. File errors propagate without partial result. Repeat-run outputs excluding run_id must match. Feasibility is standard-library-only; verify in pinned environment before release.",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "status": "EXPLICIT",
+      "priority": "evaluator: primary",
+      "related_component_ids": [
+        "C-001"
+      ],
+      "acceptance_criteria_ids": [],
+      "dependencies": []
+    }
+  ],
+  "dimensions": [
+    {
+      "dimension_id": "clarity",
+      "weight": 10,
+      "score": 5,
+      "weighted_score": 10.0,
+      "evidence": [
+        {
+          "quote": "Build a local line-count CLI with Python 3.11.9, standard library only. Scope excludes network and persistence. Component C-001 has owner CLI engineer. Input: one UTF-8 file path; output: decimal line count plus newline on stdout. Count logical lines using splitlines(); empty file yields 0. Invalid UTF-8 or unreadable file writes a structured JSON error with run_id and code to stderr and exits 2, with no stdout. Success exits 0. No retries, shared state, concurrency or mutation. OS file reads are the only side effect. Timeout is controlled by the caller. Acceptance: empty input 0, a\\nb input 2, trailing newline adds no extra line, invalid UTF-8 exits 2. Boundary, negative, regression and integration tests run via python -m unittest. Pin container python:3.11.9-slim by a verified digest before release; digest is a release-owned decision, not an assumed value. Developer owns parser and CLI integration, verifier independently runs tests and hands off test evidence. Tools may read only fixture files. Handoff schema: run_id string, exit_code integer, stdout string, stderr string. Verify parser output matches CLI output. Completion requires all fixtures passing and recorded source hash, command, environment and repeat-run results. Diagnostics correlate run_id and file hash without logging contents. File errors propagate without partial result. Repeat-run outputs excluding run_id must match. Feasibility is standard-library-only; verify in pinned environment before release.",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "evidence_gaps": [],
+      "score_caps": [],
+      "failure_risks": [],
+      "recommended_changes": []
+    },
+    {
+      "dimension_id": "completeness",
+      "weight": 10,
+      "score": 5,
+      "weighted_score": 10.0,
+      "evidence": [
+        {
+          "quote": "Build a local line-count CLI with Python 3.11.9, standard library only. Scope excludes network and persistence. Component C-001 has owner CLI engineer. Input: one UTF-8 file path; output: decimal line count plus newline on stdout. Count logical lines using splitlines(); empty file yields 0. Invalid UTF-8 or unreadable file writes a structured JSON error with run_id and code to stderr and exits 2, with no stdout. Success exits 0. No retries, shared state, concurrency or mutation. OS file reads are the only side effect. Timeout is controlled by the caller. Acceptance: empty input 0, a\\nb input 2, trailing newline adds no extra line, invalid UTF-8 exits 2. Boundary, negative, regression and integration tests run via python -m unittest. Pin container python:3.11.9-slim by a verified digest before release; digest is a release-owned decision, not an assumed value. Developer owns parser and CLI integration, verifier independently runs tests and hands off test evidence. Tools may read only fixture files. Handoff schema: run_id string, exit_code integer, stdout string, stderr string. Verify parser output matches CLI output. Completion requires all fixtures passing and recorded source hash, command, environment and repeat-run results. Diagnostics correlate run_id and file hash without logging contents. File errors propagate without partial result. Repeat-run outputs excluding run_id must match. Feasibility is standard-library-only; verify in pinned environment before release.",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "evidence_gaps": [],
+      "score_caps": [],
+      "failure_risks": [],
+      "recommended_changes": []
+    },
+    {
+      "dimension_id": "decomposition",
+      "weight": 10,
+      "score": 4,
+      "weighted_score": 8.0,
+      "evidence": [
+        {
+          "quote": "Build a local line-count CLI with Python 3.11.9, standard library only. Scope excludes network and persistence. Component C-001 has owner CLI engineer. Input: one UTF-8 file path; output: decimal line count plus newline on stdout. Count logical lines using splitlines(); empty file yields 0. Invalid UTF-8 or unreadable file writes a structured JSON error with run_id and code to stderr and exits 2, with no stdout. Success exits 0. No retries, shared state, concurrency or mutation. OS file reads are the only side effect. Timeout is controlled by the caller. Acceptance: empty input 0, a\\nb input 2, trailing newline adds no extra line, invalid UTF-8 exits 2. Boundary, negative, regression and integration tests run via python -m unittest. Pin container python:3.11.9-slim by a verified digest before release; digest is a release-owned decision, not an assumed value. Developer owns parser and CLI integration, verifier independently runs tests and hands off test evidence. Tools may read only fixture files. Handoff schema: run_id string, exit_code integer, stdout string, stderr string. Verify parser output matches CLI output. Completion requires all fixtures passing and recorded source hash, command, environment and repeat-run results. Diagnostics correlate run_id and file hash without logging contents. File errors propagate without partial result. Repeat-run outputs excluding run_id must match. Feasibility is standard-library-only; verify in pinned environment before release.",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "evidence_gaps": [],
+      "score_caps": [],
+      "failure_risks": [],
+      "recommended_changes": []
+    },
+    {
+      "dimension_id": "interface_contracts",
+      "weight": 15,
+      "score": 5,
+      "weighted_score": 15.0,
+      "evidence": [
+        {
+          "quote": "Build a local line-count CLI with Python 3.11.9, standard library only. Scope excludes network and persistence. Component C-001 has owner CLI engineer. Input: one UTF-8 file path; output: decimal line count plus newline on stdout. Count logical lines using splitlines(); empty file yields 0. Invalid UTF-8 or unreadable file writes a structured JSON error with run_id and code to stderr and exits 2, with no stdout. Success exits 0. No retries, shared state, concurrency or mutation. OS file reads are the only side effect. Timeout is controlled by the caller. Acceptance: empty input 0, a\\nb input 2, trailing newline adds no extra line, invalid UTF-8 exits 2. Boundary, negative, regression and integration tests run via python -m unittest. Pin container python:3.11.9-slim by a verified digest before release; digest is a release-owned decision, not an assumed value. Developer owns parser and CLI integration, verifier independently runs tests and hands off test evidence. Tools may read only fixture files. Handoff schema: run_id string, exit_code integer, stdout string, stderr string. Verify parser output matches CLI output. Completion requires all fixtures passing and recorded source hash, command, environment and repeat-run results. Diagnostics correlate run_id and file hash without logging contents. File errors propagate without partial result. Repeat-run outputs excluding run_id must match. Feasibility is standard-library-only; verify in pinned environment before release.",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "evidence_gaps": [],
+      "score_caps": [],
+      "failure_risks": [],
+      "recommended_changes": []
+    },
+    {
+      "dimension_id": "implementability",
+      "weight": 10,
+      "score": 4,
+      "weighted_score": 8.0,
+      "evidence": [
+        {
+          "quote": "Build a local line-count CLI with Python 3.11.9, standard library only. Scope excludes network and persistence. Component C-001 has owner CLI engineer. Input: one UTF-8 file path; output: decimal line count plus newline on stdout. Count logical lines using splitlines(); empty file yields 0. Invalid UTF-8 or unreadable file writes a structured JSON error with run_id and code to stderr and exits 2, with no stdout. Success exits 0. No retries, shared state, concurrency or mutation. OS file reads are the only side effect. Timeout is controlled by the caller. Acceptance: empty input 0, a\\nb input 2, trailing newline adds no extra line, invalid UTF-8 exits 2. Boundary, negative, regression and integration tests run via python -m unittest. Pin container python:3.11.9-slim by a verified digest before release; digest is a release-owned decision, not an assumed value. Developer owns parser and CLI integration, verifier independently runs tests and hands off test evidence. Tools may read only fixture files. Handoff schema: run_id string, exit_code integer, stdout string, stderr string. Verify parser output matches CLI output. Completion requires all fixtures passing and recorded source hash, command, environment and repeat-run results. Diagnostics correlate run_id and file hash without logging contents. File errors propagate without partial result. Repeat-run outputs excluding run_id must match. Feasibility is standard-library-only; verify in pinned environment before release.",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "evidence_gaps": [],
+      "score_caps": [],
+      "failure_risks": [],
+      "recommended_changes": []
+    },
+    {
+      "dimension_id": "testability",
+      "weight": 15,
+      "score": 5,
+      "weighted_score": 15.0,
+      "evidence": [
+        {
+          "quote": "Build a local line-count CLI with Python 3.11.9, standard library only. Scope excludes network and persistence. Component C-001 has owner CLI engineer. Input: one UTF-8 file path; output: decimal line count plus newline on stdout. Count logical lines using splitlines(); empty file yields 0. Invalid UTF-8 or unreadable file writes a structured JSON error with run_id and code to stderr and exits 2, with no stdout. Success exits 0. No retries, shared state, concurrency or mutation. OS file reads are the only side effect. Timeout is controlled by the caller. Acceptance: empty input 0, a\\nb input 2, trailing newline adds no extra line, invalid UTF-8 exits 2. Boundary, negative, regression and integration tests run via python -m unittest. Pin container python:3.11.9-slim by a verified digest before release; digest is a release-owned decision, not an assumed value. Developer owns parser and CLI integration, verifier independently runs tests and hands off test evidence. Tools may read only fixture files. Handoff schema: run_id string, exit_code integer, stdout string, stderr string. Verify parser output matches CLI output. Completion requires all fixtures passing and recorded source hash, command, environment and repeat-run results. Diagnostics correlate run_id and file hash without logging contents. File errors propagate without partial result. Repeat-run outputs excluding run_id must match. Feasibility is standard-library-only; verify in pinned environment before release.",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "evidence_gaps": [],
+      "score_caps": [],
+      "failure_risks": [],
+      "recommended_changes": []
+    },
+    {
+      "dimension_id": "reproducibility",
+      "weight": 10,
+      "score": 4,
+      "weighted_score": 8.0,
+      "evidence": [
+        {
+          "quote": "Build a local line-count CLI with Python 3.11.9, standard library only. Scope excludes network and persistence. Component C-001 has owner CLI engineer. Input: one UTF-8 file path; output: decimal line count plus newline on stdout. Count logical lines using splitlines(); empty file yields 0. Invalid UTF-8 or unreadable file writes a structured JSON error with run_id and code to stderr and exits 2, with no stdout. Success exits 0. No retries, shared state, concurrency or mutation. OS file reads are the only side effect. Timeout is controlled by the caller. Acceptance: empty input 0, a\\nb input 2, trailing newline adds no extra line, invalid UTF-8 exits 2. Boundary, negative, regression and integration tests run via python -m unittest. Pin container python:3.11.9-slim by a verified digest before release; digest is a release-owned decision, not an assumed value. Developer owns parser and CLI integration, verifier independently runs tests and hands off test evidence. Tools may read only fixture files. Handoff schema: run_id string, exit_code integer, stdout string, stderr string. Verify parser output matches CLI output. Completion requires all fixtures passing and recorded source hash, command, environment and repeat-run results. Diagnostics correlate run_id and file hash without logging contents. File errors propagate without partial result. Repeat-run outputs excluding run_id must match. Feasibility is standard-library-only; verify in pinned environment before release.",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "evidence_gaps": [],
+      "score_caps": [],
+      "failure_risks": [],
+      "recommended_changes": []
+    },
+    {
+      "dimension_id": "reliability",
+      "weight": 5,
+      "score": 4,
+      "weighted_score": 4.0,
+      "evidence": [
+        {
+          "quote": "Build a local line-count CLI with Python 3.11.9, standard library only. Scope excludes network and persistence. Component C-001 has owner CLI engineer. Input: one UTF-8 file path; output: decimal line count plus newline on stdout. Count logical lines using splitlines(); empty file yields 0. Invalid UTF-8 or unreadable file writes a structured JSON error with run_id and code to stderr and exits 2, with no stdout. Success exits 0. No retries, shared state, concurrency or mutation. OS file reads are the only side effect. Timeout is controlled by the caller. Acceptance: empty input 0, a\\nb input 2, trailing newline adds no extra line, invalid UTF-8 exits 2. Boundary, negative, regression and integration tests run via python -m unittest. Pin container python:3.11.9-slim by a verified digest before release; digest is a release-owned decision, not an assumed value. Developer owns parser and CLI integration, verifier independently runs tests and hands off test evidence. Tools may read only fixture files. Handoff schema: run_id string, exit_code integer, stdout string, stderr string. Verify parser output matches CLI output. Completion requires all fixtures passing and recorded source hash, command, environment and repeat-run results. Diagnostics correlate run_id and file hash without logging contents. File errors propagate without partial result. Repeat-run outputs excluding run_id must match. Feasibility is standard-library-only; verify in pinned environment before release.",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "evidence_gaps": [],
+      "score_caps": [],
+      "failure_risks": [],
+      "recommended_changes": []
+    },
+    {
+      "dimension_id": "observability",
+      "weight": 5,
+      "score": 5,
+      "weighted_score": 5.0,
+      "evidence": [
+        {
+          "quote": "Build a local line-count CLI with Python 3.11.9, standard library only. Scope excludes network and persistence. Component C-001 has owner CLI engineer. Input: one UTF-8 file path; output: decimal line count plus newline on stdout. Count logical lines using splitlines(); empty file yields 0. Invalid UTF-8 or unreadable file writes a structured JSON error with run_id and code to stderr and exits 2, with no stdout. Success exits 0. No retries, shared state, concurrency or mutation. OS file reads are the only side effect. Timeout is controlled by the caller. Acceptance: empty input 0, a\\nb input 2, trailing newline adds no extra line, invalid UTF-8 exits 2. Boundary, negative, regression and integration tests run via python -m unittest. Pin container python:3.11.9-slim by a verified digest before release; digest is a release-owned decision, not an assumed value. Developer owns parser and CLI integration, verifier independently runs tests and hands off test evidence. Tools may read only fixture files. Handoff schema: run_id string, exit_code integer, stdout string, stderr string. Verify parser output matches CLI output. Completion requires all fixtures passing and recorded source hash, command, environment and repeat-run results. Diagnostics correlate run_id and file hash without logging contents. File errors propagate without partial result. Repeat-run outputs excluding run_id must match. Feasibility is standard-library-only; verify in pinned environment before release.",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "evidence_gaps": [],
+      "score_caps": [],
+      "failure_risks": [],
+      "recommended_changes": []
+    },
+    {
+      "dimension_id": "agent_executability",
+      "weight": 10,
+      "score": 5,
+      "weighted_score": 10.0,
+      "evidence": [
+        {
+          "quote": "Build a local line-count CLI with Python 3.11.9, standard library only. Scope excludes network and persistence. Component C-001 has owner CLI engineer. Input: one UTF-8 file path; output: decimal line count plus newline on stdout. Count logical lines using splitlines(); empty file yields 0. Invalid UTF-8 or unreadable file writes a structured JSON error with run_id and code to stderr and exits 2, with no stdout. Success exits 0. No retries, shared state, concurrency or mutation. OS file reads are the only side effect. Timeout is controlled by the caller. Acceptance: empty input 0, a\\nb input 2, trailing newline adds no extra line, invalid UTF-8 exits 2. Boundary, negative, regression and integration tests run via python -m unittest. Pin container python:3.11.9-slim by a verified digest before release; digest is a release-owned decision, not an assumed value. Developer owns parser and CLI integration, verifier independently runs tests and hands off test evidence. Tools may read only fixture files. Handoff schema: run_id string, exit_code integer, stdout string, stderr string. Verify parser output matches CLI output. Completion requires all fixtures passing and recorded source hash, command, environment and repeat-run results. Diagnostics correlate run_id and file hash without logging contents. File errors propagate without partial result. Repeat-run outputs excluding run_id must match. Feasibility is standard-library-only; verify in pinned environment before release.",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "evidence_gaps": [],
+      "score_caps": [],
+      "failure_risks": [],
+      "recommended_changes": []
+    }
+  ],
+  "components": [
+    {
+      "component_id": "C-001",
+      "name": "Line-count CLI",
+      "critical": true,
+      "responsibility": {
+        "status": "SPECIFIED",
+        "value": "Count logical lines",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "Build a local line-count CLI with Python 3.11.9, standard library only. Scope excludes network and persistence. Component C-001 has owner CLI engineer. Input: one UTF-8 file path; output: decimal line count plus newline on stdout. Count logical lines using splitlines(); empty file yields 0. Invalid UTF-8 or unreadable file writes a structured JSON error with run_id and code to stderr and exits 2, with no stdout. Success exits 0. No retries, shared state, concurrency or mutation. OS file reads are the only side effect. Timeout is controlled by the caller. Acceptance: empty input 0, a\\nb input 2, trailing newline adds no extra line, invalid UTF-8 exits 2. Boundary, negative, regression and integration tests run via python -m unittest. Pin container python:3.11.9-slim by a verified digest before release; digest is a release-owned decision, not an assumed value. Developer owns parser and CLI integration, verifier independently runs tests and hands off test evidence. Tools may read only fixture files. Handoff schema: run_id string, exit_code integer, stdout string, stderr string. Verify parser output matches CLI output. Completion requires all fixtures passing and recorded source hash, command, environment and repeat-run results. Diagnostics correlate run_id and file hash without logging contents. File errors propagate without partial result. Repeat-run outputs excluding run_id must match. Feasibility is standard-library-only; verify in pinned environment before release.",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "owner": {
+        "status": "SPECIFIED",
+        "value": "CLI engineer",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "Build a local line-count CLI with Python 3.11.9, standard library only. Scope excludes network and persistence. Component C-001 has owner CLI engineer. Input: one UTF-8 file path; output: decimal line count plus newline on stdout. Count logical lines using splitlines(); empty file yields 0. Invalid UTF-8 or unreadable file writes a structured JSON error with run_id and code to stderr and exits 2, with no stdout. Success exits 0. No retries, shared state, concurrency or mutation. OS file reads are the only side effect. Timeout is controlled by the caller. Acceptance: empty input 0, a\\nb input 2, trailing newline adds no extra line, invalid UTF-8 exits 2. Boundary, negative, regression and integration tests run via python -m unittest. Pin container python:3.11.9-slim by a verified digest before release; digest is a release-owned decision, not an assumed value. Developer owns parser and CLI integration, verifier independently runs tests and hands off test evidence. Tools may read only fixture files. Handoff schema: run_id string, exit_code integer, stdout string, stderr string. Verify parser output matches CLI output. Completion requires all fixtures passing and recorded source hash, command, environment and repeat-run results. Diagnostics correlate run_id and file hash without logging contents. File errors propagate without partial result. Repeat-run outputs excluding run_id must match. Feasibility is standard-library-only; verify in pinned environment before release.",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "inputs": {
+        "status": "SPECIFIED",
+        "value": "UTF-8 file path",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "Build a local line-count CLI with Python 3.11.9, standard library only. Scope excludes network and persistence. Component C-001 has owner CLI engineer. Input: one UTF-8 file path; output: decimal line count plus newline on stdout. Count logical lines using splitlines(); empty file yields 0. Invalid UTF-8 or unreadable file writes a structured JSON error with run_id and code to stderr and exits 2, with no stdout. Success exits 0. No retries, shared state, concurrency or mutation. OS file reads are the only side effect. Timeout is controlled by the caller. Acceptance: empty input 0, a\\nb input 2, trailing newline adds no extra line, invalid UTF-8 exits 2. Boundary, negative, regression and integration tests run via python -m unittest. Pin container python:3.11.9-slim by a verified digest before release; digest is a release-owned decision, not an assumed value. Developer owns parser and CLI integration, verifier independently runs tests and hands off test evidence. Tools may read only fixture files. Handoff schema: run_id string, exit_code integer, stdout string, stderr string. Verify parser output matches CLI output. Completion requires all fixtures passing and recorded source hash, command, environment and repeat-run results. Diagnostics correlate run_id and file hash without logging contents. File errors propagate without partial result. Repeat-run outputs excluding run_id must match. Feasibility is standard-library-only; verify in pinned environment before release.",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "input_schema": {
+        "status": "SPECIFIED",
+        "value": "one path string",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "Build a local line-count CLI with Python 3.11.9, standard library only. Scope excludes network and persistence. Component C-001 has owner CLI engineer. Input: one UTF-8 file path; output: decimal line count plus newline on stdout. Count logical lines using splitlines(); empty file yields 0. Invalid UTF-8 or unreadable file writes a structured JSON error with run_id and code to stderr and exits 2, with no stdout. Success exits 0. No retries, shared state, concurrency or mutation. OS file reads are the only side effect. Timeout is controlled by the caller. Acceptance: empty input 0, a\\nb input 2, trailing newline adds no extra line, invalid UTF-8 exits 2. Boundary, negative, regression and integration tests run via python -m unittest. Pin container python:3.11.9-slim by a verified digest before release; digest is a release-owned decision, not an assumed value. Developer owns parser and CLI integration, verifier independently runs tests and hands off test evidence. Tools may read only fixture files. Handoff schema: run_id string, exit_code integer, stdout string, stderr string. Verify parser output matches CLI output. Completion requires all fixtures passing and recorded source hash, command, environment and repeat-run results. Diagnostics correlate run_id and file hash without logging contents. File errors propagate without partial result. Repeat-run outputs excluding run_id must match. Feasibility is standard-library-only; verify in pinned environment before release.",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "outputs": {
+        "status": "SPECIFIED",
+        "value": "decimal count and newline",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "Build a local line-count CLI with Python 3.11.9, standard library only. Scope excludes network and persistence. Component C-001 has owner CLI engineer. Input: one UTF-8 file path; output: decimal line count plus newline on stdout. Count logical lines using splitlines(); empty file yields 0. Invalid UTF-8 or unreadable file writes a structured JSON error with run_id and code to stderr and exits 2, with no stdout. Success exits 0. No retries, shared state, concurrency or mutation. OS file reads are the only side effect. Timeout is controlled by the caller. Acceptance: empty input 0, a\\nb input 2, trailing newline adds no extra line, invalid UTF-8 exits 2. Boundary, negative, regression and integration tests run via python -m unittest. Pin container python:3.11.9-slim by a verified digest before release; digest is a release-owned decision, not an assumed value. Developer owns parser and CLI integration, verifier independently runs tests and hands off test evidence. Tools may read only fixture files. Handoff schema: run_id string, exit_code integer, stdout string, stderr string. Verify parser output matches CLI output. Completion requires all fixtures passing and recorded source hash, command, environment and repeat-run results. Diagnostics correlate run_id and file hash without logging contents. File errors propagate without partial result. Repeat-run outputs excluding run_id must match. Feasibility is standard-library-only; verify in pinned environment before release.",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "output_schema": {
+        "status": "SPECIFIED",
+        "value": "decimal integer text",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "Build a local line-count CLI with Python 3.11.9, standard library only. Scope excludes network and persistence. Component C-001 has owner CLI engineer. Input: one UTF-8 file path; output: decimal line count plus newline on stdout. Count logical lines using splitlines(); empty file yields 0. Invalid UTF-8 or unreadable file writes a structured JSON error with run_id and code to stderr and exits 2, with no stdout. Success exits 0. No retries, shared state, concurrency or mutation. OS file reads are the only side effect. Timeout is controlled by the caller. Acceptance: empty input 0, a\\nb input 2, trailing newline adds no extra line, invalid UTF-8 exits 2. Boundary, negative, regression and integration tests run via python -m unittest. Pin container python:3.11.9-slim by a verified digest before release; digest is a release-owned decision, not an assumed value. Developer owns parser and CLI integration, verifier independently runs tests and hands off test evidence. Tools may read only fixture files. Handoff schema: run_id string, exit_code integer, stdout string, stderr string. Verify parser output matches CLI output. Completion requires all fixtures passing and recorded source hash, command, environment and repeat-run results. Diagnostics correlate run_id and file hash without logging contents. File errors propagate without partial result. Repeat-run outputs excluding run_id must match. Feasibility is standard-library-only; verify in pinned environment before release.",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "preconditions": {
+        "status": "SPECIFIED",
+        "value": "Readable UTF-8 file",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "Build a local line-count CLI with Python 3.11.9, standard library only. Scope excludes network and persistence. Component C-001 has owner CLI engineer. Input: one UTF-8 file path; output: decimal line count plus newline on stdout. Count logical lines using splitlines(); empty file yields 0. Invalid UTF-8 or unreadable file writes a structured JSON error with run_id and code to stderr and exits 2, with no stdout. Success exits 0. No retries, shared state, concurrency or mutation. OS file reads are the only side effect. Timeout is controlled by the caller. Acceptance: empty input 0, a\\nb input 2, trailing newline adds no extra line, invalid UTF-8 exits 2. Boundary, negative, regression and integration tests run via python -m unittest. Pin container python:3.11.9-slim by a verified digest before release; digest is a release-owned decision, not an assumed value. Developer owns parser and CLI integration, verifier independently runs tests and hands off test evidence. Tools may read only fixture files. Handoff schema: run_id string, exit_code integer, stdout string, stderr string. Verify parser output matches CLI output. Completion requires all fixtures passing and recorded source hash, command, environment and repeat-run results. Diagnostics correlate run_id and file hash without logging contents. File errors propagate without partial result. Repeat-run outputs excluding run_id must match. Feasibility is standard-library-only; verify in pinned environment before release.",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "postconditions": {
+        "status": "SPECIFIED",
+        "value": "Success exit 0; no mutation",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "Build a local line-count CLI with Python 3.11.9, standard library only. Scope excludes network and persistence. Component C-001 has owner CLI engineer. Input: one UTF-8 file path; output: decimal line count plus newline on stdout. Count logical lines using splitlines(); empty file yields 0. Invalid UTF-8 or unreadable file writes a structured JSON error with run_id and code to stderr and exits 2, with no stdout. Success exits 0. No retries, shared state, concurrency or mutation. OS file reads are the only side effect. Timeout is controlled by the caller. Acceptance: empty input 0, a\\nb input 2, trailing newline adds no extra line, invalid UTF-8 exits 2. Boundary, negative, regression and integration tests run via python -m unittest. Pin container python:3.11.9-slim by a verified digest before release; digest is a release-owned decision, not an assumed value. Developer owns parser and CLI integration, verifier independently runs tests and hands off test evidence. Tools may read only fixture files. Handoff schema: run_id string, exit_code integer, stdout string, stderr string. Verify parser output matches CLI output. Completion requires all fixtures passing and recorded source hash, command, environment and repeat-run results. Diagnostics correlate run_id and file hash without logging contents. File errors propagate without partial result. Repeat-run outputs excluding run_id must match. Feasibility is standard-library-only; verify in pinned environment before release.",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "invariants": {
+        "status": "SPECIFIED",
+        "value": "No extra line for trailing newline",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "Build a local line-count CLI with Python 3.11.9, standard library only. Scope excludes network and persistence. Component C-001 has owner CLI engineer. Input: one UTF-8 file path; output: decimal line count plus newline on stdout. Count logical lines using splitlines(); empty file yields 0. Invalid UTF-8 or unreadable file writes a structured JSON error with run_id and code to stderr and exits 2, with no stdout. Success exits 0. No retries, shared state, concurrency or mutation. OS file reads are the only side effect. Timeout is controlled by the caller. Acceptance: empty input 0, a\\nb input 2, trailing newline adds no extra line, invalid UTF-8 exits 2. Boundary, negative, regression and integration tests run via python -m unittest. Pin container python:3.11.9-slim by a verified digest before release; digest is a release-owned decision, not an assumed value. Developer owns parser and CLI integration, verifier independently runs tests and hands off test evidence. Tools may read only fixture files. Handoff schema: run_id string, exit_code integer, stdout string, stderr string. Verify parser output matches CLI output. Completion requires all fixtures passing and recorded source hash, command, environment and repeat-run results. Diagnostics correlate run_id and file hash without logging contents. File errors propagate without partial result. Repeat-run outputs excluding run_id must match. Feasibility is standard-library-only; verify in pinned environment before release.",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "dependencies": {
+        "status": "SPECIFIED",
+        "value": "Python 3.11.9 standard library",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "Build a local line-count CLI with Python 3.11.9, standard library only. Scope excludes network and persistence. Component C-001 has owner CLI engineer. Input: one UTF-8 file path; output: decimal line count plus newline on stdout. Count logical lines using splitlines(); empty file yields 0. Invalid UTF-8 or unreadable file writes a structured JSON error with run_id and code to stderr and exits 2, with no stdout. Success exits 0. No retries, shared state, concurrency or mutation. OS file reads are the only side effect. Timeout is controlled by the caller. Acceptance: empty input 0, a\\nb input 2, trailing newline adds no extra line, invalid UTF-8 exits 2. Boundary, negative, regression and integration tests run via python -m unittest. Pin container python:3.11.9-slim by a verified digest before release; digest is a release-owned decision, not an assumed value. Developer owns parser and CLI integration, verifier independently runs tests and hands off test evidence. Tools may read only fixture files. Handoff schema: run_id string, exit_code integer, stdout string, stderr string. Verify parser output matches CLI output. Completion requires all fixtures passing and recorded source hash, command, environment and repeat-run results. Diagnostics correlate run_id and file hash without logging contents. File errors propagate without partial result. Repeat-run outputs excluding run_id must match. Feasibility is standard-library-only; verify in pinned environment before release.",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "failure_modes": {
+        "status": "SPECIFIED",
+        "value": "Unreadable file and invalid UTF-8",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "Build a local line-count CLI with Python 3.11.9, standard library only. Scope excludes network and persistence. Component C-001 has owner CLI engineer. Input: one UTF-8 file path; output: decimal line count plus newline on stdout. Count logical lines using splitlines(); empty file yields 0. Invalid UTF-8 or unreadable file writes a structured JSON error with run_id and code to stderr and exits 2, with no stdout. Success exits 0. No retries, shared state, concurrency or mutation. OS file reads are the only side effect. Timeout is controlled by the caller. Acceptance: empty input 0, a\\nb input 2, trailing newline adds no extra line, invalid UTF-8 exits 2. Boundary, negative, regression and integration tests run via python -m unittest. Pin container python:3.11.9-slim by a verified digest before release; digest is a release-owned decision, not an assumed value. Developer owns parser and CLI integration, verifier independently runs tests and hands off test evidence. Tools may read only fixture files. Handoff schema: run_id string, exit_code integer, stdout string, stderr string. Verify parser output matches CLI output. Completion requires all fixtures passing and recorded source hash, command, environment and repeat-run results. Diagnostics correlate run_id and file hash without logging contents. File errors propagate without partial result. Repeat-run outputs excluding run_id must match. Feasibility is standard-library-only; verify in pinned environment before release.",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "error_contract": {
+        "status": "SPECIFIED",
+        "value": "Exit 2, JSON stderr, no stdout",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "Build a local line-count CLI with Python 3.11.9, standard library only. Scope excludes network and persistence. Component C-001 has owner CLI engineer. Input: one UTF-8 file path; output: decimal line count plus newline on stdout. Count logical lines using splitlines(); empty file yields 0. Invalid UTF-8 or unreadable file writes a structured JSON error with run_id and code to stderr and exits 2, with no stdout. Success exits 0. No retries, shared state, concurrency or mutation. OS file reads are the only side effect. Timeout is controlled by the caller. Acceptance: empty input 0, a\\nb input 2, trailing newline adds no extra line, invalid UTF-8 exits 2. Boundary, negative, regression and integration tests run via python -m unittest. Pin container python:3.11.9-slim by a verified digest before release; digest is a release-owned decision, not an assumed value. Developer owns parser and CLI integration, verifier independently runs tests and hands off test evidence. Tools may read only fixture files. Handoff schema: run_id string, exit_code integer, stdout string, stderr string. Verify parser output matches CLI output. Completion requires all fixtures passing and recorded source hash, command, environment and repeat-run results. Diagnostics correlate run_id and file hash without logging contents. File errors propagate without partial result. Repeat-run outputs excluding run_id must match. Feasibility is standard-library-only; verify in pinned environment before release.",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "side_effects": {
+        "status": "SPECIFIED",
+        "value": "OS file reads only",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "Build a local line-count CLI with Python 3.11.9, standard library only. Scope excludes network and persistence. Component C-001 has owner CLI engineer. Input: one UTF-8 file path; output: decimal line count plus newline on stdout. Count logical lines using splitlines(); empty file yields 0. Invalid UTF-8 or unreadable file writes a structured JSON error with run_id and code to stderr and exits 2, with no stdout. Success exits 0. No retries, shared state, concurrency or mutation. OS file reads are the only side effect. Timeout is controlled by the caller. Acceptance: empty input 0, a\\nb input 2, trailing newline adds no extra line, invalid UTF-8 exits 2. Boundary, negative, regression and integration tests run via python -m unittest. Pin container python:3.11.9-slim by a verified digest before release; digest is a release-owned decision, not an assumed value. Developer owns parser and CLI integration, verifier independently runs tests and hands off test evidence. Tools may read only fixture files. Handoff schema: run_id string, exit_code integer, stdout string, stderr string. Verify parser output matches CLI output. Completion requires all fixtures passing and recorded source hash, command, environment and repeat-run results. Diagnostics correlate run_id and file hash without logging contents. File errors propagate without partial result. Repeat-run outputs excluding run_id must match. Feasibility is standard-library-only; verify in pinned environment before release.",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "state_mutations": {
+        "status": "SPECIFIED",
+        "value": "No mutation",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "Build a local line-count CLI with Python 3.11.9, standard library only. Scope excludes network and persistence. Component C-001 has owner CLI engineer. Input: one UTF-8 file path; output: decimal line count plus newline on stdout. Count logical lines using splitlines(); empty file yields 0. Invalid UTF-8 or unreadable file writes a structured JSON error with run_id and code to stderr and exits 2, with no stdout. Success exits 0. No retries, shared state, concurrency or mutation. OS file reads are the only side effect. Timeout is controlled by the caller. Acceptance: empty input 0, a\\nb input 2, trailing newline adds no extra line, invalid UTF-8 exits 2. Boundary, negative, regression and integration tests run via python -m unittest. Pin container python:3.11.9-slim by a verified digest before release; digest is a release-owned decision, not an assumed value. Developer owns parser and CLI integration, verifier independently runs tests and hands off test evidence. Tools may read only fixture files. Handoff schema: run_id string, exit_code integer, stdout string, stderr string. Verify parser output matches CLI output. Completion requires all fixtures passing and recorded source hash, command, environment and repeat-run results. Diagnostics correlate run_id and file hash without logging contents. File errors propagate without partial result. Repeat-run outputs excluding run_id must match. Feasibility is standard-library-only; verify in pinned environment before release.",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "acceptance_criteria": {
+        "status": "SPECIFIED",
+        "value": "Empty 0; a\\nb 2; invalid encoding exit 2",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "Build a local line-count CLI with Python 3.11.9, standard library only. Scope excludes network and persistence. Component C-001 has owner CLI engineer. Input: one UTF-8 file path; output: decimal line count plus newline on stdout. Count logical lines using splitlines(); empty file yields 0. Invalid UTF-8 or unreadable file writes a structured JSON error with run_id and code to stderr and exits 2, with no stdout. Success exits 0. No retries, shared state, concurrency or mutation. OS file reads are the only side effect. Timeout is controlled by the caller. Acceptance: empty input 0, a\\nb input 2, trailing newline adds no extra line, invalid UTF-8 exits 2. Boundary, negative, regression and integration tests run via python -m unittest. Pin container python:3.11.9-slim by a verified digest before release; digest is a release-owned decision, not an assumed value. Developer owns parser and CLI integration, verifier independently runs tests and hands off test evidence. Tools may read only fixture files. Handoff schema: run_id string, exit_code integer, stdout string, stderr string. Verify parser output matches CLI output. Completion requires all fixtures passing and recorded source hash, command, environment and repeat-run results. Diagnostics correlate run_id and file hash without logging contents. File errors propagate without partial result. Repeat-run outputs excluding run_id must match. Feasibility is standard-library-only; verify in pinned environment before release.",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "test_fixtures": {
+        "status": "SPECIFIED",
+        "value": "Empty, multiline, trailing newline, invalid UTF-8",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "Build a local line-count CLI with Python 3.11.9, standard library only. Scope excludes network and persistence. Component C-001 has owner CLI engineer. Input: one UTF-8 file path; output: decimal line count plus newline on stdout. Count logical lines using splitlines(); empty file yields 0. Invalid UTF-8 or unreadable file writes a structured JSON error with run_id and code to stderr and exits 2, with no stdout. Success exits 0. No retries, shared state, concurrency or mutation. OS file reads are the only side effect. Timeout is controlled by the caller. Acceptance: empty input 0, a\\nb input 2, trailing newline adds no extra line, invalid UTF-8 exits 2. Boundary, negative, regression and integration tests run via python -m unittest. Pin container python:3.11.9-slim by a verified digest before release; digest is a release-owned decision, not an assumed value. Developer owns parser and CLI integration, verifier independently runs tests and hands off test evidence. Tools may read only fixture files. Handoff schema: run_id string, exit_code integer, stdout string, stderr string. Verify parser output matches CLI output. Completion requires all fixtures passing and recorded source hash, command, environment and repeat-run results. Diagnostics correlate run_id and file hash without logging contents. File errors propagate without partial result. Repeat-run outputs excluding run_id must match. Feasibility is standard-library-only; verify in pinned environment before release.",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "integration_boundaries": {
+        "status": "SPECIFIED",
+        "value": "Parser integer matches CLI count; handoff run_id, exit_code, stdout, stderr",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "Build a local line-count CLI with Python 3.11.9, standard library only. Scope excludes network and persistence. Component C-001 has owner CLI engineer. Input: one UTF-8 file path; output: decimal line count plus newline on stdout. Count logical lines using splitlines(); empty file yields 0. Invalid UTF-8 or unreadable file writes a structured JSON error with run_id and code to stderr and exits 2, with no stdout. Success exits 0. No retries, shared state, concurrency or mutation. OS file reads are the only side effect. Timeout is controlled by the caller. Acceptance: empty input 0, a\\nb input 2, trailing newline adds no extra line, invalid UTF-8 exits 2. Boundary, negative, regression and integration tests run via python -m unittest. Pin container python:3.11.9-slim by a verified digest before release; digest is a release-owned decision, not an assumed value. Developer owns parser and CLI integration, verifier independently runs tests and hands off test evidence. Tools may read only fixture files. Handoff schema: run_id string, exit_code integer, stdout string, stderr string. Verify parser output matches CLI output. Completion requires all fixtures passing and recorded source hash, command, environment and repeat-run results. Diagnostics correlate run_id and file hash without logging contents. File errors propagate without partial result. Repeat-run outputs excluding run_id must match. Feasibility is standard-library-only; verify in pinned environment before release.",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      }
+    }
+  ],
+  "integration_gaps": [],
+  "findings": [],
+  "critical_blockers": [],
+  "recommendations": [],
+  "acceptance_gates": {
+    "overall": true,
+    "interface_contracts": true,
+    "testability": true,
+    "reproducibility": true,
+    "critical_blockers": true,
+    "component_readiness": true
+  },
+  "reviewer_disagreements": [],
+  "total_score": 93.0,
+  "status": "READY",
+  "reassessment": null,
+  "run_metadata": {
+    "available_capabilities": [
+      "filesystem",
+      "shell"
+    ],
+    "used_capabilities": [
+      "filesystem"
+    ],
+    "subagents_used": false,
+    "independent_review": false,
+    "reviewers": [],
+    "model_id": "host model identity unavailable",
+    "model_configuration": "unavailable",
+    "executed_commands": [],
+    "unverified_checks": [
+      "single assessment; semantic scores not repeatability-tested"
+    ],
+    "repeated_scores": [],
+    "observed_variance": null
+  },
+  "validation": {
+    "executed": false,
+    "passed": [],
+    "failed": [],
+    "unverified": [
+      "validator not yet run"
+    ]
+  }
+}

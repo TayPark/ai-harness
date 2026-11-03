@@ -1,0 +1,1 @@
+Implement a Python 3.11 CLI that counts input lines. The parser accepts UTF-8 text and returns an integer. Acceptance: two lines produce 2. The CLI prints the result. Owner: CLI engineer. Remaining error behavior and environment pinning need decisions.

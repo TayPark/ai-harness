@@ -1,0 +1,715 @@
+{
+  "skill_version": "1.0.0",
+  "rubric_version": "1.0.0",
+  "assessment_id": "unseen-csv-sum",
+  "input": {
+    "source_id": "unseen-csv-sum",
+    "source_hash": "b7934ecef14ba77513dceb2dd83dd871ced2f98bea324189b14639df61c6e883",
+    "mode": "ASSESS",
+    "source_usable": true
+  },
+  "policy": {
+    "overall_min": 90,
+    "interface_min": 4,
+    "testability_min": 4,
+    "reproducibility_min": 4
+  },
+  "requirements": [
+    {
+      "requirement_id": "R-001",
+      "description": "Implement a Python CLI that reads a UTF-8 CSV file and prints the sum of the amount column.",
+      "category": "functional",
+      "provenance": [
+        {
+          "quote": "Implement a Python CLI that reads a UTF-8 CSV file and prints the sum of the amount column.",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "status": "EXPLICIT",
+      "priority": "evaluator classification: required",
+      "related_component_ids": [
+        "C-001"
+      ],
+      "acceptance_criteria_ids": [
+        "R-005"
+      ],
+      "dependencies": []
+    },
+    {
+      "requirement_id": "R-002",
+      "description": "Use Python 3.11.9 and only the standard library. Network access and file writes are excluded.",
+      "category": "functional",
+      "provenance": [
+        {
+          "quote": "Use Python 3.11.9 and only the standard library. Network access and file writes are excluded.",
+          "location": "line 2",
+          "gap": null
+        }
+      ],
+      "status": "EXPLICIT",
+      "priority": "evaluator classification: required",
+      "related_component_ids": [
+        "C-001"
+      ],
+      "acceptance_criteria_ids": [
+        "R-005"
+      ],
+      "dependencies": []
+    },
+    {
+      "requirement_id": "R-003",
+      "description": "Parser owner: developer. Input schema: header amount, decimal strings, at most 1000 rows.",
+      "category": "functional",
+      "provenance": [
+        {
+          "quote": "Parser owner: developer. Input schema: header amount, decimal strings, at most 1000 rows.",
+          "location": "line 3",
+          "gap": null
+        }
+      ],
+      "status": "EXPLICIT",
+      "priority": "evaluator classification: required",
+      "related_component_ids": [
+        "C-001"
+      ],
+      "acceptance_criteria_ids": [
+        "R-005"
+      ],
+      "dependencies": []
+    },
+    {
+      "requirement_id": "R-004",
+      "description": "Output: one decimal string with exactly two fractional digits and a newline; success exit 0.",
+      "category": "functional",
+      "provenance": [
+        {
+          "quote": "Output: one decimal string with exactly two fractional digits and a newline; success exit 0.",
+          "location": "line 4",
+          "gap": null
+        }
+      ],
+      "status": "EXPLICIT",
+      "priority": "evaluator classification: required",
+      "related_component_ids": [
+        "C-001"
+      ],
+      "acceptance_criteria_ids": [
+        "R-005"
+      ],
+      "dependencies": []
+    },
+    {
+      "requirement_id": "R-005",
+      "description": "Acceptance: rows 1.25 and 2.50 produce 3.75. Empty data produces 0.00.",
+      "category": "acceptance",
+      "provenance": [
+        {
+          "quote": "Acceptance: rows 1.25 and 2.50 produce 3.75. Empty data produces 0.00.",
+          "location": "line 5",
+          "gap": null
+        }
+      ],
+      "status": "EXPLICIT",
+      "priority": "evaluator classification: required",
+      "related_component_ids": [
+        "C-001"
+      ],
+      "acceptance_criteria_ids": [],
+      "dependencies": []
+    },
+    {
+      "requirement_id": "R-006",
+      "description": "Invalid decimal values must fail. The error exit code and stderr schema require product-owner approval.",
+      "category": "functional",
+      "provenance": [
+        {
+          "quote": "Invalid decimal values must fail. The error exit code and stderr schema require product-owner approval.",
+          "location": "line 6",
+          "gap": null
+        }
+      ],
+      "status": "DECISION_REQUIRED",
+      "priority": "evaluator classification: required",
+      "related_component_ids": [
+        "C-001"
+      ],
+      "acceptance_criteria_ids": [
+        "R-005"
+      ],
+      "dependencies": []
+    },
+    {
+      "requirement_id": "R-007",
+      "description": "Implement parser first, then CLI. Verifier owns independent parser-to-CLI integration checks.",
+      "category": "functional",
+      "provenance": [
+        {
+          "quote": "Implement parser first, then CLI. Verifier owns independent parser-to-CLI integration checks.",
+          "location": "line 7",
+          "gap": null
+        }
+      ],
+      "status": "EXPLICIT",
+      "priority": "evaluator classification: required",
+      "related_component_ids": [
+        "C-001"
+      ],
+      "acceptance_criteria_ids": [
+        "R-005"
+      ],
+      "dependencies": []
+    },
+    {
+      "requirement_id": "R-008",
+      "description": "Run python -m unittest. Record fixture hash, Python version, command and exit status.",
+      "category": "functional",
+      "provenance": [
+        {
+          "quote": "Run python -m unittest. Record fixture hash, Python version, command and exit status.",
+          "location": "line 8",
+          "gap": null
+        }
+      ],
+      "status": "EXPLICIT",
+      "priority": "evaluator classification: required",
+      "related_component_ids": [
+        "C-001"
+      ],
+      "acceptance_criteria_ids": [
+        "R-005"
+      ],
+      "dependencies": []
+    }
+  ],
+  "dimensions": [
+    {
+      "dimension_id": "clarity",
+      "weight": 10,
+      "score": 4,
+      "weighted_score": 8.0,
+      "evidence": [
+        {
+          "quote": "Implement a Python CLI that reads a UTF-8 CSV file and prints the sum of the amount column.",
+          "location": "line 1",
+          "gap": null
+        }
+      ],
+      "evidence_gaps": [],
+      "score_caps": [],
+      "failure_risks": [],
+      "recommended_changes": []
+    },
+    {
+      "dimension_id": "completeness",
+      "weight": 10,
+      "score": 3,
+      "weighted_score": 6.0,
+      "evidence": [
+        {
+          "quote": "Invalid decimal values must fail. The error exit code and stderr schema require product-owner approval.",
+          "location": "line 6",
+          "gap": null
+        }
+      ],
+      "evidence_gaps": [
+        "Error semantics, rounding, or complete verification controls remain unspecified"
+      ],
+      "score_caps": [],
+      "failure_risks": [
+        "Do not infer unresolved behavior"
+      ],
+      "recommended_changes": [
+        "Specify missing behavior with approved decision and fixtures"
+      ]
+    },
+    {
+      "dimension_id": "decomposition",
+      "weight": 10,
+      "score": 4,
+      "weighted_score": 8.0,
+      "evidence": [
+        {
+          "quote": "Implement parser first, then CLI. Verifier owns independent parser-to-CLI integration checks.",
+          "location": "line 7",
+          "gap": null
+        }
+      ],
+      "evidence_gaps": [],
+      "score_caps": [],
+      "failure_risks": [],
+      "recommended_changes": []
+    },
+    {
+      "dimension_id": "interface_contracts",
+      "weight": 15,
+      "score": 3,
+      "weighted_score": 9.0,
+      "evidence": [
+        {
+          "quote": "Invalid decimal values must fail. The error exit code and stderr schema require product-owner approval.",
+          "location": "line 6",
+          "gap": null
+        }
+      ],
+      "evidence_gaps": [
+        "Error semantics, rounding, or complete verification controls remain unspecified"
+      ],
+      "score_caps": [],
+      "failure_risks": [
+        "Do not infer unresolved behavior"
+      ],
+      "recommended_changes": [
+        "Specify missing behavior with approved decision and fixtures"
+      ]
+    },
+    {
+      "dimension_id": "implementability",
+      "weight": 10,
+      "score": 4,
+      "weighted_score": 8.0,
+      "evidence": [
+        {
+          "quote": "Use Python 3.11.9 and only the standard library. Network access and file writes are excluded.",
+          "location": "line 2",
+          "gap": null
+        }
+      ],
+      "evidence_gaps": [],
+      "score_caps": [],
+      "failure_risks": [],
+      "recommended_changes": []
+    },
+    {
+      "dimension_id": "testability",
+      "weight": 15,
+      "score": 3,
+      "weighted_score": 9.0,
+      "evidence": [
+        {
+          "quote": "Acceptance: rows 1.25 and 2.50 produce 3.75. Empty data produces 0.00.",
+          "location": "line 5",
+          "gap": null
+        }
+      ],
+      "evidence_gaps": [
+        "Error semantics, rounding, or complete verification controls remain unspecified"
+      ],
+      "score_caps": [],
+      "failure_risks": [
+        "Do not infer unresolved behavior"
+      ],
+      "recommended_changes": [
+        "Specify missing behavior with approved decision and fixtures"
+      ]
+    },
+    {
+      "dimension_id": "reproducibility",
+      "weight": 10,
+      "score": 3,
+      "weighted_score": 6.0,
+      "evidence": [
+        {
+          "quote": "Run python -m unittest. Record fixture hash, Python version, command and exit status.",
+          "location": "line 8",
+          "gap": null
+        }
+      ],
+      "evidence_gaps": [
+        "Error semantics, rounding, or complete verification controls remain unspecified"
+      ],
+      "score_caps": [],
+      "failure_risks": [
+        "Do not infer unresolved behavior"
+      ],
+      "recommended_changes": [
+        "Specify missing behavior with approved decision and fixtures"
+      ]
+    },
+    {
+      "dimension_id": "reliability",
+      "weight": 5,
+      "score": 2,
+      "weighted_score": 2.0,
+      "evidence": [
+        {
+          "quote": "Invalid decimal values must fail. The error exit code and stderr schema require product-owner approval.",
+          "location": "line 6",
+          "gap": null
+        }
+      ],
+      "evidence_gaps": [
+        "Error semantics, rounding, or complete verification controls remain unspecified"
+      ],
+      "score_caps": [],
+      "failure_risks": [
+        "Do not infer unresolved behavior"
+      ],
+      "recommended_changes": [
+        "Specify missing behavior with approved decision and fixtures"
+      ]
+    },
+    {
+      "dimension_id": "observability",
+      "weight": 5,
+      "score": 3,
+      "weighted_score": 3.0,
+      "evidence": [
+        {
+          "quote": "Run python -m unittest. Record fixture hash, Python version, command and exit status.",
+          "location": "line 8",
+          "gap": null
+        }
+      ],
+      "evidence_gaps": [
+        "Error semantics, rounding, or complete verification controls remain unspecified"
+      ],
+      "score_caps": [],
+      "failure_risks": [
+        "Do not infer unresolved behavior"
+      ],
+      "recommended_changes": [
+        "Specify missing behavior with approved decision and fixtures"
+      ]
+    },
+    {
+      "dimension_id": "agent_executability",
+      "weight": 10,
+      "score": 4,
+      "weighted_score": 8.0,
+      "evidence": [
+        {
+          "quote": "Implement parser first, then CLI. Verifier owns independent parser-to-CLI integration checks.",
+          "location": "line 7",
+          "gap": null
+        }
+      ],
+      "evidence_gaps": [],
+      "score_caps": [],
+      "failure_risks": [],
+      "recommended_changes": []
+    }
+  ],
+  "components": [
+    {
+      "component_id": "C-001",
+      "name": "CSV sum CLI",
+      "critical": true,
+      "responsibility": {
+        "status": "SPECIFIED",
+        "value": "Parse CSV and sum amounts",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "Implement a Python CLI that reads a UTF-8 CSV file and prints the sum of the amount column.",
+            "location": "line 1",
+            "gap": null
+          }
+        ]
+      },
+      "owner": {
+        "status": "SPECIFIED",
+        "value": "developer",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "Parser owner: developer. Input schema: header amount, decimal strings, at most 1000 rows.",
+            "location": "line 3",
+            "gap": null
+          }
+        ]
+      },
+      "inputs": {
+        "status": "SPECIFIED",
+        "value": "UTF-8 CSV, at most 1000 rows",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "Parser owner: developer. Input schema: header amount, decimal strings, at most 1000 rows.",
+            "location": "line 3",
+            "gap": null
+          }
+        ]
+      },
+      "input_schema": {
+        "status": "SPECIFIED",
+        "value": "header amount; decimal strings",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "Parser owner: developer. Input schema: header amount, decimal strings, at most 1000 rows.",
+            "location": "line 3",
+            "gap": null
+          }
+        ]
+      },
+      "outputs": {
+        "status": "SPECIFIED",
+        "value": "decimal string, two fractional digits and newline",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "Output: one decimal string with exactly two fractional digits and a newline; success exit 0.",
+            "location": "line 4",
+            "gap": null
+          }
+        ]
+      },
+      "output_schema": {
+        "status": "SPECIFIED",
+        "value": "decimal text",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "Output: one decimal string with exactly two fractional digits and a newline; success exit 0.",
+            "location": "line 4",
+            "gap": null
+          }
+        ]
+      },
+      "preconditions": {
+        "status": "UNSPECIFIED",
+        "value": null,
+        "reason": "Not fully defined in source",
+        "evidence": [
+          {
+            "quote": null,
+            "location": "entire source",
+            "gap": "No complete preconditions contract"
+          }
+        ]
+      },
+      "postconditions": {
+        "status": "UNSPECIFIED",
+        "value": null,
+        "reason": "Not fully defined in source",
+        "evidence": [
+          {
+            "quote": null,
+            "location": "entire source",
+            "gap": "No complete postconditions contract"
+          }
+        ]
+      },
+      "invariants": {
+        "status": "UNSPECIFIED",
+        "value": null,
+        "reason": "Not fully defined in source",
+        "evidence": [
+          {
+            "quote": null,
+            "location": "entire source",
+            "gap": "No complete invariants contract"
+          }
+        ]
+      },
+      "dependencies": {
+        "status": "SPECIFIED",
+        "value": "Python 3.11.9, standard library only",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "Use Python 3.11.9 and only the standard library. Network access and file writes are excluded.",
+            "location": "line 2",
+            "gap": null
+          }
+        ]
+      },
+      "failure_modes": {
+        "status": "UNSPECIFIED",
+        "value": null,
+        "reason": "Not fully defined in source",
+        "evidence": [
+          {
+            "quote": null,
+            "location": "entire source",
+            "gap": "No complete failure_modes contract"
+          }
+        ]
+      },
+      "error_contract": {
+        "status": "UNSPECIFIED",
+        "value": null,
+        "reason": "Not fully defined in source",
+        "evidence": [
+          {
+            "quote": null,
+            "location": "entire source",
+            "gap": "No complete error_contract contract"
+          }
+        ]
+      },
+      "side_effects": {
+        "status": "SPECIFIED",
+        "value": "No network or file writes",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "Use Python 3.11.9 and only the standard library. Network access and file writes are excluded.",
+            "location": "line 2",
+            "gap": null
+          }
+        ]
+      },
+      "state_mutations": {
+        "status": "UNSPECIFIED",
+        "value": null,
+        "reason": "Not fully defined in source",
+        "evidence": [
+          {
+            "quote": null,
+            "location": "entire source",
+            "gap": "No complete state_mutations contract"
+          }
+        ]
+      },
+      "acceptance_criteria": {
+        "status": "SPECIFIED",
+        "value": "1.25 + 2.50 = 3.75; empty = 0.00",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "Acceptance: rows 1.25 and 2.50 produce 3.75. Empty data produces 0.00.",
+            "location": "line 5",
+            "gap": null
+          }
+        ]
+      },
+      "test_fixtures": {
+        "status": "SPECIFIED",
+        "value": "two values and empty data",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "Acceptance: rows 1.25 and 2.50 produce 3.75. Empty data produces 0.00.",
+            "location": "line 5",
+            "gap": null
+          }
+        ]
+      },
+      "integration_boundaries": {
+        "status": "SPECIFIED",
+        "value": "parser then CLI; independent verifier",
+        "reason": null,
+        "evidence": [
+          {
+            "quote": "Implement parser first, then CLI. Verifier owns independent parser-to-CLI integration checks.",
+            "location": "line 7",
+            "gap": null
+          }
+        ]
+      }
+    }
+  ],
+  "integration_gaps": [],
+  "findings": [
+    {
+      "finding_id": "F-001",
+      "severity": "HIGH",
+      "dimension_id": "interface_contracts",
+      "requirement_ids": [
+        "R-006"
+      ],
+      "component_ids": [
+        "C-001"
+      ],
+      "evidence": [
+        {
+          "quote": "Invalid decimal values must fail. The error exit code and stderr schema require product-owner approval.",
+          "location": "line 6",
+          "gap": null
+        }
+      ],
+      "impact": "Independent agents can choose incompatible exit codes and diagnostics",
+      "remediation": "Obtain product-owner error contract and add negative tests",
+      "verification": "Assert exact exit code, stdout and stderr for invalid values",
+      "resolved": false,
+      "external_decision": true
+    },
+    {
+      "finding_id": "F-002",
+      "severity": "HIGH",
+      "dimension_id": "testability",
+      "requirement_ids": [
+        "R-003",
+        "R-004"
+      ],
+      "component_ids": [
+        "C-001"
+      ],
+      "evidence": [
+        {
+          "quote": null,
+          "location": "entire source",
+          "gap": "No rounding policy, row-limit boundary behavior or regression fixture"
+        }
+      ],
+      "impact": "Two implementations can disagree on fractional amounts or oversized input",
+      "remediation": "Request rounding and row-limit behavior decisions; add fixtures",
+      "verification": "Test >2 fractional digits and 1000/1001 rows",
+      "resolved": false,
+      "external_decision": true
+    }
+  ],
+  "critical_blockers": [],
+  "recommendations": [
+    {
+      "recommendation_id": "REC-001",
+      "finding_ids": [
+        "F-001",
+        "F-002"
+      ],
+      "mandatory": true,
+      "priority": 1,
+      "change": "Resolve error, rounding and row-limit behavior with product owner",
+      "verification": "Negative and boundary integration fixtures"
+    }
+  ],
+  "acceptance_gates": {
+    "overall": false,
+    "interface_contracts": false,
+    "testability": false,
+    "reproducibility": false,
+    "critical_blockers": true,
+    "component_readiness": true
+  },
+  "reviewer_disagreements": [],
+  "total_score": 67.0,
+  "status": "NEEDS_REVISION",
+  "reassessment": null,
+  "run_metadata": {
+    "available_capabilities": [
+      "filesystem",
+      "shell"
+    ],
+    "used_capabilities": [
+      "filesystem"
+    ],
+    "subagents_used": false,
+    "independent_review": false,
+    "reviewers": [],
+    "model_id": "host model identity unavailable",
+    "model_configuration": "unavailable",
+    "executed_commands": [
+      "python scripts/validate_assessment.py --report examples/end-to-end/assessment.json --source examples/end-to-end/source.md"
+    ],
+    "unverified_checks": [
+      "single assessment; semantic scores not repeatability-tested"
+    ],
+    "repeated_scores": [],
+    "observed_variance": null
+  },
+  "validation": {
+    "executed": true,
+    "passed": [
+      "schema",
+      "arithmetic",
+      "gates",
+      "references",
+      "capabilities",
+      "caps"
+    ],
+    "failed": [],
+    "unverified": []
+  }
+}

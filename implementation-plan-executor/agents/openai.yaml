@@ -1,0 +1,3 @@
+interface:
+  display_name: "Implementation Plan Executor"
+  short_description: "Execute or resume an approved implementation plan"

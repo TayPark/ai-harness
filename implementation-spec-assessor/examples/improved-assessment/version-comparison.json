@@ -1,0 +1,74 @@
+{
+  "comparison": "same assessment rubric v1.0.0; same CSV-sum specification updated with missing contracts and checks",
+  "source_ids": [
+    "csv-sum-v1",
+    "csv-sum-v2"
+  ],
+  "prior": {
+    "source_id": "csv-sum-v1",
+    "score": 67.0,
+    "status": "NEEDS_REVISION",
+    "scores": {
+      "clarity": 4,
+      "completeness": 3,
+      "decomposition": 4,
+      "interface_contracts": 3,
+      "implementability": 4,
+      "testability": 3,
+      "reproducibility": 3,
+      "reliability": 2,
+      "observability": 3,
+      "agent_executability": 4
+    }
+  },
+  "updated": {
+    "source_id": "csv-sum-v2",
+    "score": 95.0,
+    "status": "READY",
+    "scores": {
+      "clarity": 5,
+      "completeness": 5,
+      "decomposition": 5,
+      "interface_contracts": 4,
+      "implementability": 5,
+      "testability": 5,
+      "reproducibility": 5,
+      "reliability": 4,
+      "observability": 4,
+      "agent_executability": 5
+    }
+  },
+  "delta": 28.0,
+  "gate_changes": {
+    "overall": {
+      "prior": false,
+      "updated": true
+    },
+    "interface_contracts": {
+      "prior": false,
+      "updated": true
+    },
+    "testability": {
+      "prior": false,
+      "updated": true
+    },
+    "reproducibility": {
+      "prior": false,
+      "updated": true
+    },
+    "critical_blockers": {
+      "prior": true,
+      "updated": true
+    },
+    "component_readiness": {
+      "prior": true,
+      "updated": true
+    }
+  },
+  "remaining_findings": [
+    "F-001",
+    "F-002",
+    "F-003"
+  ],
+  "output_directory": "assessment-output/compare/csv-sum-v1--csv-sum-v2"
+}

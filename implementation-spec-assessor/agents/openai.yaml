@@ -1,0 +1,3 @@
+interface:
+  display_name: "Implementation Spec Assessor"
+  short_description: "Assess software implementation specs"
