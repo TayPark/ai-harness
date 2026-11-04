@@ -1,0 +1,3 @@
+interface:
+  display_name: "Implementation Workflow Orchestrator"
+  short_description: "Coordinate planning, assessment, approval, execution, and verification"

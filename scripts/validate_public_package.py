@@ -17,9 +17,11 @@ except ImportError as exc:  # pragma: no cover - exercised by missing dependency
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS = (
+    "spec-driven-development/00-orchestration/implementation-workflow-orchestrator",
     "spec-driven-development/01-plan/repository-implementation-planner",
     "spec-driven-development/02-assessment/implementation-spec-assessor",
     "spec-driven-development/03-execution-and-verification/implementation-plan-executor",
+    "spec-driven-development/04-independent-verification/independent-workflow-verifier",
 )
 REQUIRED_ROOT_FILES = ("README.md", "LICENSE", ".gitignore")
 MARKDOWN_LINK = re.compile(r"\[[^\]]+\]\(([^)]+)\)")

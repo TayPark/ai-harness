@@ -1,0 +1,3 @@
+interface:
+  display_name: "Independent Workflow Verifier"
+  short_description: "Verify implementation evidence against approved scope"
