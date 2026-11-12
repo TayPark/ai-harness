@@ -21,6 +21,7 @@ Version: `v0.2.1`.
 ## Recommended workflow
 
 For substantial work, start with the Orchestrator. It coordinates this sequence:
+For substantial work, start with the Orchestrator. It coordinates this sequence:
 
 1. Establish the exact user specification or build a source-labeled input packet from the request and read-only repository observations.
 2. Ask the Planner to draft a read-only plan from that input. Keep the plan source separate from the specification/input packet. The draft plan's authoritative requirement map supports the Spec report but does not count as Plan Gate approval.
@@ -41,6 +42,7 @@ For a small, direct implementation request that does not need a formal plan, imp
 Copy the Orchestrator folder into your agent's skill directory to use it as the entry point. For Codex, the default directory is `~/.codex/skills/`.
 
 ```sh
+cp -R spec-driven-development/00-orchestration/implementation-workflow-orchestrator ~/.codex/skills/
 cp -R spec-driven-development/00-orchestration/implementation-workflow-orchestrator ~/.codex/skills/
 ```
 

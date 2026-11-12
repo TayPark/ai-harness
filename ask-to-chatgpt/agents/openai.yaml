@@ -1,0 +1,3 @@
+interface:
+  display_name: "Ask to ChatGPT"
+  short_description: "Ask ChatGPT through Aside and return its full response"

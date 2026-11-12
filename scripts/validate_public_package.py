@@ -17,6 +17,8 @@ except ImportError as exc:  # pragma: no cover - exercised by missing dependency
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS = (
+    "ask-to-chatgpt",
+    "chatgpt-rubric-evaluator",
     "spec-driven-development/00-orchestration/implementation-workflow-orchestrator",
     "spec-driven-development/01-plan/repository-implementation-planner",
     "spec-driven-development/02-assessment/implementation-spec-assessor",
