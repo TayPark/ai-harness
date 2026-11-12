@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "report.schema.json",
+  "title": "ChatGPT Rubric Evaluation Report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["packet_id", "rubric_version", "target_type", "dimensions", "critical_conditions", "summary"],
+  "properties": {
+    "packet_id": {"type": "string", "pattern": "^pkt_[0-9a-f]{64}$"},
+    "rubric_version": {"type": "string", "minLength": 1},
+    "target_type": {"type": "string", "minLength": 1},
+    "dimensions": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/dimension"}
+    },
+    "critical_conditions": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/criticalCondition"}
+    },
+    "summary": {"$ref": "#/$defs/summary"}
+  },
+  "$defs": {
+    "evidenceRefs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^E[0-9]{4,}$"}
+    },
+    "dimension": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "status", "score", "evidence_refs", "rationale"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z][a-z0-9_-]{0,47}$"},
+        "status": {"enum": ["SCORED", "NOT_APPLICABLE", "INSUFFICIENT_EVIDENCE"]},
+        "score": {"oneOf": [{"type": "integer", "minimum": 0, "maximum": 4}, {"type": "null"}]},
+        "evidence_refs": {"$ref": "#/$defs/evidenceRefs"},
+        "rationale": {"type": "string", "minLength": 1}
+      }
+    },
+    "criticalCondition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "status", "evidence_refs", "rationale"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z][a-z0-9_-]{0,47}$"},
+        "status": {"enum": ["CLEAR", "TRIGGERED", "NOT_APPLICABLE", "INSUFFICIENT_EVIDENCE"]},
+        "evidence_refs": {"$ref": "#/$defs/evidenceRefs"},
+        "rationale": {"type": "string", "minLength": 1}
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["weighted_score", "decision"],
+      "properties": {
+        "weighted_score": {"oneOf": [{"type": "number", "minimum": 0, "maximum": 100}, {"type": "null"}]},
+        "decision": {"enum": ["PASS", "FAIL", "INCONCLUSIVE"]}
+      }
+    }
+  }
+}

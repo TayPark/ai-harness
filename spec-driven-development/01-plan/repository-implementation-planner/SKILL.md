@@ -26,6 +26,8 @@ If the user asks you to implement an existing plan, use the applicable execution
 5. Show which work can continue independently and which work must wait for a decision or prerequisite.
 6. Include a safe resume point and the first action for the next session when the work spans phases or sessions.
 
+When release is in scope, place the dedicated Release Readiness Gate after Independent Verification and before publication. Plan evidence for SLO disposition, security, rollback, and operations. Do not invent SLO targets.
+
 Use repository paths and source references. Do not invent owners, thresholds, dates, performance figures, or completion claims. Label estimates and assumptions when the evidence does not establish them. Keep the plan proportional to the requested work.
 
 ## Approval record

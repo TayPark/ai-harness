@@ -1,0 +1,82 @@
+{
+  "rubric_id": "evidence-bounded-quality",
+  "version": "1.0.0",
+  "score_scale": {
+    "min": 0,
+    "max": 4
+  },
+  "passing_threshold": 80,
+  "score_guide": {
+    "0": "Fails the criterion or has no supporting evidence.",
+    "1": "Has a material gap that blocks reliable use.",
+    "2": "Partly meets the criterion, with a material gap.",
+    "3": "Meets the criterion with evidence and no material gap found.",
+    "4": "Meets the criterion strongly, with specific evidence for the stronger result."
+  },
+  "target_types": {
+    "code": {
+      "dimensions": [
+        {"id": "correctness", "name": "Behavior and correctness", "weight": 30, "applicability": "required", "criterion": "Assess whether the shown implementation satisfies the stated task and handles visible edge cases.", "required_evidence": "Cite the relevant implementation and any supplied checks."},
+        {"id": "security", "name": "Security and data handling", "weight": 25, "applicability": "required", "criterion": "Assess trust boundaries, input handling, secrets, and unsafe behavior visible in the packet.", "required_evidence": "Cite the affected code or state that the packet does not show enough evidence."},
+        {"id": "maintainability", "name": "Maintainability", "weight": 20, "applicability": "required", "criterion": "Assess clarity, error handling, and fit with the requested scope.", "required_evidence": "Cite implementation evidence."},
+        {"id": "verification", "name": "Verification", "weight": 15, "applicability": "required", "criterion": "Assess only checks and results recorded in the packet.", "required_evidence": "Cite recorded check output; do not infer that an unlisted check ran."},
+        {"id": "compatibility", "name": "Compatibility", "weight": 10, "applicability": "optional", "criterion": "Assess compatibility with interfaces or environments that the task identifies.", "required_evidence": "Cite the relevant interface or environment evidence when applicable."}
+      ],
+      "critical_conditions": [
+        {"id": "credential_exposure", "description": "The evaluated result exposes a live credential or private key.", "applicability": "required"},
+        {"id": "destructive_behavior", "description": "The evaluated result can cause unapproved destructive data loss.", "applicability": "required"}
+      ]
+    },
+    "document": {
+      "dimensions": [
+        {"id": "factual_accuracy", "name": "Factual accuracy", "weight": 30, "applicability": "required", "criterion": "Assess factual claims against evidence supplied in the packet.", "required_evidence": "Cite each material claim or mark it unsupported."},
+        {"id": "completeness", "name": "Completeness", "weight": 25, "applicability": "required", "criterion": "Assess whether the document covers the task scope and required content.", "required_evidence": "Cite relevant sections or identify missing evidence."},
+        {"id": "clarity", "name": "Clarity", "weight": 20, "applicability": "required", "criterion": "Assess whether the intended reader can understand the content and actions.", "required_evidence": "Cite the text that supports the assessment."},
+        {"id": "traceability", "name": "Traceability", "weight": 15, "applicability": "required", "criterion": "Assess whether important statements can be traced to supplied sources.", "required_evidence": "Cite source references in the packet."},
+        {"id": "visual_readability", "name": "Visual readability", "weight": 10, "applicability": "optional", "criterion": "Assess visible layout only when the packet contains visual evidence.", "required_evidence": "Cite included visual or layout evidence when applicable."}
+      ],
+      "critical_conditions": [
+        {"id": "unsupported_high_impact_claim", "description": "A high-impact claim is presented as established without supporting packet evidence.", "applicability": "required"},
+        {"id": "sensitive_data_exposure", "description": "The document discloses sensitive information that is not needed for its task.", "applicability": "required"}
+      ]
+    },
+    "data": {
+      "dimensions": [
+        {"id": "integrity", "name": "Data integrity", "weight": 30, "applicability": "required", "criterion": "Assess whether structure, types, and relationships are preserved in the supplied sample.", "required_evidence": "Cite the sample or recorded validation results."},
+        {"id": "privacy", "name": "Privacy", "weight": 25, "applicability": "required", "criterion": "Assess exposure of sensitive data and whether the provided fields fit the stated task.", "required_evidence": "Cite fields or redaction evidence."},
+        {"id": "quality", "name": "Data quality", "weight": 25, "applicability": "required", "criterion": "Assess visible completeness, consistency, and validity.", "required_evidence": "Cite supplied data or checks."},
+        {"id": "lineage", "name": "Lineage", "weight": 10, "applicability": "required", "criterion": "Assess whether source and collection details are recorded.", "required_evidence": "Cite supplied provenance fields."},
+        {"id": "fitness", "name": "Fitness for use", "weight": 10, "applicability": "optional", "criterion": "Assess suitability only for the stated downstream use.", "required_evidence": "Cite the task and relevant data evidence."}
+      ],
+      "critical_conditions": [
+        {"id": "sensitive_data_exposure", "description": "The packet exposes personal or secret data beyond what the task needs.", "applicability": "required"},
+        {"id": "integrity_loss", "description": "The evaluated transformation silently loses or corrupts data needed by the task.", "applicability": "required"}
+      ]
+    },
+    "config": {
+      "dimensions": [
+        {"id": "correctness", "name": "Configuration correctness", "weight": 30, "applicability": "required", "criterion": "Assess whether settings match the stated behavior and environment.", "required_evidence": "Cite the setting and its stated purpose."},
+        {"id": "security", "name": "Security", "weight": 30, "applicability": "required", "criterion": "Assess credential handling, permissions, and exposed services.", "required_evidence": "Cite the relevant setting."},
+        {"id": "compatibility", "name": "Compatibility", "weight": 20, "applicability": "required", "criterion": "Assess compatibility with versions and interfaces identified in the packet.", "required_evidence": "Cite declared versions or interfaces."},
+        {"id": "operations", "name": "Operational behavior", "weight": 10, "applicability": "required", "criterion": "Assess observability, failure behavior, and safe defaults.", "required_evidence": "Cite the relevant configuration."},
+        {"id": "maintainability", "name": "Maintainability", "weight": 10, "applicability": "optional", "criterion": "Assess ease of review and change for the stated owner.", "required_evidence": "Cite the configuration structure when applicable."}
+      ],
+      "critical_conditions": [
+        {"id": "credential_exposure", "description": "A credential or private key is exposed in the configuration.", "applicability": "required"},
+        {"id": "unsafe_permissive_setting", "description": "A setting grants access broader than the task requires.", "applicability": "required"}
+      ]
+    },
+    "other": {
+      "dimensions": [
+        {"id": "relevance", "name": "Relevance", "weight": 40, "applicability": "required", "criterion": "Assess whether the target addresses the stated task.", "required_evidence": "Cite evidence from the target and task."},
+        {"id": "evidence", "name": "Evidence quality", "weight": 30, "applicability": "required", "criterion": "Assess whether conclusions are supported by the supplied evidence.", "required_evidence": "Cite included evidence or mark the claim unsupported."},
+        {"id": "clarity", "name": "Clarity", "weight": 20, "applicability": "required", "criterion": "Assess whether the intended user can understand the result.", "required_evidence": "Cite the relevant content."},
+        {"id": "limitations", "name": "Limitations", "weight": 10, "applicability": "required", "criterion": "Assess whether important unknowns and limits are made clear.", "required_evidence": "Cite the stated limits or identify missing ones."}
+      ],
+      "critical_conditions": [
+        {"id": "sensitive_data_exposure", "description": "The target exposes sensitive information that is not needed for its task.", "applicability": "required"},
+        {"id": "unsupported_claim", "description": "A material conclusion is presented without support from the packet.", "applicability": "required"}
+      ]
+    }
+  }
+}

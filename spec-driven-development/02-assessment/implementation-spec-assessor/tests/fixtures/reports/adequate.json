@@ -330,5 +330,9 @@
     "unverified": [
       "validator not yet run"
     ]
-  }
+  },
+  "gate_name": "SPECIFICATION_ASSESSMENT",
+  "input_hash": "b6bfa821fccab9e3301f81a98fd463c0fd3633eccf18063d13ace64a95d1f4ce",
+  "hash_method": "stdlib-json-v1-no-report_hash",
+  "report_hash": "24d64240cbb1c4005845033d30189d2026aa9a24dedb2151f2739e3c30f131d9"
 }

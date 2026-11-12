@@ -14,7 +14,7 @@ Given explicit approval, create or reuse one durable record with the plan hash, 
 
 ## Reject path traversal and symlink escape
 
-Given a workflow_id containing path separators or a docs/implementation-workflows path that resolves through a symlink outside its intended repository directory, reject the path before mkdir or writing. The workflow record and target file must not be created or changed.
+Given a workflow_id containing path separators or a `.sdd-local/runs/<workflow_id>` path that resolves through a symlink outside the repository, reject the path before writing. If the run root is absent, validate its existing parent before creating it; then resolve and recheck it. Do not create the workflow directory or target file after a failed check.
 
 ## Preserve repository changes
 
@@ -31,3 +31,15 @@ Given an Executor result, assign a different subagent to verify the approved sco
 ## Small direct request
 
 Given a small request that does not need a multi-phase plan, use the normal implementation workflow without forcing all three skills.
+
+## Validate record transitions
+
+Given a gate transition, write a new gate report artifact, update the matching `gate_state_map` entry, and validate the entire record against `spec-driven-development/02-assessment/implementation-spec-assessor/schemas/workflow-record.schema.json` before atomic replacement. Preserve the previous valid record on validation failure.
+
+## Verify sandbox probes
+
+Given a sandbox candidate, require the out-of-scope write probe to be blocked and the scoped output probe to succeed. Record paths, exit codes, expected and observed results, and evidence IDs. Set `VERIFIED` only when both match.
+
+## Examples are illustrative
+
+Given the example exchange in `SKILL.md`, treat placeholder IDs and hashes as explanatory only. Do not claim execution or copy placeholders into a workflow record.

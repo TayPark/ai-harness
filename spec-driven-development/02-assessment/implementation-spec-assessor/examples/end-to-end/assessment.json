@@ -711,5 +711,9 @@
     ],
     "failed": [],
     "unverified": []
-  }
+  },
+  "gate_name": "SPECIFICATION_ASSESSMENT",
+  "input_hash": "b7934ecef14ba77513dceb2dd83dd871ced2f98bea324189b14639df61c6e883",
+  "hash_method": "stdlib-json-v1-no-report_hash",
+  "report_hash": "1d9a8f9693038ecda5e2e8d30671c06cd45c3b69b5085dd7acf6f692ba6740ca"
 }

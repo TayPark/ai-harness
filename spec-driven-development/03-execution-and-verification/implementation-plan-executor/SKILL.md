@@ -39,6 +39,23 @@ Track implementation and verification separately. Use explicit states such as `n
 5. Close each phase gate before starting dependent work. If a live or external check is unavailable, finish independent local work when the plan permits and mark that check unverified.
 6. On failure, preserve partial work, record the error and affected files, diagnose before retrying, and resume from the failed gate. Do not repeat a failed external call without a change that could address its cause.
 
+### Sandbox, trace, checkpoint, and reproducibility evidence
+
+Start execution only after Plan Gate is `READY` and the workflow approval is `APPROVED` for the exact current hashes and scope. Use the supported sandbox provider adapter for the environment; do not assume a specific operating system or provider.
+
+Before execution, record the actual OS, architecture, Python, agent, and tool versions, plus the sandbox provider and policy/profile versions and SHA-256 hashes, in the workflow record. Do not infer values that are unavailable. Run both probes under a deny-by-default policy after approval:
+
+1. Attempt a write to a disposable path outside the scoped root and verify that the operation is denied and the target is absent. Do not use a protected or user-data worktree as the probe target.
+2. Write a probe artifact inside the allowed scoped output and verify a successful exit and its SHA-256 hash.
+
+Record each probe's relative path, expected and observed result, exit code, and evidence ID in the workflow record. Store each evidence hash in the tool trace artifact hashes and the related gate evidence row. Mark the sandbox `VERIFIED` only when the provider, versions, hashes, and both results are known and match expectations. If the provider is unavailable, a hash is unknown, the deny probe succeeds, or the scoped write fails, record the actual unavailable or failed state and block the Execution Gate. Do not weaken the policy to obtain a pass.
+
+Create one tool trace for each tool invocation. Record `trace_id`, `workflow_id`, `task_id`, `tool_name`, actual `tool_version`, `started_at`, `ended_at`, redacted input and output summaries, `exit_code`, status, `artifact_hashes`, `checkpoint_id`, `relative_cwd`, and `redactions` with `secrets_redacted`, `absolute_home_paths_redacted`, and evidence IDs. Do not include secrets or absolute home paths. If a required runtime or tool version cannot be established, mark the affected evidence `UNVERIFIED` and do not pass its gate.
+
+Create a checkpoint at task or phase boundaries and whenever execution pauses. Record `checkpoint_id`, `task_id`, `created_at`, state, `repo_commit`, `trace_ids`, `artifact_hashes`, and `resume_allowed`. Before resuming, recheck the recorded commit, approval, inputs, and artifact hashes. If they do not match, return to the affected gate and reassess; do not treat the checkpoint as proof of completion.
+
+For repeat-run verification, use the approved plan's pinned runtime, dependencies, and exact command. For the SDD v0.2 plan, use Python 3.11.15 and the pinned Assessor `requirements.txt`. Run the same inputs and command in two separate clean worktrees from the same commit. Before either run, list the exact timestamp and run-ID fields allowed for normalization. Preserve the raw outputs unchanged. Normalize only those predeclared fields in copies before hashing and comparing. Preserve and explain any differences. Do not mark the result reproducible while any difference remains unexplained, and do not add normalization fields after seeing the results.
+
 ## 4. Resume safely
 
 When resuming, compare the progress record with the current branch, `HEAD`, diff, files, test evidence, and active process state. Reconfirm prior completion claims from current artifacts. Do not assume a prior agent or process is still active. Reopen only the requirements and code needed for the next unfinished item. Re-run checks affected by new changes, failures, or stale evidence.
@@ -47,4 +64,4 @@ Preserve incomplete work. Do not erase unverified files or mark them complete. I
 
 ## 5. Hand off accurately
 
-Report completed and incomplete phases separately. Link changed files and the progress record. Include actual checks and results, external checks that remain unverified, unresolved decisions, and the next safe action. Keep the report aligned with repository state. Do not claim independent review, live validation, deployment, or completion without direct evidence.
+Report completed and incomplete phases separately. Link changed files and the progress record. Include actual checks and results, external checks that remain unverified, unresolved decisions, and the next safe action. Keep the report aligned with repository state. Do not claim independent review, live validation, deployment, or completion without direct evidence. Hand the candidate to the Orchestrator for Independent Verification; the Orchestrator invokes Release Readiness only after Independent `PASS`. Do not run Release Readiness or publish as part of execution.

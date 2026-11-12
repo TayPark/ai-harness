@@ -2197,6 +2197,82 @@
         "unverified"
       ],
       "additionalProperties": false
+    },
+    "gate_name": {
+      "enum": [
+        "SPECIFICATION_ASSESSMENT",
+        "PLAN_ASSESSMENT",
+        "AGENT_EXECUTION",
+        "INDEPENDENT_VERIFICATION",
+        "RELEASE_READINESS"
+      ]
+    },
+    "input_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "report_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "hash_method": {
+      "const": "stdlib-json-v1-no-report_hash"
+    },
+    "spec_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "plan_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "requirement_links": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "requirement_id": {
+            "type": "string",
+            "pattern": "^R-[0-9]{2}$"
+          },
+          "acceptance_ids": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^AC-[0-9]{2}$"
+            }
+          },
+          "task_ids": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^T-[0-9]{2}$"
+            }
+          },
+          "verification_ids": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^V-[0-9]{2}$"
+            }
+          }
+        },
+        "required": [
+          "requirement_id",
+          "acceptance_ids",
+          "task_ids",
+          "verification_ids"
+        ],
+        "additionalProperties": false
+      }
     }
   },
   "required": [
@@ -2218,8 +2294,33 @@
     "status",
     "reassessment",
     "run_metadata",
-    "validation"
+    "validation",
+    "gate_name",
+    "input_hash",
+    "report_hash",
+    "hash_method"
   ],
   "additionalProperties": false,
-  "$schema": "https://json-schema.org/draft/2020-12/schema"
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "gate_name": {
+            "const": "PLAN_ASSESSMENT"
+          }
+        },
+        "required": [
+          "gate_name"
+        ]
+      },
+      "then": {
+        "required": [
+          "spec_hash",
+          "plan_hash",
+          "requirement_links"
+        ]
+      }
+    }
+  ]
 }

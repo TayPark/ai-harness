@@ -17,11 +17,11 @@
   "requirements": [
     {
       "requirement_id": "R-001",
-      "description": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+      "description": "# Ledger CSV sum CLI — Implementation Specification v2",
       "category": "other",
       "provenance": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -40,7 +40,7 @@
       "category": "other",
       "provenance": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -59,7 +59,7 @@
       "category": "functional",
       "provenance": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -78,7 +78,7 @@
       "category": "other",
       "provenance": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -97,7 +97,7 @@
       "category": "functional",
       "provenance": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -116,7 +116,7 @@
       "category": "functional",
       "provenance": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -135,7 +135,7 @@
       "category": "functional",
       "provenance": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -154,7 +154,7 @@
       "category": "other",
       "provenance": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -169,11 +169,11 @@
     },
     {
       "requirement_id": "R-012",
-      "description": "Input header must contain exactly one `amount` column. Rows may contain additional columns, which are ignored. Accept 0\u20131000 data rows. Each amount must be a finite base-10 decimal with at most two fractional digits. Reject missing values, extra CSV fields, malformed quoting, invalid UTF-8, duplicate or absent amount headers, and more than 1000 data rows.",
+      "description": "Input header must contain exactly one `amount` column. Rows may contain additional columns, which are ignored. Accept 0–1000 data rows. Each amount must be a finite base-10 decimal with at most two fractional digits. Reject missing values, extra CSV fields, malformed quoting, invalid UTF-8, duplicate or absent amount headers, and more than 1000 data rows.",
       "category": "functional",
       "provenance": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -192,7 +192,7 @@
       "category": "functional",
       "provenance": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -211,7 +211,7 @@
       "category": "functional",
       "provenance": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -230,7 +230,7 @@
       "category": "other",
       "provenance": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -249,7 +249,7 @@
       "category": "functional",
       "provenance": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -268,7 +268,7 @@
       "category": "other",
       "provenance": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -287,7 +287,7 @@
       "category": "functional",
       "provenance": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -306,7 +306,7 @@
       "category": "other",
       "provenance": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -325,7 +325,7 @@
       "category": "functional",
       "provenance": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -346,7 +346,7 @@
       "category": "other",
       "provenance": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -365,7 +365,7 @@
       "category": "functional",
       "provenance": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -384,7 +384,7 @@
       "category": "other",
       "provenance": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -403,7 +403,7 @@
       "category": "functional",
       "provenance": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -425,7 +425,7 @@
       "weighted_score": 10.0,
       "evidence": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -442,7 +442,7 @@
       "weighted_score": 10.0,
       "evidence": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -459,7 +459,7 @@
       "weighted_score": 10.0,
       "evidence": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -476,7 +476,7 @@
       "weighted_score": 12.0,
       "evidence": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -500,7 +500,7 @@
       "weighted_score": 10.0,
       "evidence": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -517,7 +517,7 @@
       "weighted_score": 15.0,
       "evidence": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -534,7 +534,7 @@
       "weighted_score": 10.0,
       "evidence": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -551,7 +551,7 @@
       "weighted_score": 4.0,
       "evidence": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -570,7 +570,7 @@
       "weighted_score": 4.0,
       "evidence": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -589,7 +589,7 @@
       "weighted_score": 10.0,
       "evidence": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -611,7 +611,7 @@
         "reason": null,
         "evidence": [
           {
-            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
             "location": "line 1",
             "gap": null
           }
@@ -623,7 +623,7 @@
         "reason": null,
         "evidence": [
           {
-            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
             "location": "line 1",
             "gap": null
           }
@@ -635,7 +635,7 @@
         "reason": null,
         "evidence": [
           {
-            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
             "location": "line 1",
             "gap": null
           }
@@ -647,7 +647,7 @@
         "reason": null,
         "evidence": [
           {
-            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
             "location": "line 1",
             "gap": null
           }
@@ -659,7 +659,7 @@
         "reason": null,
         "evidence": [
           {
-            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
             "location": "line 1",
             "gap": null
           }
@@ -671,7 +671,7 @@
         "reason": null,
         "evidence": [
           {
-            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
             "location": "line 1",
             "gap": null
           }
@@ -683,7 +683,7 @@
         "reason": null,
         "evidence": [
           {
-            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
             "location": "line 1",
             "gap": null
           }
@@ -695,7 +695,7 @@
         "reason": null,
         "evidence": [
           {
-            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
             "location": "line 1",
             "gap": null
           }
@@ -707,7 +707,7 @@
         "reason": null,
         "evidence": [
           {
-            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
             "location": "line 1",
             "gap": null
           }
@@ -719,7 +719,7 @@
         "reason": null,
         "evidence": [
           {
-            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
             "location": "line 1",
             "gap": null
           }
@@ -731,7 +731,7 @@
         "reason": null,
         "evidence": [
           {
-            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
             "location": "line 1",
             "gap": null
           }
@@ -743,7 +743,7 @@
         "reason": null,
         "evidence": [
           {
-            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
             "location": "line 1",
             "gap": null
           }
@@ -755,7 +755,7 @@
         "reason": "Parser contract explicitly states no I/O or mutation.",
         "evidence": [
           {
-            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
             "location": "line 1",
             "gap": null
           }
@@ -767,7 +767,7 @@
         "reason": "Parser contract explicitly states no I/O or mutation.",
         "evidence": [
           {
-            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
             "location": "line 1",
             "gap": null
           }
@@ -779,7 +779,7 @@
         "reason": null,
         "evidence": [
           {
-            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
             "location": "line 1",
             "gap": null
           }
@@ -791,7 +791,7 @@
         "reason": null,
         "evidence": [
           {
-            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
             "location": "line 1",
             "gap": null
           }
@@ -803,7 +803,7 @@
         "reason": null,
         "evidence": [
           {
-            "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+            "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
             "location": "line 1",
             "gap": null
           }
@@ -825,7 +825,7 @@
       ],
       "evidence": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -848,7 +848,7 @@
       ],
       "evidence": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -871,7 +871,7 @@
       ],
       "evidence": [
         {
-          "quote": "# Ledger CSV sum CLI \u2014 Implementation Specification v2",
+          "quote": "# Ledger CSV sum CLI — Implementation Specification v2",
           "location": "line 1",
           "gap": null
         }
@@ -964,5 +964,9 @@
     "unverified": [
       "Semantic completeness reviewed by single evaluator; no independent second model"
     ]
-  }
+  },
+  "gate_name": "SPECIFICATION_ASSESSMENT",
+  "input_hash": "a086869c75a18cf387af2582b6ac8e31f5a89bde172878cb8fdf276ef6560dda",
+  "hash_method": "stdlib-json-v1-no-report_hash",
+  "report_hash": "05f7367a24428ab0bb7d602ef560cb7338c9b5c8d8f598bde9c085f85a77a909"
 }

@@ -1,0 +1,3 @@
+interface:
+  display_name: "Release Readiness Assessor"
+  short_description: "Assess pre-publication release evidence and readiness"

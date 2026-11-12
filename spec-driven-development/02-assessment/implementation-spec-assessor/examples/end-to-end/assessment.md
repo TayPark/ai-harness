@@ -1,5 +1,7 @@
 # Implementation Prompt Assessment
 
+- Gate: `SPECIFICATION_ASSESSMENT`; input SHA-256: `b7934ecef14ba77513dceb2dd83dd871ced2f98bea324189b14639df61c6e883`; report SHA-256: `a5d26d561a2ae299ba966dc8bbad2f0715aee1fc0dac98f2ace6def2a730276c`; method: `stdlib-json-v1-no-report_hash`.
+
 ## Summary
 - Total Score: 67.0/100
 - Status: NEEDS_REVISION

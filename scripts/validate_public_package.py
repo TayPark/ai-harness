@@ -6,7 +6,7 @@ from __future__ import annotations
 import json
 import re
 import sys
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from urllib.parse import unquote, urlsplit
 
 try:
@@ -22,12 +22,16 @@ SKILLS = (
     "spec-driven-development/02-assessment/implementation-spec-assessor",
     "spec-driven-development/03-execution-and-verification/implementation-plan-executor",
     "spec-driven-development/04-independent-verification/independent-workflow-verifier",
+    "spec-driven-development/05-release-readiness/release-readiness-assessor",
+    "chatgpt-rubric-evaluator",
 )
 REQUIRED_ROOT_FILES = ("README.md", "LICENSE", ".gitignore")
 MARKDOWN_LINK = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
 USER_PATH = re.compile(r"(?:/Users/[A-Za-z0-9._-]+|/home/[A-Za-z0-9._-]+|[A-Za-z]:\\Users\\[^\\\s]+)")
 TRAVERSAL_IGNORED = {".git", ".venv", ".work"}
+PUBLIC_EXCLUDED_PARTS = {".sdd-local", "career-management"}
 CACHE_PARTS = {"__pycache__", ".pytest_cache"}
+NON_PACKAGE_PARTS = TRAVERSAL_IGNORED | PUBLIC_EXCLUDED_PARTS | CACHE_PARTS
 
 
 def fail(errors: list[str], message: str) -> None:
@@ -38,7 +42,8 @@ def package_files() -> list[Path]:
     return [
         path
         for path in ROOT.rglob("*")
-        if path.is_file() and not any(part in TRAVERSAL_IGNORED for part in path.relative_to(ROOT).parts)
+        if path.is_file()
+        and not any(part in NON_PACKAGE_PARTS for part in path.relative_to(ROOT).parts)
     ]
 
 
@@ -75,6 +80,9 @@ def check_links(path: Path, text: str, errors: list[str]) -> None:
         local = unquote(parsed.path)
         if not local:
             continue
+        if any(part in PUBLIC_EXCLUDED_PARTS for part in PurePosixPath(local).parts):
+            fail(errors, f"public Markdown link targets a local-only path in {path.relative_to(ROOT)}: {target}")
+            continue
         resolved = (path.parent / local).resolve()
         if not resolved.exists():
             fail(errors, f"broken Markdown link in {path.relative_to(ROOT)}: {target}")
@@ -85,6 +93,9 @@ def main() -> int:
     for name in REQUIRED_ROOT_FILES:
         if not (ROOT / name).is_file():
             fail(errors, f"missing root file: {name}")
+
+    if (ROOT / "career-management").exists():
+        fail(errors, "career-management is local-only and cannot be packaged from this worktree")
 
     for skill in SKILLS:
         directory = ROOT / skill
@@ -114,7 +125,7 @@ def main() -> int:
             path.relative_to(assessor).as_posix()
             for path in assessor.rglob("*")
             if path.is_file() and path.name != "MANIFEST.txt"
-            and not any(part in TRAVERSAL_IGNORED for part in path.relative_to(assessor).parts)
+            and not any(part in NON_PACKAGE_PARTS for part in path.relative_to(assessor).parts)
         }
         if listed != actual:
             fail(errors, f"Assessor MANIFEST.txt differs: missing={sorted(actual - listed)}, extra={sorted(listed - actual)}")

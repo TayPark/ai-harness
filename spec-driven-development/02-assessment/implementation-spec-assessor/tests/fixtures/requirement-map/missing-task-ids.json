@@ -1,0 +1,193 @@
+[
+  {
+    "requirement_id": "R-01",
+    "acceptance_ids": [
+      "AC-01"
+    ],
+    "verification_ids": [
+      "V-02"
+    ]
+  },
+  {
+    "requirement_id": "R-02",
+    "acceptance_ids": [
+      "AC-02"
+    ],
+    "task_ids": [
+      "T-03",
+      "T-04"
+    ],
+    "verification_ids": [
+      "V-03",
+      "V-20"
+    ]
+  },
+  {
+    "requirement_id": "R-03",
+    "acceptance_ids": [
+      "AC-03"
+    ],
+    "task_ids": [
+      "T-03"
+    ],
+    "verification_ids": [
+      "V-04"
+    ]
+  },
+  {
+    "requirement_id": "R-04",
+    "acceptance_ids": [
+      "AC-04"
+    ],
+    "task_ids": [
+      "T-04"
+    ],
+    "verification_ids": [
+      "V-05",
+      "V-06"
+    ]
+  },
+  {
+    "requirement_id": "R-05",
+    "acceptance_ids": [
+      "AC-05"
+    ],
+    "task_ids": [
+      "T-04"
+    ],
+    "verification_ids": [
+      "V-07"
+    ]
+  },
+  {
+    "requirement_id": "R-06",
+    "acceptance_ids": [
+      "AC-06"
+    ],
+    "task_ids": [
+      "T-05"
+    ],
+    "verification_ids": [
+      "V-08"
+    ]
+  },
+  {
+    "requirement_id": "R-07",
+    "acceptance_ids": [
+      "AC-07"
+    ],
+    "task_ids": [
+      "T-05"
+    ],
+    "verification_ids": [
+      "V-09"
+    ]
+  },
+  {
+    "requirement_id": "R-08",
+    "acceptance_ids": [
+      "AC-08"
+    ],
+    "task_ids": [
+      "T-05"
+    ],
+    "verification_ids": [
+      "V-10"
+    ]
+  },
+  {
+    "requirement_id": "R-09",
+    "acceptance_ids": [
+      "AC-09"
+    ],
+    "task_ids": [
+      "T-06",
+      "T-07"
+    ],
+    "verification_ids": [
+      "V-11"
+    ]
+  },
+  {
+    "requirement_id": "R-10",
+    "acceptance_ids": [
+      "AC-10"
+    ],
+    "task_ids": [
+      "T-01"
+    ],
+    "verification_ids": [
+      "V-01",
+      "V-12"
+    ]
+  },
+  {
+    "requirement_id": "R-11",
+    "acceptance_ids": [
+      "AC-11"
+    ],
+    "task_ids": [
+      "T-06",
+      "T-10"
+    ],
+    "verification_ids": [
+      "V-13"
+    ]
+  },
+  {
+    "requirement_id": "R-12",
+    "acceptance_ids": [
+      "AC-12",
+      "AC-13"
+    ],
+    "task_ids": [
+      "T-06",
+      "T-08"
+    ],
+    "verification_ids": [
+      "V-14",
+      "V-15",
+      "V-16"
+    ]
+  },
+  {
+    "requirement_id": "R-13",
+    "acceptance_ids": [
+      "AC-14"
+    ],
+    "task_ids": [
+      "T-11"
+    ],
+    "verification_ids": [
+      "V-17",
+      "V-18"
+    ]
+  },
+  {
+    "requirement_id": "R-14",
+    "acceptance_ids": [
+      "AC-04",
+      "AC-11"
+    ],
+    "task_ids": [
+      "T-04"
+    ],
+    "verification_ids": [
+      "V-06",
+      "V-19"
+    ]
+  },
+  {
+    "requirement_id": "R-15",
+    "acceptance_ids": [
+      "AC-02",
+      "AC-05"
+    ],
+    "task_ids": [
+      "T-04"
+    ],
+    "verification_ids": [
+      "V-07"
+    ]
+  }
+]

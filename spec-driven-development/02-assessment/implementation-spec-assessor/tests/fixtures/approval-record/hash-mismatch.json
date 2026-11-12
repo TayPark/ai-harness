@@ -1,0 +1,13 @@
+{
+  "status": "APPROVED",
+  "approval_id": "c31de3b0-769a-443a-9f5d-54b42a7048e3",
+  "scope": "SDD_V02_IMPLEMENTATION_RELEASE",
+  "spec_hash": "8a384e33aac138794b553aac133536b7dbcb3db468b11d23d3414cc66820def7",
+  "plan_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "input_hash": "b893c8e8d85b9c6d995d0dc5e2dd6ff462da0b604b7677bfec358ffe340cd9ef",
+  "approver_role": "USER",
+  "decision_at": "2026-11-11T17:18:51Z",
+  "evidence_id": "E-APPROVAL-001",
+  "supersedes_approval_id": null,
+  "invalidation_reason": null
+}

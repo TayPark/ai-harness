@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/sdd-v0.2/tool-trace.schema.json",
+  "type": "object",
+  "properties": {
+    "trace_id": {
+      "type": "string"
+    },
+    "workflow_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "task_id": {
+      "type": "string",
+      "pattern": "^T-[0-9]{2}$"
+    },
+    "tool_name": {
+      "type": "string"
+    },
+    "tool_version": {
+      "type": "string"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "ended_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "input_summary": {
+      "type": "string"
+    },
+    "output_summary": {
+      "type": "string"
+    },
+    "exit_code": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "status": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "UNVERIFIED"
+      ]
+    },
+    "artifact_hashes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-f0-9]{64}$"
+      },
+      "minItems": 0
+    },
+    "checkpoint_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "relative_cwd": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?![A-Za-z]:[/\\\\])"
+    },
+    "redactions": {
+      "type": "object",
+      "properties": {
+        "secrets_redacted": {
+          "const": true
+        },
+        "absolute_home_paths_redacted": {
+          "const": true
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "secrets_redacted",
+        "absolute_home_paths_redacted",
+        "evidence_ids"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "trace_id",
+    "workflow_id",
+    "task_id",
+    "tool_name",
+    "tool_version",
+    "started_at",
+    "ended_at",
+    "input_summary",
+    "output_summary",
+    "exit_code",
+    "status",
+    "artifact_hashes",
+    "checkpoint_id",
+    "relative_cwd",
+    "redactions"
+  ],
+  "additionalProperties": false
+}

@@ -35,7 +35,7 @@ If any required input is missing, report the gap. Do not infer a value from the 
 5. Return `PASS` only when the reviewer is independent and every mandatory acceptance criterion has passing evidence. Return `FAIL` when evidence shows a scope, behavior, or acceptance failure. Otherwise return `UNVERIFIED`.
 6. Before writing, resolve the workflow record and report paths. Require the report to remain in the workflow record's repository directory. Reject path traversal or symlink escape. If path validation fails or the report exists, return the report contents inline and write nothing.
 7. Write `verification-report.md` beside the workflow record. Include workflow ID, verifier and Executor identities, independence status, inspected plan hash and repository HEAD, criteria and evidence, commands and exit results, findings, and final status.
-8. Give the report path and status to the Orchestrator. The Orchestrator records the verifier result and closes the workflow only after `PASS`.
+8. Give the report path and status to the Orchestrator. The Orchestrator records the verifier result and closes the workflow only after `PASS`. For release scope, it then invokes `spec-driven-development/05-release-readiness/release-readiness-assessor` before publication. Do not run the Release Gate yourself.
 
 ## Output rules
 
