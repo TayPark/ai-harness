@@ -2,13 +2,15 @@
 
 Reusable agent skills for planning, assessing, implementing, verifying, and releasing software changes.
 
-Version: `v0.2.1`.
+Version: `v0.3.0`.
 
 ## Included skills
 
 | Skill | Use it when |
 | --- | --- |
 | `ai-slop-postprocess` | You need observable AI slop removed while preserving a prose document's format, facts, and voice. |
+| `by-subagent` | You need bounded independent workers and want each worker to load only its task-specific skills and evidence. |
+| `ask-to-chatgpt` | You need to submit a user-provided question through Aside Browser and return the full response. |
 | `spec-driven-development/00-orchestration/implementation-workflow-orchestrator` | You need to coordinate substantial work from specification through release readiness. |
 | `spec-driven-development/01-plan/repository-implementation-planner` | You need a read-only, repository-grounded implementation plan. |
 | `spec-driven-development/02-assessment/implementation-spec-assessor` | You need evidence-based review or refinement of an implementation specification. |
@@ -21,7 +23,6 @@ Version: `v0.2.1`.
 
 ## Recommended workflow
 
-For substantial work, start with the Orchestrator. It coordinates this sequence:
 For substantial work, start with the Orchestrator. It coordinates this sequence:
 
 1. Establish the exact user specification or build a source-labeled input packet from the request and read-only repository observations.
@@ -44,13 +45,14 @@ Copy the Orchestrator folder into your agent's skill directory to use it as the 
 
 ```sh
 cp -R spec-driven-development/00-orchestration/implementation-workflow-orchestrator ~/.codex/skills/
-cp -R spec-driven-development/00-orchestration/implementation-workflow-orchestrator ~/.codex/skills/
 ```
 
 Install the Planner, Assessor, Executor, Independent Workflow Verifier, and Release Readiness Assessor folders too when you want the Orchestrator to coordinate all six skills. Each installed folder keeps its canonical skill name. Check each destination first.
 
 Install `chatgpt-rubric-evaluator/` separately when you need ChatGPT review packets and local report validation.
 Install `ai-slop-postprocess/` when you need format-preserving cleanup of observable AI slop in prose documents.
+Install `by-subagent/` when you need bounded delegation with progressive skill and evidence loading.
+Install `ask-to-chatgpt/` when you need to submit a question through Aside Browser.
 
 For a local checkout, link the six public skills into Codex instead of copying them. Run these commands from the repository root after confirming that the destination names are free. Move any existing skill folders outside `~/.codex/skills/` first.
 
@@ -63,6 +65,7 @@ ln -s "$PWD/spec-driven-development/03-execution-and-verification/implementation
 ln -s "$PWD/spec-driven-development/04-independent-verification/independent-workflow-verifier" ~/.codex/skills/independent-workflow-verifier
 ln -s "$PWD/spec-driven-development/05-release-readiness/release-readiness-assessor" ~/.codex/skills/release-readiness-assessor
 ln -s "$PWD/ai-slop-postprocess" ~/.codex/skills/ai-slop-postprocess
+ln -s "$PWD/by-subagent" ~/.codex/skills/by-subagent
 ```
 
 ## Requirements

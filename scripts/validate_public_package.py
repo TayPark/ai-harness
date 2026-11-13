@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SKILLS = (
     "ai-slop-postprocess",
     "ask-to-chatgpt",
+    "by-subagent",
     "chatgpt-rubric-evaluator",
     "spec-driven-development/00-orchestration/implementation-workflow-orchestrator",
     "spec-driven-development/01-plan/repository-implementation-planner",
@@ -26,7 +27,6 @@ SKILLS = (
     "spec-driven-development/03-execution-and-verification/implementation-plan-executor",
     "spec-driven-development/04-independent-verification/independent-workflow-verifier",
     "spec-driven-development/05-release-readiness/release-readiness-assessor",
-    "chatgpt-rubric-evaluator",
 )
 REQUIRED_ROOT_FILES = ("README.md", "LICENSE", ".gitignore")
 MARKDOWN_LINK = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
