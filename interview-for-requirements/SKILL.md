@@ -9,4 +9,4 @@ Elicit the goal and the people affected. Ask focused questions about user flows,
 
 Record a requirements brief with the goal, actors, flows, functional requirements, constraints, observable completion criteria, and open decisions. Trace each material requirement to the user's answer or source. Label assumptions and examples explicitly; do not present either as a confirmed requirement. Identify dependencies and unknowns that block planning or execution.
 
-Give the brief to the planning and assessment workflow as specification input. Do not substitute this interview for specification assessment or approval. For teaching and practice, use `teach-socratically` instead.
+Give the brief to the planning and assessment workflow as specification input. Do not substitute this interview for specification assessment or approval. For teaching and practice, use `socratic-tutor` instead.

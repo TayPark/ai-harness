@@ -12,7 +12,7 @@ Version: `v0.3.0`.
 | `by-subagent` | You need bounded independent workers and want each worker to load only its task-specific skills and evidence. |
 | `orchestrate-agent-team` | You need to coordinate a product owner and agent teams for a software project. |
 | `interview-for-requirements` | You need to clarify software requirements before planning. |
-| `teach-socratically` | You want structured tutoring or practice toward mastery. |
+| `socratic-tutor` | You want structured tutoring or practice toward mastery. |
 | `ask-chatgpt` | You need to submit a user-provided question through Aside Browser and return the full response. |
 | `spec-driven-development/00-orchestration/sdd-00-orchestrate-implementation` | You need to coordinate substantial work from specification through release readiness. |
 | `spec-driven-development/01-plan/sdd-01-plan-repository-implementation` | You need a read-only, repository-grounded implementation plan. |
@@ -49,7 +49,7 @@ Run these commands from a trusted checkout. Codex reads `~/.codex/skills/`; Clau
 ```sh
 skill_home="$HOME/.codex/skills" # For Claude Code: "$HOME/.claude/skills"
 mkdir -p "$skill_home"
-for skill in remove-ai-slop ask-chatgpt evaluate-with-chatgpt by-subagent orchestrate-agent-team interview-for-requirements teach-socratically spec-driven-development/*/sdd-*; do
+for skill in remove-ai-slop ask-chatgpt evaluate-with-chatgpt by-subagent orchestrate-agent-team interview-for-requirements socratic-tutor spec-driven-development/*/sdd-*; do
   name="${skill##*/}"
   if [ -e "$skill_home/$name" ] || [ -L "$skill_home/$name" ]; then
     printf 'Already exists: %s\n' "$skill_home/$name" >&2
@@ -74,7 +74,6 @@ Existing invocation names do not remain as compatibility aliases. Remove or relo
 | `chatgpt-rubric-evaluator` | `evaluate-with-chatgpt` |
 | `codex-team-orchestration` | `orchestrate-agent-team` |
 | `requirements-interview` | `interview-for-requirements` |
-| `socratic-tutor` | `teach-socratically` |
 | `implementation-workflow-orchestrator` | `sdd-00-orchestrate-implementation` |
 | `repository-implementation-planner` | `sdd-01-plan-repository-implementation` |
 | `implementation-spec-assessor` | `sdd-02-assess-implementation-spec` |
@@ -86,7 +85,7 @@ Existing invocation names do not remain as compatibility aliases. Remove or relo
 
 ### Selection boundaries
 
-Use each skill for the trigger in the list above. Use `by-subagent` only when delegation is allowed; use `orchestrate-agent-team` for coordinating a team, not a single bounded worker. Use `interview-for-requirements` for unclear requirements, not when sufficient requirements already exist. Use `teach-socratically` for requested instruction or practice, not a one-off explanation. Use `remove-ai-slop` for observable prose issues, not factual rewriting. Use `ask-chatgpt` to submit a supplied question; use `evaluate-with-chatgpt` for a bounded, locally validated evaluation. The SDD skills have separate planning, assessment, execution, independent verification and release decisions; skip the formal workflow for a small direct request.
+Use each skill for the trigger in the list above. Use `by-subagent` only when delegation is allowed; use `orchestrate-agent-team` for coordinating a team, not a single bounded worker. Use `interview-for-requirements` for unclear requirements, not when sufficient requirements already exist. Use `socratic-tutor` for requested instruction or practice, not a one-off explanation. Use `remove-ai-slop` for observable prose issues, not factual rewriting. Use `ask-chatgpt` to submit a supplied question; use `evaluate-with-chatgpt` for a bounded, locally validated evaluation. The SDD skills have separate planning, assessment, execution, independent verification and release decisions; skip the formal workflow for a small direct request.
 
 ## Requirements
 

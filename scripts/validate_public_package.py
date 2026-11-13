@@ -23,7 +23,7 @@ SKILLS = (
     "orchestrate-agent-team",
     "evaluate-with-chatgpt",
     "interview-for-requirements",
-    "teach-socratically",
+    "socratic-tutor",
     "spec-driven-development/00-orchestration/sdd-00-orchestrate-implementation",
     "spec-driven-development/01-plan/sdd-01-plan-repository-implementation",
     "spec-driven-development/02-assessment/sdd-02-assess-implementation-spec",
