@@ -17,16 +17,19 @@ except ImportError as exc:  # pragma: no cover - exercised by missing dependency
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS = (
-    "ai-slop-postprocess",
-    "ask-to-chatgpt",
+    "remove-ai-slop",
+    "ask-chatgpt",
     "by-subagent",
-    "chatgpt-rubric-evaluator",
-    "spec-driven-development/00-orchestration/implementation-workflow-orchestrator",
-    "spec-driven-development/01-plan/repository-implementation-planner",
-    "spec-driven-development/02-assessment/implementation-spec-assessor",
-    "spec-driven-development/03-execution-and-verification/implementation-plan-executor",
-    "spec-driven-development/04-independent-verification/independent-workflow-verifier",
-    "spec-driven-development/05-release-readiness/release-readiness-assessor",
+    "orchestrate-agent-team",
+    "evaluate-with-chatgpt",
+    "interview-for-requirements",
+    "teach-socratically",
+    "spec-driven-development/00-orchestration/sdd-00-orchestrate-implementation",
+    "spec-driven-development/01-plan/sdd-01-plan-repository-implementation",
+    "spec-driven-development/02-assessment/sdd-02-assess-implementation-spec",
+    "spec-driven-development/03-execution-and-verification/sdd-03-execute-implementation-plan",
+    "spec-driven-development/04-independent-verification/sdd-04-verify-implementation-independently",
+    "spec-driven-development/05-release-readiness/sdd-05-assess-release-readiness",
 )
 REQUIRED_ROOT_FILES = ("README.md", "LICENSE", ".gitignore")
 MARKDOWN_LINK = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
@@ -120,7 +123,7 @@ def main() -> int:
                 if not isinstance(interface, dict) or not interface.get("display_name") or not interface.get("short_description"):
                     fail(errors, f"incomplete UI metadata: {metadata.relative_to(ROOT)}")
 
-    assessor = ROOT / "spec-driven-development" / "02-assessment" / "implementation-spec-assessor"
+    assessor = ROOT / "spec-driven-development" / "02-assessment" / "sdd-02-assess-implementation-spec"
     manifest_path = assessor / "MANIFEST.txt"
     if manifest_path.is_file():
         listed = {line.strip() for line in manifest_path.read_text(encoding="utf-8").splitlines() if line.strip()}
@@ -133,7 +136,7 @@ def main() -> int:
         if listed != actual:
             fail(errors, f"Assessor MANIFEST.txt differs: missing={sorted(actual - listed)}, extra={sorted(listed - actual)}")
     else:
-        fail(errors, "missing spec-driven-development/02-assessment/implementation-spec-assessor/MANIFEST.txt")
+        fail(errors, "missing spec-driven-development/02-assessment/sdd-02-assess-implementation-spec/MANIFEST.txt")
 
     files = package_files()
     for path in files:

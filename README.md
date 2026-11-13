@@ -8,16 +8,19 @@ Version: `v0.3.0`.
 
 | Skill | Use it when |
 | --- | --- |
-| `ai-slop-postprocess` | You need observable AI slop removed while preserving a prose document's format, facts, and voice. |
+| `remove-ai-slop` | You need observable AI slop removed while preserving a prose document's format, facts, and voice. |
 | `by-subagent` | You need bounded independent workers and want each worker to load only its task-specific skills and evidence. |
-| `ask-to-chatgpt` | You need to submit a user-provided question through Aside Browser and return the full response. |
-| `spec-driven-development/00-orchestration/implementation-workflow-orchestrator` | You need to coordinate substantial work from specification through release readiness. |
-| `spec-driven-development/01-plan/repository-implementation-planner` | You need a read-only, repository-grounded implementation plan. |
-| `spec-driven-development/02-assessment/implementation-spec-assessor` | You need evidence-based review or refinement of an implementation specification. |
-| `spec-driven-development/03-execution-and-verification/implementation-plan-executor` | You approved a multi-phase plan and want its work implemented and verified. |
-| `spec-driven-development/04-independent-verification/independent-workflow-verifier` | You need a separate reviewer to verify implementation evidence and acceptance criteria. |
-| `spec-driven-development/05-release-readiness/release-readiness-assessor` | You need an evidence-based release decision after Independent Verification and before publication. |
-| `chatgpt-rubric-evaluator` | You need a privacy-filtered packet and locally validated ChatGPT review. |
+| `orchestrate-agent-team` | You need to coordinate a product owner and agent teams for a software project. |
+| `interview-for-requirements` | You need to clarify software requirements before planning. |
+| `teach-socratically` | You want structured tutoring or practice toward mastery. |
+| `ask-chatgpt` | You need to submit a user-provided question through Aside Browser and return the full response. |
+| `spec-driven-development/00-orchestration/sdd-00-orchestrate-implementation` | You need to coordinate substantial work from specification through release readiness. |
+| `spec-driven-development/01-plan/sdd-01-plan-repository-implementation` | You need a read-only, repository-grounded implementation plan. |
+| `spec-driven-development/02-assessment/sdd-02-assess-implementation-spec` | You need evidence-based review or refinement of an implementation specification. |
+| `spec-driven-development/03-execution-and-verification/sdd-03-execute-implementation-plan` | You approved a multi-phase plan and want its work implemented and verified. |
+| `spec-driven-development/04-independent-verification/sdd-04-verify-implementation-independently` | You need a separate reviewer to verify implementation evidence and acceptance criteria. |
+| `spec-driven-development/05-release-readiness/sdd-05-assess-release-readiness` | You need an evidence-based release decision after Independent Verification and before publication. |
+| `evaluate-with-chatgpt` | You need a privacy-filtered packet and locally validated ChatGPT review. |
 
 `career-management` and `.sdd-local/` are local-only and are excluded from the public package.
 
@@ -39,34 +42,51 @@ The Release Gate uses existing SLO targets and measurements. It allows a row-lev
 
 For a small, direct implementation request that does not need a formal plan, implement and verify it directly. Do not require the full sequence for that request.
 
-## Install
+## Install, invoke, and update
 
-Copy the Orchestrator folder into your agent's skill directory to use it as the entry point. For Codex, the default directory is `~/.codex/skills/`.
-
-```sh
-cp -R spec-driven-development/00-orchestration/implementation-workflow-orchestrator ~/.codex/skills/
-```
-
-Install the Planner, Assessor, Executor, Independent Workflow Verifier, and Release Readiness Assessor folders too when you want the Orchestrator to coordinate all six skills. Each installed folder keeps its canonical skill name. Check each destination first.
-
-Install `chatgpt-rubric-evaluator/` separately when you need ChatGPT review packets and local report validation.
-Install `ai-slop-postprocess/` when you need format-preserving cleanup of observable AI slop in prose documents.
-Install `by-subagent/` when you need bounded delegation with progressive skill and evidence loading.
-Install `ask-to-chatgpt/` when you need to submit a question through Aside Browser.
-
-For a local checkout, link the six public skills into Codex instead of copying them. Run these commands from the repository root after confirming that the destination names are free. Move any existing skill folders outside `~/.codex/skills/` first.
+Run these commands from a trusted checkout. Codex reads `~/.codex/skills/`; Claude Code reads `~/.claude/skills/`. For project-only Claude Code installation use `.claude/skills/` instead. Check destinations first: the loop refuses to overwrite an existing folder or link.
 
 ```sh
-mkdir -p ~/.codex/skills
-ln -s "$PWD/spec-driven-development/00-orchestration/implementation-workflow-orchestrator" ~/.codex/skills/implementation-workflow-orchestrator
-ln -s "$PWD/spec-driven-development/01-plan/repository-implementation-planner" ~/.codex/skills/repository-implementation-planner
-ln -s "$PWD/spec-driven-development/02-assessment/implementation-spec-assessor" ~/.codex/skills/implementation-spec-assessor
-ln -s "$PWD/spec-driven-development/03-execution-and-verification/implementation-plan-executor" ~/.codex/skills/implementation-plan-executor
-ln -s "$PWD/spec-driven-development/04-independent-verification/independent-workflow-verifier" ~/.codex/skills/independent-workflow-verifier
-ln -s "$PWD/spec-driven-development/05-release-readiness/release-readiness-assessor" ~/.codex/skills/release-readiness-assessor
-ln -s "$PWD/ai-slop-postprocess" ~/.codex/skills/ai-slop-postprocess
-ln -s "$PWD/by-subagent" ~/.codex/skills/by-subagent
+skill_home="$HOME/.codex/skills" # For Claude Code: "$HOME/.claude/skills"
+mkdir -p "$skill_home"
+for skill in remove-ai-slop ask-chatgpt evaluate-with-chatgpt by-subagent orchestrate-agent-team interview-for-requirements teach-socratically spec-driven-development/*/sdd-*; do
+  name="${skill##*/}"
+  if [ -e "$skill_home/$name" ] || [ -L "$skill_home/$name" ]; then
+    printf 'Already exists: %s\n' "$skill_home/$name" >&2
+    continue
+  fi
+  cp -R "$skill" "$skill_home/$name"
+done
 ```
+
+Start a new session and check the available skills. In Codex, explicitly invoke a skill with `$sdd-01-plan-repository-implementation`. In Claude Code, use `/sdd-01-plan-repository-implementation`. Automatic selection depends on the host and is not guaranteed. Check the host's output when discovery or invocation fails.
+
+For copied installations, update the checkout with `git pull --ff-only`, remove an installed folder only after confirming its contents, and copy the new folder using the same loop. To remove a skill, inspect its path and delete only that installed folder. For symlink installations, update the checkout; the link then points to the updated contents. Renamed folders need new links.
+
+### Migration
+
+Existing invocation names do not remain as compatibility aliases. Remove or relocate an old installed folder or link after inspecting it, then install the corresponding new name. Update local prompts and automation that call the old name.
+
+| Previous name | New name |
+| --- | --- |
+| `ai-slop-postprocess` | `remove-ai-slop` |
+| `ask-to-chatgpt` | `ask-chatgpt` |
+| `chatgpt-rubric-evaluator` | `evaluate-with-chatgpt` |
+| `codex-team-orchestration` | `orchestrate-agent-team` |
+| `requirements-interview` | `interview-for-requirements` |
+| `socratic-tutor` | `teach-socratically` |
+| `implementation-workflow-orchestrator` | `sdd-00-orchestrate-implementation` |
+| `repository-implementation-planner` | `sdd-01-plan-repository-implementation` |
+| `implementation-spec-assessor` | `sdd-02-assess-implementation-spec` |
+| `implementation-plan-executor` | `sdd-03-execute-implementation-plan` |
+| `independent-workflow-verifier` | `sdd-04-verify-implementation-independently` |
+| `release-readiness-assessor` | `sdd-05-assess-release-readiness` |
+
+`by-subagent` keeps its name. SDD `00` is the entry point; `02` assesses both specifications and plans. Numbers show a common order, not mandatory steps for every task.
+
+### Selection boundaries
+
+Use each skill for the trigger in the list above. Use `by-subagent` only when delegation is allowed; use `orchestrate-agent-team` for coordinating a team, not a single bounded worker. Use `interview-for-requirements` for unclear requirements, not when sufficient requirements already exist. Use `teach-socratically` for requested instruction or practice, not a one-off explanation. Use `remove-ai-slop` for observable prose issues, not factual rewriting. Use `ask-chatgpt` to submit a supplied question; use `evaluate-with-chatgpt` for a bounded, locally validated evaluation. The SDD skills have separate planning, assessment, execution, independent verification and release decisions; skip the formal workflow for a small direct request.
 
 ## Requirements
 
@@ -75,7 +95,7 @@ The Planner, Executor, Orchestrator, Independent Workflow Verifier, and Release 
 ```sh
 python3.11 -m venv .venv
 . .venv/bin/activate
-python -m pip install -r spec-driven-development/02-assessment/implementation-spec-assessor/requirements.txt
+python -m pip install -r spec-driven-development/02-assessment/sdd-02-assess-implementation-spec/requirements.txt
 ```
 
 ## Validate
@@ -84,19 +104,19 @@ Run the repository package check and the Assessor and Release Readiness tests fr
 
 ```sh
 python scripts/validate_public_package.py
-python -m pytest -q spec-driven-development/02-assessment/implementation-spec-assessor/tests
-python -m pytest -q spec-driven-development/05-release-readiness/release-readiness-assessor/tests
-python -m unittest discover -s chatgpt-rubric-evaluator/tests -v
+python -m pytest -q spec-driven-development/02-assessment/sdd-02-assess-implementation-spec/tests
+python -m pytest -q spec-driven-development/05-release-readiness/sdd-05-assess-release-readiness/tests
+python -m unittest discover -s evaluate-with-chatgpt/tests -v
 ```
 
 Run the Assessor's report validator from its folder:
 
 ```sh
-cd spec-driven-development/02-assessment/implementation-spec-assessor
+cd spec-driven-development/02-assessment/sdd-02-assess-implementation-spec
 python scripts/validate_assessment.py --report tests/fixtures/reports/excellent.json --source tests/fixtures/excellent-prompt.md
 ```
 
-The manual release scenario is in `spec-driven-development/05-release-readiness/release-readiness-assessor/scenarios/`. Do not treat it as an automated test or claim it ran without recorded evidence.
+The manual release scenario is in `spec-driven-development/05-release-readiness/sdd-05-assess-release-readiness/scenarios/`. Do not treat it as an automated test or claim it ran without recorded evidence.
 
 ## License
 
