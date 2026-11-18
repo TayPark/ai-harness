@@ -1,0 +1,3 @@
+interface:
+  display_name: "SDLC Stage Rubrics"
+  short_description: "Evaluate Requirement, Implementation, Verification, and Operation with 0-4 rubrics and hard-fail gates"

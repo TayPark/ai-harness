@@ -15,3 +15,5 @@ Start with the Orchestrator for substantial implementation work. The Planner may
 The Release Gate is pre-publication. It uses existing SLO targets and measurements. A row-level SLO N/A requires source-backed evidence that no service SLO exists. The gate does not invent thresholds or use merge, tag, push, or release results as its evidence.
 
 For a small, direct implementation request, use the normal implementation workflow without the full sequence.
+
+See [sdlc-stage-rubrics](../sdlc-stage-rubrics/SKILL.md) for the portable 4-stage SDLC evaluation rubrics (Requirement, Implementation, Verification, Operation) and machine-readable gate definitions.

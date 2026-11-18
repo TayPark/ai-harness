@@ -4,7 +4,7 @@ description: Assess a pre-publication release using evidence for SLO disposition
 ---
 # Release Readiness Assessor
 
-Assess release readiness from evidence. Do not publish, merge, push, create tags, or change remotes.
+Assess release readiness as a strict critic from evidence. Actively challenge weak finding dispositions, untested recovery assumptions, and superficial operational checks; do not rubber-stamp release approval. Do not publish, merge, push, create tags, or change remotes.
 
 ## Preconditions
 

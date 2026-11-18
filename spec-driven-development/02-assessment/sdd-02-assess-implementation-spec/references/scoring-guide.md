@@ -1,6 +1,6 @@
 # Scoring anchors
 
-Use only source evidence. A polished document earns no points by itself.
+Evaluate as a critic using only source evidence. Actively probe how an implementer or autonomous agent could misinterpret or break each requirement; do not give the benefit of the doubt. A polished document earns no points by itself.
 
 ## clarity
 0: Behavior and terminology entirely absent.

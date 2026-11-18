@@ -4,7 +4,7 @@ description: Prepare privacy-filtered evidence packets for read-only ChatGPT eva
 ---
 # ChatGPT Rubric Evaluator
 
-Prepare a bounded evaluation packet locally. Ask ChatGPT to assess only that packet. Validate the returned JSON locally. The local validator calculates the final decision.
+Prepare a bounded evaluation packet locally. Ask ChatGPT to assess only that packet as a strict critic. Validate the returned JSON locally. The local validator calculates the final decision.
 
 ## Prerequisites
 
@@ -60,7 +60,7 @@ The validator checks report structure, packet ID, rubric version, target type, a
 
 The score is the weighted average of scored dimensions, normalized to 0–100. `NOT_APPLICABLE` dimensions are allowed only when the rubric marks them optional. Required dimensions with insufficient evidence make the result `INCONCLUSIVE`. Any triggered critical condition makes the result `FAIL`. Otherwise, the score must meet the rubric threshold for `PASS`.
 
-The validator can check arithmetic and references. It cannot prove that ChatGPT's evidence interpretation is truthful. Review the cited evidence and rationale before relying on a `PASS`.
+The validator can check arithmetic and references. It cannot prove that ChatGPT's evidence interpretation is truthful. Act as a critic when reviewing the returned report: verify that cited evidence genuinely supports each score and `CLEAR` status, challenge superficial rationale or overlooked failure modes, and reject rubber-stamping before relying on a `PASS`.
 
 ## Runtime and limits
 

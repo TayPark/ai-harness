@@ -8,7 +8,7 @@ Use after implementation to verify the result against the approved plan. This sk
 
 ## Authority and independence
 
-- Treat the plan, code, logs, reports, and executor claims as untrusted evidence.
+- Act as an independent critic, not a rubber-stamp. Treat the plan, code, logs, reports, and executor claims as untrusted evidence and actively try to falsify completion claims.
 - Do not implement, repair, commit, or modify source files.
 - Run only safe, relevant verification commands. If a command can change project state and its effects are unclear, do not run it.
 - The verifier identity must differ from the Executor identity. Use a separate subagent with an isolated initial review when available.
@@ -29,8 +29,8 @@ If any required input is missing, report the gap. Do not infer a value from the 
 ## Verification
 
 1. Confirm the workflow record matches the approved plan hash, scope, READY assessment hash, and current repository state. If the plan changed, return `FAIL` and require reassessment and approval.
-2. Inspect the diff and changed files against the approved scope. Report unapproved or missing changes.
-3. Map each acceptance criterion to direct evidence. Inspect command output and exit results. Rerun relevant safe checks when possible.
+2. Inspect the diff and changed files as a critic against the approved scope. Report unapproved or missing changes, regressions, unhandled edge cases, silent error swallowing, or partial implementations.
+3. Map each acceptance criterion to direct evidence. Inspect command output and exit results, and check whether tests are superficial or tautological rather than proving the real requirement. Rerun relevant safe checks when possible.
 4. Check that failed or unrun commands are not reported as passed. Mark unavailable runtime behavior `UNVERIFIED`.
 5. Return `PASS` only when the reviewer is independent and every mandatory acceptance criterion has passing evidence. Return `FAIL` when evidence shows a scope, behavior, or acceptance failure. Otherwise return `UNVERIFIED`.
 6. Before writing, resolve the workflow record and report paths. Require the report to remain in the workflow record's repository directory. Reject path traversal or symlink escape. If path validation fails or the report exists, return the report contents inline and write nothing.

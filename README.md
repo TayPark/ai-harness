@@ -14,6 +14,9 @@ Version: `v0.3.0`.
 | `interview-for-requirements` | You need to clarify software requirements before planning. |
 | `socratic-tutor` | You want structured tutoring or practice toward mastery. |
 | `ask-chatgpt` | You need to submit a user-provided question through Aside Browser and return the full response. |
+| `ask-to-web-gemini` | You need to submit a user-provided question to Web Gemini (`gemini.google.com`) through Aside CLI using Argon at High thinking level and return the full response. |
+| `debate-web-models` | You need Web ChatGPT (highest reasoning) and Web Gemini (Argon High) to run a falsification-driven debate across up to 3 rounds via Aside CLI and synthesize consensus, ruled-out alternatives, and decision boundaries. |
+| `sdlc-stage-rubrics` | You need risk-tiered 0–4 rubrics, non-compensatory hard-fail gates, and evidence contracts across Requirement, Implementation, Verification, and Operation. |
 | `spec-driven-development/00-orchestration/sdd-00-orchestrate-implementation` | You need to coordinate substantial work from specification through release readiness. |
 | `spec-driven-development/01-plan/sdd-01-plan-repository-implementation` | You need a read-only, repository-grounded implementation plan. |
 | `spec-driven-development/02-assessment/sdd-02-assess-implementation-spec` | You need evidence-based review or refinement of an implementation specification. |
@@ -49,7 +52,7 @@ Run these commands from a trusted checkout. Codex reads `~/.codex/skills/`; Clau
 ```sh
 skill_home="$HOME/.codex/skills" # For Claude Code: "$HOME/.claude/skills"
 mkdir -p "$skill_home"
-for skill in remove-ai-slop ask-chatgpt evaluate-with-chatgpt by-subagent orchestrate-agent-team interview-for-requirements socratic-tutor spec-driven-development/*/sdd-*; do
+for skill in remove-ai-slop ask-chatgpt ask-to-web-gemini debate-web-models sdlc-stage-rubrics evaluate-with-chatgpt by-subagent orchestrate-agent-team interview-for-requirements socratic-tutor spec-driven-development/*/sdd-*; do
   name="${skill##*/}"
   if [ -e "$skill_home/$name" ] || [ -L "$skill_home/$name" ]; then
     printf 'Already exists: %s\n' "$skill_home/$name" >&2
@@ -85,7 +88,7 @@ Existing invocation names do not remain as compatibility aliases. Remove or relo
 
 ### Selection boundaries
 
-Use each skill for the trigger in the list above. Use `by-subagent` only when delegation is allowed; use `orchestrate-agent-team` for coordinating a team, not a single bounded worker. Use `interview-for-requirements` for unclear requirements, not when sufficient requirements already exist. Use `socratic-tutor` for requested instruction or practice, not a one-off explanation. Use `remove-ai-slop` for observable prose issues, not factual rewriting. Use `ask-chatgpt` to submit a supplied question; use `evaluate-with-chatgpt` for a bounded, locally validated evaluation. The SDD skills have separate planning, assessment, execution, independent verification and release decisions; skip the formal workflow for a small direct request.
+Use each skill for the trigger in the list above. Use `by-subagent` only when delegation is allowed; use `orchestrate-agent-team` for coordinating a team, not a single bounded worker. Use `interview-for-requirements` for unclear requirements, not when sufficient requirements already exist. Use `socratic-tutor` for requested instruction or practice, not a one-off explanation. Use `remove-ai-slop` for observable prose issues, not factual rewriting. Use `ask-chatgpt` to submit a supplied question to ChatGPT, `ask-to-web-gemini` to submit a supplied question to Web Gemini (Argon High), and `debate-web-models` to run a multi-round consensus debate between both web models; use `sdlc-stage-rubrics` for portable 4-stage SDLC scoring and gating definitions; use `evaluate-with-chatgpt` for a bounded, locally validated evaluation. The SDD skills have separate planning, assessment, execution, independent verification and release decisions; skip the formal workflow for a small direct request.
 
 ## Requirements
 

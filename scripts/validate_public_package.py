@@ -19,6 +19,9 @@ ROOT = Path(__file__).resolve().parents[1]
 SKILLS = (
     "remove-ai-slop",
     "ask-chatgpt",
+    "ask-to-web-gemini",
+    "debate-web-models",
+    "sdlc-stage-rubrics",
     "by-subagent",
     "orchestrate-agent-team",
     "evaluate-with-chatgpt",

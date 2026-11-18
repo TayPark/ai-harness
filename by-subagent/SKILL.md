@@ -22,7 +22,7 @@ Skill names and descriptions support discovery. They do not enforce context isol
 7. Check findings against their evidence, resolve conflicts, and synthesize the final answer as the main agent. Do not present an agent's unsupported claim as verified fact.
 8. If the host cannot start a fresh context or preserve required inputs and results, pass a concise, validated handoff and record the limitation. If the host has no usable subagent capability, do the work directly when practical. State that delegation did not run.
 
-For independent review, freeze the target and record its revision or hash first. Give reviewers the same target revision and only the references needed for their review lens. Reviewers return findings and do not edit the target. Any edit invalidates reviews tied to the old revision.
+For independent review, freeze the target and record its revision or hash first. Give reviewers the same target revision and only the references needed for their review lens. Instruct reviewers to act as critics that actively hunt for defects, regressions, weak assumptions, and missing evidence rather than rubber-stamping. Reviewers return findings and do not edit the target. Any edit invalidates reviews tied to the old revision.
 
 ## Task request contract
 
