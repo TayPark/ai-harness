@@ -1,31 +1,60 @@
 # TayPark Skills
 
-Reusable agent skills for planning, assessing, implementing, verifying, and releasing software changes.
+Reusable skills for Codex and Claude Code. Use them to edit prose, consult external models, coordinate agents, or take a software change from requirements through release. Each skill documents when to invoke it and how to run its workflow.
+
+[`skills/`](skills/) holds the source for every packaged skill. Repository-wide checks live in [`scripts/`](scripts/) and [`tests/`](tests/).
 
 Version: `v0.3.0`.
 
 ## Included skills
 
+### Writing and editing
+
 | Skill | Use it when |
 | --- | --- |
-| `remove-ai-slop` | You need observable AI slop removed while preserving a prose document's format, facts, and voice. |
-| `by-subagent` | You need bounded independent workers and want each worker to load only its task-specific skills and evidence. |
-| `orchestrate-agent-team` | You need to coordinate a product owner and agent teams for a software project. |
-| `interview-for-requirements` | You need to clarify software requirements before planning. |
-| `socratic-tutor` | You want structured tutoring or practice toward mastery. |
-| `ask-chatgpt` | You need to submit a user-provided question through Aside Browser and return the full response. |
-| `ask-to-web-gemini` | You need to submit a user-provided question to Web Gemini (`gemini.google.com`) through Aside CLI using Argon at High thinking level and return the full response. |
-| `debate-web-models` | You need Web ChatGPT (highest reasoning) and Web Gemini (Argon High) to run a falsification-driven debate across up to 3 rounds via Aside CLI and synthesize consensus, ruled-out alternatives, and decision boundaries. |
-| `sdlc-stage-rubrics` | You need risk-tiered 0–4 rubrics, non-compensatory hard-fail gates, and evidence contracts across Requirement, Implementation, Verification, and Operation. |
-| `spec-driven-development/00-orchestration/sdd-00-orchestrate-implementation` | You need to coordinate substantial work from specification through release readiness. |
-| `spec-driven-development/01-plan/sdd-01-plan-repository-implementation` | You need a read-only, repository-grounded implementation plan. |
-| `spec-driven-development/02-assessment/sdd-02-assess-implementation-spec` | You need evidence-based review or refinement of an implementation specification. |
-| `spec-driven-development/03-execution-and-verification/sdd-03-execute-implementation-plan` | You approved a multi-phase plan and want its work implemented and verified. |
-| `spec-driven-development/04-independent-verification/sdd-04-verify-implementation-independently` | You need a separate reviewer to verify implementation evidence and acceptance criteria. |
-| `spec-driven-development/05-release-readiness/sdd-05-assess-release-readiness` | You need an evidence-based release decision after Independent Verification and before publication. |
-| `evaluate-with-chatgpt` | You need a privacy-filtered packet and locally validated ChatGPT review. |
+| [`anti-slop`](skills/anti-slop/SKILL.md) | You are drafting your own English or Korean prose and want writing rules plus a deterministic `check_slop.py --strict` check. |
+| [`remove-ai-slop`](skills/remove-ai-slop/SKILL.md) | You need observable AI slop removed while preserving a prose document's format, facts, and voice. |
+
+### External models and evaluation
+
+| Skill | Use it when |
+| --- | --- |
+| [`ask-to-chatgpt`](skills/ask-to-chatgpt/SKILL.md) | You need to submit a user-provided question through Aside Browser and return the full response. |
+| [`ask-to-web-gemini`](skills/ask-to-web-gemini/SKILL.md) | You need to submit a user-provided question to Web Gemini (`gemini.google.com`) through Aside CLI using Argon at High thinking level and return the full response. |
+| [`debate-web-models`](skills/debate-web-models/SKILL.md) | You need Web ChatGPT (highest reasoning) and Web Gemini (Argon High) to run a falsification-driven debate across up to 3 rounds via Aside CLI and synthesize consensus, ruled-out alternatives, and decision boundaries. |
+| [`evaluate-with-chatgpt`](skills/evaluate-with-chatgpt/SKILL.md) | You need a privacy-filtered packet and locally validated ChatGPT review. |
+
+### Agent collaboration
+
+| Skill | Use it when |
+| --- | --- |
+| [`by-subagent`](skills/by-subagent/SKILL.md) | You need bounded independent workers and want each worker to load only its task-specific skills and evidence. |
+| [`orchestrate-agent-team`](skills/orchestrate-agent-team/SKILL.md) | You need to coordinate a product owner and agent teams for a software project. |
+
+### Requirements, implementation, and release
+
+| Skill | Use it when |
+| --- | --- |
+| [`interview-for-requirements`](skills/interview-for-requirements/SKILL.md) | You need to clarify software requirements before planning. |
+| [`sdlc-stage-rubrics`](skills/sdlc-stage-rubrics/SKILL.md) | You need risk-tiered 0–4 rubrics, non-compensatory hard-fail gates, and evidence contracts across Requirement, Implementation, Verification, and Operation. |
+| [`sdd-00-orchestrate-implementation`](skills/spec-driven-development/00-orchestration/sdd-00-orchestrate-implementation/SKILL.md) | You need to coordinate substantial work from specification through release readiness. |
+| [`sdd-01-plan-repository-implementation`](skills/spec-driven-development/01-plan/sdd-01-plan-repository-implementation/SKILL.md) | You need a read-only, repository-grounded implementation plan. |
+| [`sdd-02-assess-implementation-spec`](skills/spec-driven-development/02-assessment/sdd-02-assess-implementation-spec/SKILL.md) | You need evidence-based review or refinement of an implementation specification. |
+| [`sdd-03-execute-implementation-plan`](skills/spec-driven-development/03-execution-and-verification/sdd-03-execute-implementation-plan/SKILL.md) | You approved a multi-phase plan and want its work implemented and verified. |
+| [`sdd-04-verify-implementation-independently`](skills/spec-driven-development/04-independent-verification/sdd-04-verify-implementation-independently/SKILL.md) | You need a separate reviewer to verify implementation evidence and acceptance criteria. |
+| [`sdd-05-assess-release-readiness`](skills/spec-driven-development/05-release-readiness/sdd-05-assess-release-readiness/SKILL.md) | You need an evidence-based release decision after Independent Verification and before publication. |
 
 `career-management` and `.sdd-local/` are local-only and are excluded from the public package.
+
+## External upstream skills
+
+Unmodified third-party skills are linked upstream rather than embedded in this repository:
+
+| Skill | Upstream source | License | Use it when |
+| --- | --- | --- | --- |
+| `caveman` | [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman/blob/main/skills/caveman/SKILL.md) | Apache-2.0 | You want terse responses without losing technical facts. |
+| `ponytail` | [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail/blob/main/skills/ponytail/SKILL.md) | MIT | You want minimal-diff coding discipline and YAGNI guardrails. |
+| `socratic-tutor` | [janestreet/agent_skills](https://github.com/janestreet/agent_skills/blob/master/socratic-tutor/SKILL.md) | MIT | You want structured Socratic tutoring or practice toward mastery. |
 
 ## Recommended workflow
 
@@ -52,19 +81,20 @@ Run these commands from a trusted checkout. Codex reads `~/.codex/skills/`; Clau
 ```sh
 skill_home="$HOME/.codex/skills" # For Claude Code: "$HOME/.claude/skills"
 mkdir -p "$skill_home"
-for skill in remove-ai-slop ask-chatgpt ask-to-web-gemini debate-web-models sdlc-stage-rubrics evaluate-with-chatgpt by-subagent orchestrate-agent-team interview-for-requirements socratic-tutor spec-driven-development/*/sdd-*; do
+for skill in "$PWD"/skills/* "$PWD"/skills/spec-driven-development/*/sdd-*; do
+  [ -f "$skill/SKILL.md" ] || continue
   name="${skill##*/}"
   if [ -e "$skill_home/$name" ] || [ -L "$skill_home/$name" ]; then
     printf 'Already exists: %s\n' "$skill_home/$name" >&2
     continue
   fi
-  cp -R "$skill" "$skill_home/$name"
+  ln -s "$skill" "$skill_home/$name"
 done
 ```
 
 Start a new session and check the available skills. In Codex, explicitly invoke a skill with `$sdd-01-plan-repository-implementation`. In Claude Code, use `/sdd-01-plan-repository-implementation`. Automatic selection depends on the host and is not guaranteed. Check the host's output when discovery or invocation fails.
 
-For copied installations, update the checkout with `git pull --ff-only`, remove an installed folder only after confirming its contents, and copy the new folder using the same loop. To remove a skill, inspect its path and delete only that installed folder. For symlink installations, update the checkout; the link then points to the updated contents. Renamed folders need new links.
+Update the checkout with `git pull --ff-only` to refresh linked skills. If a link points to the old repository layout, inspect it and replace it with a link to the matching directory under `skills/`. Existing copies require a separate update.
 
 ### Migration
 
@@ -73,10 +103,11 @@ Existing invocation names do not remain as compatibility aliases. Remove or relo
 | Previous name | New name |
 | --- | --- |
 | `ai-slop-postprocess` | `remove-ai-slop` |
-| `ask-to-chatgpt` | `ask-chatgpt` |
+| `ask-chatgpt` | `ask-to-chatgpt` |
 | `chatgpt-rubric-evaluator` | `evaluate-with-chatgpt` |
 | `codex-team-orchestration` | `orchestrate-agent-team` |
 | `requirements-interview` | `interview-for-requirements` |
+| `teach-socratically` | Upstream [`socratic-tutor`](https://github.com/janestreet/agent_skills/blob/master/socratic-tutor/SKILL.md) (linked upstream, not packaged locally) |
 | `implementation-workflow-orchestrator` | `sdd-00-orchestrate-implementation` |
 | `repository-implementation-planner` | `sdd-01-plan-repository-implementation` |
 | `implementation-spec-assessor` | `sdd-02-assess-implementation-spec` |
@@ -88,37 +119,33 @@ Existing invocation names do not remain as compatibility aliases. Remove or relo
 
 ### Selection boundaries
 
-Use each skill for the trigger in the list above. Use `by-subagent` only when delegation is allowed; use `orchestrate-agent-team` for coordinating a team, not a single bounded worker. Use `interview-for-requirements` for unclear requirements, not when sufficient requirements already exist. Use `socratic-tutor` for requested instruction or practice, not a one-off explanation. Use `remove-ai-slop` for observable prose issues, not factual rewriting. Use `ask-chatgpt` to submit a supplied question to ChatGPT, `ask-to-web-gemini` to submit a supplied question to Web Gemini (Argon High), and `debate-web-models` to run a multi-round consensus debate between both web models; use `sdlc-stage-rubrics` for portable 4-stage SDLC scoring and gating definitions; use `evaluate-with-chatgpt` for a bounded, locally validated evaluation. The SDD skills have separate planning, assessment, execution, independent verification and release decisions; skip the formal workflow for a small direct request.
+Use each skill for the trigger in the list above. Use `by-subagent` only when delegation is allowed; use `orchestrate-agent-team` for coordinating a team, not a single bounded worker. Use `interview-for-requirements` for unclear requirements, not when sufficient requirements already exist (for structured instruction or practice, install upstream `socratic-tutor`). Use `remove-ai-slop` for observable prose issues in a supplied document, not factual rewriting; use `anti-slop` while drafting your own prose and for its deterministic checker. Use `ask-to-chatgpt` to submit a supplied question to ChatGPT, `ask-to-web-gemini` to submit a supplied question to Web Gemini (Argon High), and `debate-web-models` to run a multi-round consensus debate between both web models; use `sdlc-stage-rubrics` for portable 4-stage SDLC scoring and gating definitions; use `evaluate-with-chatgpt` for a bounded, locally validated evaluation. The SDD skills have separate planning, assessment, execution, independent verification and release decisions; skip the formal workflow for a small direct request.
 
 ## Requirements
 
-The Planner, Executor, Orchestrator, Independent Workflow Verifier, and Release Readiness Assessor use Markdown instructions. The Assessor's scripts and tests require Python 3.11 or newer. The ChatGPT Rubric Evaluator requires Python 3.10 or newer and uses the standard library. Install its pinned dependencies in an isolated environment:
+The Planner, Executor, Orchestrator, Independent Workflow Verifier, and Release Readiness Assessor use Markdown instructions. The Assessor's scripts and tests require Python 3.11 or newer. The ChatGPT Rubric Evaluator requires Python 3.10 or newer and uses the standard library. Install the Assessor and repository test dependencies in an isolated environment:
 
 ```sh
 python3.11 -m venv .venv
 . .venv/bin/activate
-python -m pip install -r spec-driven-development/02-assessment/sdd-02-assess-implementation-spec/requirements.txt
+python -m pip install -r skills/spec-driven-development/02-assessment/sdd-02-assess-implementation-spec/requirements.txt
 ```
 
-## Validate
+## Contributing
 
-Run the repository package check and the Assessor and Release Readiness tests from the repository root:
-
-```sh
-python scripts/validate_public_package.py
-python -m pytest -q spec-driven-development/02-assessment/sdd-02-assess-implementation-spec/tests
-python -m pytest -q spec-driven-development/05-release-readiness/sdd-05-assess-release-readiness/tests
-python -m unittest discover -s evaluate-with-chatgpt/tests -v
-```
+1. Check the catalog for an existing skill that covers the proposed task.
+2. Read [AGENTS.md](AGENTS.md) for admission criteria, package rules, and required checks.
+3. Make the change under `skills/`, update affected catalog and validator entries, and run the checks.
+4. Open a pull request describing the use case and the checks you ran.
 
 Run the Assessor's report validator from its folder:
 
 ```sh
-cd spec-driven-development/02-assessment/sdd-02-assess-implementation-spec
+cd skills/spec-driven-development/02-assessment/sdd-02-assess-implementation-spec
 python scripts/validate_assessment.py --report tests/fixtures/reports/excellent.json --source tests/fixtures/excellent-prompt.md
 ```
 
-The manual release scenario is in `spec-driven-development/05-release-readiness/sdd-05-assess-release-readiness/scenarios/`. Do not treat it as an automated test or claim it ran without recorded evidence.
+The manual release scenario is in `skills/spec-driven-development/05-release-readiness/sdd-05-assess-release-readiness/scenarios/`. Do not treat it as an automated test or claim it ran without recorded evidence.
 
 ## License
 

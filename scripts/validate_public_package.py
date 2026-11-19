@@ -17,22 +17,22 @@ except ImportError as exc:  # pragma: no cover - exercised by missing dependency
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS = (
-    "remove-ai-slop",
-    "ask-chatgpt",
-    "ask-to-web-gemini",
-    "debate-web-models",
-    "sdlc-stage-rubrics",
-    "by-subagent",
-    "orchestrate-agent-team",
-    "evaluate-with-chatgpt",
-    "interview-for-requirements",
-    "socratic-tutor",
-    "spec-driven-development/00-orchestration/sdd-00-orchestrate-implementation",
-    "spec-driven-development/01-plan/sdd-01-plan-repository-implementation",
-    "spec-driven-development/02-assessment/sdd-02-assess-implementation-spec",
-    "spec-driven-development/03-execution-and-verification/sdd-03-execute-implementation-plan",
-    "spec-driven-development/04-independent-verification/sdd-04-verify-implementation-independently",
-    "spec-driven-development/05-release-readiness/sdd-05-assess-release-readiness",
+    "skills/remove-ai-slop",
+    "skills/anti-slop",
+    "skills/ask-to-chatgpt",
+    "skills/ask-to-web-gemini",
+    "skills/debate-web-models",
+    "skills/sdlc-stage-rubrics",
+    "skills/by-subagent",
+    "skills/orchestrate-agent-team",
+    "skills/evaluate-with-chatgpt",
+    "skills/interview-for-requirements",
+    "skills/spec-driven-development/00-orchestration/sdd-00-orchestrate-implementation",
+    "skills/spec-driven-development/01-plan/sdd-01-plan-repository-implementation",
+    "skills/spec-driven-development/02-assessment/sdd-02-assess-implementation-spec",
+    "skills/spec-driven-development/03-execution-and-verification/sdd-03-execute-implementation-plan",
+    "skills/spec-driven-development/04-independent-verification/sdd-04-verify-implementation-independently",
+    "skills/spec-driven-development/05-release-readiness/sdd-05-assess-release-readiness",
 )
 REQUIRED_ROOT_FILES = ("README.md", "LICENSE", ".gitignore")
 MARKDOWN_LINK = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
@@ -126,7 +126,7 @@ def main() -> int:
                 if not isinstance(interface, dict) or not interface.get("display_name") or not interface.get("short_description"):
                     fail(errors, f"incomplete UI metadata: {metadata.relative_to(ROOT)}")
 
-    assessor = ROOT / "spec-driven-development" / "02-assessment" / "sdd-02-assess-implementation-spec"
+    assessor = ROOT / "skills" / "spec-driven-development" / "02-assessment" / "sdd-02-assess-implementation-spec"
     manifest_path = assessor / "MANIFEST.txt"
     if manifest_path.is_file():
         listed = {line.strip() for line in manifest_path.read_text(encoding="utf-8").splitlines() if line.strip()}
@@ -139,9 +139,15 @@ def main() -> int:
         if listed != actual:
             fail(errors, f"Assessor MANIFEST.txt differs: missing={sorted(actual - listed)}, extra={sorted(listed - actual)}")
     else:
-        fail(errors, "missing spec-driven-development/02-assessment/sdd-02-assess-implementation-spec/MANIFEST.txt")
+        fail(errors, "missing skills/spec-driven-development/02-assessment/sdd-02-assess-implementation-spec/MANIFEST.txt")
 
     files = package_files()
+    registered = set(SKILLS)
+    for path in files:
+        if path.name == "SKILL.md":
+            folder = path.parent.relative_to(ROOT).as_posix()
+            if folder not in registered:
+                fail(errors, f"unregistered skill folder (add it to SKILLS and README.md): {folder}")
     for path in files:
         relative = path.relative_to(ROOT)
         if path.suffix == ".pyc" or any(part in CACHE_PARTS for part in relative.parts):
