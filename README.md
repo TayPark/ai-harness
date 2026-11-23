@@ -20,8 +20,8 @@ Version: `v0.3.0`.
 | Skill | Use it when |
 | --- | --- |
 | [`ask-to-chatgpt`](skills/ask-to-chatgpt/SKILL.md) | You need to submit a user-provided question through Aside Browser and return the full response. |
-| [`ask-to-web-gemini`](skills/ask-to-web-gemini/SKILL.md) | You need to submit a user-provided question to Web Gemini (`gemini.google.com`) through Aside CLI using Argon at High thinking level and return the full response. |
-| [`debate-web-models`](skills/debate-web-models/SKILL.md) | You need Web ChatGPT (highest reasoning) and Web Gemini (Argon High) to run a falsification-driven debate across up to 3 rounds via Aside CLI and synthesize consensus, ruled-out alternatives, and decision boundaries. |
+| [`ask-to-web-gemini`](skills/ask-to-web-gemini/SKILL.md) | You need to submit a user-provided question to Web Gemini (`gemini.google.com`) through Aside CLI using Neon at High thinking level and return the full response. |
+| [`debate-web-models`](skills/debate-web-models/SKILL.md) | You need Web ChatGPT (highest reasoning) and Web Gemini (Neon High) to run a falsification-driven debate across up to 3 rounds via Aside CLI and synthesize consensus, ruled-out alternatives, and decision boundaries. |
 | [`evaluate-with-chatgpt`](skills/evaluate-with-chatgpt/SKILL.md) | You need a privacy-filtered packet and locally validated ChatGPT review. |
 
 ### Agent collaboration
@@ -76,10 +76,10 @@ For a small, direct implementation request that does not need a formal plan, imp
 
 ## Install, invoke, and update
 
-Run these commands from a trusted checkout. Codex reads `~/.codex/skills/`; Claude Code reads `~/.claude/skills/`. For project-only Claude Code installation use `.claude/skills/` instead. Check destinations first: the loop refuses to overwrite an existing folder or link.
+Run these commands from a trusted checkout. Codex reads `~/.codex/skills/`; Claude Code reads `~/.claude/skills/`; Antigravity reads `~/.gemini/config/skills/`. For project-only installation use `.claude/skills/` (Claude Code) or `.agents/skills/` (Antigravity) instead. Check destinations first: the loop refuses to overwrite an existing folder or link.
 
 ```sh
-skill_home="$HOME/.codex/skills" # For Claude Code: "$HOME/.claude/skills"
+skill_home="$HOME/.codex/skills" # Claude Code: "$HOME/.claude/skills" | Antigravity: "$HOME/.gemini/config/skills"
 mkdir -p "$skill_home"
 for skill in "$PWD"/skills/* "$PWD"/skills/spec-driven-development/*/sdd-*; do
   [ -f "$skill/SKILL.md" ] || continue
@@ -119,7 +119,7 @@ Existing invocation names do not remain as compatibility aliases. Remove or relo
 
 ### Selection boundaries
 
-Use each skill for the trigger in the list above. Use `by-subagent` only when delegation is allowed; use `orchestrate-agent-team` for coordinating a team, not a single bounded worker. Use `interview-for-requirements` for unclear requirements, not when sufficient requirements already exist (for structured instruction or practice, install upstream `socratic-tutor`). Use `remove-ai-slop` for observable prose issues in a supplied document, not factual rewriting; use `anti-slop` while drafting your own prose and for its deterministic checker. Use `ask-to-chatgpt` to submit a supplied question to ChatGPT, `ask-to-web-gemini` to submit a supplied question to Web Gemini (Argon High), and `debate-web-models` to run a multi-round consensus debate between both web models; use `sdlc-stage-rubrics` for portable 4-stage SDLC scoring and gating definitions; use `evaluate-with-chatgpt` for a bounded, locally validated evaluation. The SDD skills have separate planning, assessment, execution, independent verification and release decisions; skip the formal workflow for a small direct request.
+Use each skill for the trigger in the list above. Use `by-subagent` only when delegation is allowed; use `orchestrate-agent-team` for coordinating a team, not a single bounded worker. Use `interview-for-requirements` for unclear requirements, not when sufficient requirements already exist (for structured instruction or practice, install upstream `socratic-tutor`). Use `remove-ai-slop` for observable prose issues in a supplied document, not factual rewriting; use `anti-slop` while drafting your own prose and for its deterministic checker. Use `ask-to-chatgpt` to submit a supplied question to ChatGPT, `ask-to-web-gemini` to submit a supplied question to Web Gemini (Neon High), and `debate-web-models` to run a multi-round consensus debate between both web models; use `sdlc-stage-rubrics` for portable 4-stage SDLC scoring and gating definitions; use `evaluate-with-chatgpt` for a bounded, locally validated evaluation. The SDD skills have separate planning, assessment, execution, independent verification and release decisions; skip the formal workflow for a small direct request.
 
 ## Requirements
 

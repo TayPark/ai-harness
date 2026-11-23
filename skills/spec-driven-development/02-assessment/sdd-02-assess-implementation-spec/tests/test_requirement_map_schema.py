@@ -57,6 +57,25 @@ def test_source_parser_extracts_exact_registry_and_matrix():
     ]
 
 
+@pytest.mark.parametrize(
+    "heading",
+    [
+        "## Requirement → AC → Task → Verification Mapping",
+        "## Requirement -> AC -> Task -> Verification Mapping",
+    ],
+)
+def test_source_parser_accepts_english_matrix_headings(heading):
+    source = f"""{heading}
+
+| Requirement | AC IDs | Task IDs | Verification IDs |
+|---|---|---|---|
+| R-01 First | AC-01 | T-02 | V-02 |
+"""
+    assert parse_requirement_matrix(source) == [
+        {"requirement_id": "R-01", "acceptance_ids": ["AC-01"], "task_ids": ["T-02"], "verification_ids": ["V-02"]},
+    ]
+
+
 def test_gate_transitions_fail_closed():
     assert not validate_gate_transition("PLAN_ASSESSMENT", "NOT_RUN", "IN_PROGRESS")
     assert not validate_gate_transition("PLAN_ASSESSMENT", "IN_PROGRESS", "READY")

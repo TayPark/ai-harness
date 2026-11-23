@@ -10,7 +10,10 @@ Use this skill when the user asks you to implement or resume a software plan tha
 ## 1. Confirm the working state
 
 1. Read user instructions, applicable `AGENTS.md` files, the plan, and the specifications it names.
-2. Verify explicit approval before state-changing execution. A plan approval record must identify the approved plan version and scope. An explicit current-session user instruction to implement the identified plan is also approval; record the instruction and scope in the progress record. Plan creation, silence, or a request to review is not approval.
+2. Verify explicit approval before state-changing execution. Match the approval level to the workflow mode:
+   - **Gated SDD workflow** (when orchestrated by `sdd-00-orchestrate-implementation` or backed by a workflow record): require `Spec Gate PASS`, `Plan Gate READY`, `approval_record.status == APPROVED` bound to the exact current `spec_hash`, `plan_hash`, `input_hash`, and `approved_scope`, plus a `VERIFIED` sandbox before editing or running state-changing commands.
+   - **Standalone plan execution** (outside a formal SDD workflow record): require an approval record or explicit current-session user instruction naming the approved plan version and scope, and record that instruction and scope in the progress record.
+   Plan creation, silence, `READY` alone, or a request to review is never approval.
 3. If no approval evidence exists, stop before editing or running state-changing commands. Report the missing approval evidence and ask for authorization.
 4. Inspect the real repository path, branch, `HEAD`, worktree status, diffs, and active processes or agents.
 5. Preserve existing user changes. Do not reset, overwrite, delete, commit, merge, or push unless the user authorized that action.
@@ -41,16 +44,49 @@ Track implementation and verification separately. Use explicit states such as `n
 
 ### Sandbox, trace, checkpoint, and reproducibility evidence
 
-Start execution only after Plan Gate is `READY` and the workflow approval is `APPROVED` for the exact current hashes and scope. Use the supported sandbox provider adapter for the environment; do not assume a specific operating system or provider.
+Start gated SDD execution only after Plan Gate is `READY` and `approval_record.status` is `APPROVED` for the exact current hashes and scope.
 
-Before execution, record the actual OS, architecture, Python, agent, and tool versions, plus the sandbox provider and policy/profile versions and SHA-256 hashes, in the workflow record. Do not infer values that are unavailable. Run both probes under a deny-by-default policy after approval:
+Discover the active sandbox provider adapter in order without assuming a fixed OS or host:
+1. Check host-managed sandbox environment metadata or CLI configuration (for example macOS `sandbox-exec` profile, Linux `bwrap`/`firejail`, container runtime policy, or host agent sandbox configuration).
+2. Read the active provider name, policy/profile version, and compute SHA-256 hashes of the exact active policy/profile files.
+3. If no deny-by-default adapter is available, or the active policy/profile files or hashes cannot be inspected, set `sandbox.status` to `UNAVAILABLE` (or `UNVERIFIED`), block `AGENT_EXECUTION`, and report the missing adapter or policy evidence to the Orchestrator. Do not treat an unsandboxed shell as isolated and do not weaken policy to obtain a pass.
+
+Before execution, record the actual OS, architecture, Python, agent, and tool versions, plus the sandbox provider and policy/profile versions and SHA-256 hashes, in the workflow record. Do not infer values that are unavailable. Run both probes under the active deny-by-default policy after approval:
 
 1. Attempt a write to a disposable path outside the scoped root and verify that the operation is denied and the target is absent. Do not use a protected or user-data worktree as the probe target.
 2. Write a probe artifact inside the allowed scoped output and verify a successful exit and its SHA-256 hash.
 
 Record each probe's relative path, expected and observed result, exit code, and evidence ID in the workflow record. Store each evidence hash in the tool trace artifact hashes and the related gate evidence row. Mark the sandbox `VERIFIED` only when the provider, versions, hashes, and both results are known and match expectations. If the provider is unavailable, a hash is unknown, the deny probe succeeds, or the scoped write fails, record the actual unavailable or failed state and block the Execution Gate. Do not weaken the policy to obtain a pass.
 
-Create one tool trace for each tool invocation. Record `trace_id`, `workflow_id`, `task_id`, `tool_name`, actual `tool_version`, `started_at`, `ended_at`, redacted input and output summaries, `exit_code`, status, `artifact_hashes`, `checkpoint_id`, `relative_cwd`, and `redactions` with `secrets_redacted`, `absolute_home_paths_redacted`, and evidence IDs. Do not include secrets or absolute home paths. If a required runtime or tool version cannot be established, mark the affected evidence `UNVERIFIED` and do not pass its gate.
+Create one tool trace for each tool invocation matching `skills/spec-driven-development/02-assessment/sdd-02-assess-implementation-spec/schemas/tool-trace.schema.json`. Record `trace_id`, `workflow_id`, `task_id`, `tool_name`, actual `tool_version`, `started_at`, `ended_at`, redacted input and output summaries, `exit_code`, status, `artifact_hashes`, `checkpoint_id`, `relative_cwd`, and `redactions` with `secrets_redacted`, `absolute_home_paths_redacted`, and evidence IDs. Do not include secrets or absolute home paths. If a required runtime or tool version cannot be established, mark the affected evidence `UNVERIFIED` and do not pass its gate.
+
+Minimal sandbox-probe and tool-trace example (replace placeholders with observed values):
+
+```json
+{
+  "sandbox_probes": [
+    {"probe_id": "probe-deny-1", "kind": "OUT_OF_SCOPE_WRITE", "attempted": true, "relative_path": "../outside-probe.tmp", "exit_code": 1, "expected_result": "BLOCKED", "observed_result": "BLOCKED", "evidence_id": "E-PROBE-DENY"},
+    {"probe_id": "probe-allow-1", "kind": "SCOPED_OUTPUT", "attempted": true, "relative_path": ".sdd-local/runs/<uuid>/probe-ok.txt", "exit_code": 0, "expected_result": "SUCCESS", "observed_result": "SUCCESS", "evidence_id": "E-PROBE-ALLOW"}
+  ],
+  "tool_trace": {
+    "trace_id": "trace-001",
+    "workflow_id": "d53e1c45-7793-4b58-94e6-9687519303dd",
+    "task_id": "T-01",
+    "tool_name": "pytest",
+    "tool_version": "8.3.4",
+    "started_at": "2026-11-23T09:00:00Z",
+    "ended_at": "2026-11-23T09:00:02Z",
+    "input_summary": "pytest -q tests",
+    "output_summary": "9 passed",
+    "exit_code": 0,
+    "status": "PASS",
+    "artifact_hashes": ["<64-hex-sha256>"],
+    "checkpoint_id": "cp-001",
+    "relative_cwd": "tests",
+    "redactions": {"secrets_redacted": true, "absolute_home_paths_redacted": true, "evidence_ids": ["E-TEST-01"]}
+  }
+}
+```
 
 Create a checkpoint at task or phase boundaries and whenever execution pauses. Record `checkpoint_id`, `task_id`, `created_at`, state, `repo_commit`, `trace_ids`, `artifact_hashes`, and `resume_allowed`. Before resuming, recheck the recorded commit, approval, inputs, and artifact hashes. If they do not match, return to the affected gate and reassess; do not treat the checkpoint as proof of completion.
 

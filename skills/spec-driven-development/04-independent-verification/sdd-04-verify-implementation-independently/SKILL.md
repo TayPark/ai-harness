@@ -22,19 +22,20 @@ Use after implementation to verify the result against the approved plan. This sk
 - latest READY assessment source hash, rubric version, and report path
 - Executor identity and phase records
 - repository path, starting and current branch/HEAD, changed-file list, and diff
+- frozen candidate manifest and exact SHA-256 candidate digest (`input_hash` / `artifact_digest`)
 - acceptance criteria, test commands, exit results, and evidence paths
 
 If any required input is missing, report the gap. Do not infer a value from the Executor's completion claim.
 
 ## Verification
 
-1. Confirm the workflow record matches the approved plan hash, scope, READY assessment hash, and current repository state. If the plan changed, return `FAIL` and require reassessment and approval.
+1. Confirm the workflow record matches the approved plan hash, scope, READY assessment hash, and current repository state. Verify the candidate's SHA-256 digest against the frozen candidate manifest without modifying either. Capture the exact digest for `verification-report.md` and return `FAIL` if it differs. If the plan changed, return `FAIL` and require reassessment and approval.
 2. Inspect the diff and changed files as a critic against the approved scope. Report unapproved or missing changes, regressions, unhandled edge cases, silent error swallowing, or partial implementations.
 3. Map each acceptance criterion to direct evidence. Inspect command output and exit results, and check whether tests are superficial or tautological rather than proving the real requirement. Rerun relevant safe checks when possible.
 4. Check that failed or unrun commands are not reported as passed. Mark unavailable runtime behavior `UNVERIFIED`.
 5. Return `PASS` only when the reviewer is independent and every mandatory acceptance criterion has passing evidence. Return `FAIL` when evidence shows a scope, behavior, or acceptance failure. Otherwise return `UNVERIFIED`.
 6. Before writing, resolve the workflow record and report paths. Require the report to remain in the workflow record's repository directory. Reject path traversal or symlink escape. If path validation fails or the report exists, return the report contents inline and write nothing.
-7. Write `verification-report.md` beside the workflow record. Include workflow ID, verifier and Executor identities, independence status, inspected plan hash and repository HEAD, criteria and evidence, commands and exit results, findings, and final status.
+7. Write `verification-report.md` beside the workflow record. Record the exact verified SHA-256 candidate digest (`input_hash` / `artifact_digest`) and confirm it matches the unmodified frozen candidate manifest so Release Readiness can check the same digest. Include workflow ID, verifier and Executor identities, independence status, inspected plan hash and repository HEAD, criteria and evidence, commands and exit results, findings, and final status.
 8. Give the report path and status to the Orchestrator. The Orchestrator records the verifier result and closes the workflow only after `PASS`. For release scope, it then invokes `skills/spec-driven-development/05-release-readiness/sdd-05-assess-release-readiness` before publication. Do not run the Release Gate yourself.
 
 ## Output rules

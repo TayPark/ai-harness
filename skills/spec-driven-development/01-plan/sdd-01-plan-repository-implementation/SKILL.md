@@ -30,6 +30,18 @@ When release is in scope, place the dedicated Release Readiness Gate after Indep
 
 Use repository paths and source references. Do not invent owners, thresholds, dates, performance figures, or completion claims. Label estimates and assumptions when the evidence does not establish them. Keep the plan proportional to the requested work.
 
+## Authoritative requirement matrix
+
+When the plan enters the gated SDD workflow (`sdd-02-assess-implementation-spec`), include an authoritative requirement traceability matrix under the exact heading `## Requirement → AC → Task → Verification Mapping` (ASCII `->` or the Korean heading `## 요구사항 → AC → task → verification 매핑` is also accepted by `validate_assessment.py`). List every `R-NN` requirement once with non-empty `AC-NN`, `T-NN`, and `V-NN` IDs:
+
+```markdown
+## Requirement → AC → Task → Verification Mapping
+
+| Requirement | AC IDs | Task IDs | Verification IDs |
+| --- | --- | --- | --- |
+| R-01 <concise requirement> | AC-01 | T-01 | V-01 |
+```
+
 ## Approval record
 
 Every plan must end with an approval record:

@@ -6,6 +6,7 @@ __pycache__/
 .ruff_cache/
 
 # Local environments and run artifacts
+/.sdd-local/
 .venv/
 .work/
 .coverage

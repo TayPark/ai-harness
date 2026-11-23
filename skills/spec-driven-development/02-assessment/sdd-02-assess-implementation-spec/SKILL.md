@@ -23,7 +23,7 @@ Set `gate_name` to `PLAN_ASSESSMENT`. Use a separate report, `input_hash`, and `
 
 Every gate report must contain at least one `requirement_links` row. Spec Gate links must be exact rows from the workflow record's `requirement_map`; do not invent or alter requirement, acceptance, task, or verification IDs. Plan and later gate reports must match the full workflow `requirement_map` exactly.
 
-Build Plan Gate `requirement_links` from the plan's authoritative R → AC → T → V matrix. Each source requirement ID must appear once. Every row must contain one or more unique acceptance, task, and verification IDs. Reject missing, duplicate, dangling, or mismatched links. Set Plan Gate to `BLOCKED` if any link check fails.
+Build Plan Gate `requirement_links` from the plan's authoritative R → AC → T → V matrix under `## Requirement → AC → Task → Verification Mapping` (ASCII `->` and the Korean heading `## 요구사항 → AC → task → verification 매핑` are both parsed by `scripts/validate_assessment.py`). Each source requirement ID must appear once. Every row must contain one or more unique acceptance, task, and verification IDs. Reject missing, duplicate, dangling, or mismatched links. Set Plan Gate to `BLOCKED` if any link check fails.
 
 Plan assessment verdict `READY` means Plan Gate may record `READY`; it does not record user approval. Execution still requires a separate approved record bound to the current hash tuple and scope.
 

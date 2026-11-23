@@ -1,3 +1,3 @@
 interface:
-  display_name: "Codex Team Orchestration"
-  short_description: "Help with Codex Team Orchestration tasks"
+  display_name: "Agent Team Orchestration"
+  short_description: "Coordinate PO, team leaders, implementers, and independent critics across multi-team software delivery"

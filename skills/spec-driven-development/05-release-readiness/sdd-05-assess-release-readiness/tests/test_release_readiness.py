@@ -114,3 +114,48 @@ def test_release_pass_requires_evidence_and_accepts_source_backed_slo_na():
         assert any(required in error and "evidence" in error for error in errors), (required, errors)
 
     assert validate_gate_report(release_report(with_evidence=True), workflow) == []
+
+
+def test_release_pass_rejected_when_independent_verification_failed():
+    workflow = release_workflow()
+    workflow["gate_state_map"]["INDEPENDENT_VERIFICATION"]["status"] = "FAIL"
+    errors = validate_gate_report(release_report(with_evidence=True), workflow)
+    assert any("Independent Verification PASS" in error for error in errors), errors
+
+
+def test_release_pass_rejected_when_release_out_of_scope():
+    workflow = release_workflow()
+    workflow["release_in_scope"] = False
+    errors = validate_gate_report(release_report(with_evidence=True), workflow)
+    assert any("release_in_scope" in error for error in errors), errors
+
+
+def test_release_pass_rejected_when_rollback_evidence_is_unverified():
+    workflow = release_workflow()
+    report = release_report(with_evidence=True)
+    for item in report["evidence"]:
+        if item["evidence_id"] == "E-ROLLBACK":
+            item["result"] = "UNVERIFIED"
+    report["report_hash"] = canonical_report_hash(report)
+    errors = validate_gate_report(report, workflow)
+    assert any("ROLLBACK" in error for error in errors), errors
+
+
+def test_release_pass_requires_nonempty_workflow_record_and_checks_evidence_independently():
+    errors_none = validate_gate_report(release_report(with_evidence=True), None)
+    assert any("workflow_record" in error for error in errors_none), errors_none
+
+    errors_empty = validate_gate_report(release_report(with_evidence=True), {})
+    assert any("workflow_record" in error for error in errors_empty), errors_empty
+
+    errors_both = validate_gate_report(release_report(with_evidence=False), None)
+    assert any("workflow_record" in error for error in errors_both), errors_both
+    for required in ("SECURITY", "ROLLBACK", "OPERATIONS", "SLO"):
+        assert any(required in error and "evidence" in error for error in errors_both), (required, errors_both)
+
+
+def test_release_pass_rejected_when_independent_verification_hash_mismatches():
+    workflow = release_workflow()
+    workflow["gate_state_map"]["INDEPENDENT_VERIFICATION"]["input_hash"] = "b" * 64
+    errors = validate_gate_report(release_report(with_evidence=True), workflow)
+    assert any("same candidate hash" in error or "candidate hashes differ" in error for error in errors), errors

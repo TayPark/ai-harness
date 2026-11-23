@@ -30,11 +30,16 @@ def canonical_report_hash(report):
     payload={k:v for k,v in report.items() if k!='report_hash'}
     return hashlib.sha256(json.dumps(payload,sort_keys=True,ensure_ascii=False,separators=(',',':'),allow_nan=False).encode('utf-8')).hexdigest()
 
+MATRIX_HEADING_RE = re.compile(
+    r'^##\s*(?:요구사항\s*(?:→|->)\s*AC\s*(?:→|->)\s*task\s*(?:→|->)\s*verification\s*매핑'
+    r'|Requirement(?:s)?\s*(?:→|->)\s*AC\s*(?:→|->)\s*Task(?:s)?\s*(?:→|->)\s*Verification\s*Mapping)\s*$',
+    re.IGNORECASE,
+)
+
 def parse_requirement_matrix(source):
-    marker='## 요구사항 → AC → task → verification 매핑'
     lines=source.splitlines()
-    try: start=lines.index(marker)+1
-    except ValueError: return []
+    start=next((idx+1 for idx,line in enumerate(lines) if MATRIX_HEADING_RE.match(line.strip())),None)
+    if start is None: return []
     rows=[]
     for line in lines[start:]:
         if not line.startswith('|'):
@@ -221,35 +226,60 @@ def validate_gate_report(report,workflow_record=None,source=None):
         if not set(row['evidence_ids'])<=evidence_ids: errors.append('error has dangling evidence ID')
     for evidence in report['evidence']:
         if evidence['result']=='N_A_WITH_RATIONALE' and not any(evidence['evidence_id'] in c['evidence_ids'] and c['status']=='N_A_WITH_RATIONALE' and c['rationale'] for c in report['checklist']): errors.append('N/A evidence lacks a rationale checklist row')
+    gate_name=report['gate_name']
+    if gate_name=='RELEASE_READINESS' and report['status']=='PASS':
+        evidence_by_id={e['evidence_id']:e for e in report['evidence']}
+        checks={c['check_id']:c for c in report['checklist']}
+        for check_id in ('SECURITY','ROLLBACK','OPERATIONS'):
+            row=checks.get(check_id)
+            if row is None or row['status']!='PASS' or not row['evidence_ids']:
+                errors.append(f'Release PASS requires {check_id} evidence')
+            elif any(evidence_by_id.get(eid,{}).get('result')!='PASS' for eid in row['evidence_ids']):
+                errors.append(f'Release PASS requires PASS evidence for {check_id}')
+        slo=checks.get('SLO')
+        if slo is None or slo['status'] not in ('PASS','N_A_WITH_RATIONALE') or not slo['evidence_ids']:
+            errors.append('Release PASS requires SLO evidence or evidence-backed N/A')
+        elif any(evidence_by_id.get(eid,{}).get('result') not in ('PASS','N_A_WITH_RATIONALE') for eid in slo['evidence_ids']):
+            errors.append('Release PASS requires passing or N/A evidence for SLO')
+        if not isinstance(workflow_record,dict) or not workflow_record:
+            errors.append('Release PASS requires workflow_record to verify release_in_scope and Independent Verification PASS')
+            workflow_record=None
+        else:
+            if workflow_record.get('release_in_scope') is not True:
+                errors.append('Release PASS requires release_in_scope to be true')
+            gate_states=workflow_record.get('gate_state_map')
+            iv_state=gate_states.get('INDEPENDENT_VERIFICATION') if isinstance(gate_states,dict) else None
+            if not isinstance(iv_state,dict) or iv_state.get('status')!='PASS':
+                errors.append('Release PASS requires Independent Verification PASS')
+            elif iv_state.get('input_hash')!=report['input_hash']:
+                errors.append('Release PASS requires Independent Verification PASS for the same candidate hash')
     if workflow_record is not None:
-        if report['workflow_id']!=workflow_record['workflow_id']: errors.append('workflow ID mismatch')
-        gate_name=report['gate_name']
+        if report['workflow_id']!=workflow_record.get('workflow_id'): errors.append('workflow ID mismatch')
         if gate_name=='SPECIFICATION_ASSESSMENT' and report['input_hash']!=workflow_record['spec_hash']: errors.append('Spec Gate input hash mismatch')
         elif gate_name=='PLAN_ASSESSMENT' and report['input_hash']!=workflow_record['plan_hash']: errors.append('Plan Gate input hash mismatch')
         elif gate_name not in ('SPECIFICATION_ASSESSMENT','PLAN_ASSESSMENT'):
-            gate_input=workflow_record['gate_state_map'][gate_name]['input_hash']
+            gate_states=workflow_record.get('gate_state_map')
+            gate_state=gate_states.get(gate_name) if isinstance(gate_states,dict) else None
+            gate_input=gate_state.get('input_hash') if isinstance(gate_state,dict) else None
             if gate_input is None or report['input_hash']!=gate_input: errors.append(f'{gate_name} input hash differs from its gate state')
             if gate_name in ('INDEPENDENT_VERIFICATION','RELEASE_READINESS'):
-                freeze=next((cp for cp in workflow_record['checkpoints'] if cp['task_id']=='T-09' and cp['state']=='COMPLETE'),None)
-                if freeze is None or report['input_hash'] not in freeze['artifact_hashes']: errors.append(f'{gate_name} input hash is not bound to the T-09 frozen candidate')
+                checkpoints=workflow_record.get('checkpoints')
+                freeze=next((cp for cp in checkpoints if isinstance(cp,dict) and cp.get('task_id')=='T-09' and cp.get('state')=='COMPLETE'),{}) if isinstance(checkpoints,list) else {}
+                artifact_hashes=freeze.get('artifact_hashes')
+                if not isinstance(artifact_hashes,list) or report['input_hash'] not in artifact_hashes: errors.append(f'{gate_name} input hash is not bound to the T-09 frozen candidate')
                 peer='RELEASE_READINESS' if gate_name=='INDEPENDENT_VERIFICATION' else 'INDEPENDENT_VERIFICATION'
-                peer_hash=workflow_record['gate_state_map'][peer]['input_hash']
+                peer_state=gate_states.get(peer) if isinstance(gate_states,dict) else None
+                peer_hash=peer_state.get('input_hash') if isinstance(peer_state,dict) else None
                 if peer_hash is not None and peer_hash!=report['input_hash']: errors.append('Independent Verification and Release Readiness candidate hashes differ')
         if report['status']=='NOT_REQUIRED' and (report['gate_name']!='RELEASE_READINESS' or workflow_record['release_in_scope']): errors.append('NOT_REQUIRED only allowed for out-of-scope release')
         if report['gate_name']=='SPECIFICATION_ASSESSMENT':
             if any(row not in workflow_record['requirement_map'] for row in report['requirement_links']): errors.append('Spec Gate requirement links must be exact rows from workflow requirement_map')
-        elif report['requirement_links']!=workflow_record['requirement_map']:
+        elif report['requirement_links']!=workflow_record.get('requirement_map'):
             errors.append('gate requirement map mismatch')
         if report['gate_name']=='AGENT_EXECUTION' and report['status']=='PASS':
             if workflow_record['sandbox']['status']!='VERIFIED': errors.append('Execution PASS requires VERIFIED sandbox')
             probe_ids={p['evidence_id'] for p in workflow_record['sandbox']['probes'] if p['attempted']}
             if len(probe_ids)!=2 or not probe_ids<=evidence_ids: errors.append('Execution PASS requires both sandbox probe evidence rows')
-        if report['gate_name']=='RELEASE_READINESS' and report['status']=='PASS':
-            checks={c['check_id']:c for c in report['checklist']}
-            for check_id in ('SECURITY','ROLLBACK','OPERATIONS'):
-                if check_id not in checks or checks[check_id]['status']!='PASS' or not checks[check_id]['evidence_ids']: errors.append(f'Release PASS requires {check_id} evidence')
-            slo=checks.get('SLO')
-            if slo is None or slo['status'] not in ('PASS','N_A_WITH_RATIONALE') or not slo['evidence_ids']: errors.append('Release PASS requires SLO evidence or evidence-backed N/A')
     text=json.dumps(report,ensure_ascii=False)
     if re.search(r'/(?:Users|home)/',text): errors.append('privacy violation: absolute home path')
     return errors
@@ -382,7 +412,7 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__); parser.add_argument('--report',required=True,type=Path); parser.add_argument('--source',type=Path)
     args=parser.parse_args()
     try:
-        report=json.loads(args.report.read_text()); source=args.source.read_text() if args.source else None
+        report=json.loads(args.report.read_text(encoding='utf-8')); source=args.source.read_bytes().decode('utf-8') if args.source else None
     except json.JSONDecodeError as e:
         print(json.dumps(dict(passed=[],failed=['JSON parsing: '+str(e)],unverified=[]))); return 1
     except (OSError,UnicodeError) as e:
