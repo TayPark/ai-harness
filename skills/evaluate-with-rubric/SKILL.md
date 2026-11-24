@@ -49,7 +49,27 @@ python scripts/validate_report.py \
   --target /path/to/target
 ```
 
-Add `--rubric /path/to/project-rubric.json` to both commands for a project rubric. Supported default types are `code`, `document`, `data`, `config`, and `other`. See [schemas/rubric.schema.json](schemas/rubric.schema.json) and [schemas/report.schema.json](schemas/report.schema.json).
+Add `--rubric /path/to/project-rubric.json` to both commands for a project rubric. Supported default types are `code`, `document`, `data`, `config`, and `other`. See [schemas/rubric.schema.json](schemas/rubric.schema.json), [schemas/report.schema.json](schemas/report.schema.json), and [schemas/report-v2.schema.json](schemas/report-v2.schema.json).
+
+For calibrated judge runs, use [PROMPT-v2.md](PROMPT-v2.md) (critique-before-verdict key order, pinned `judge_metadata`, optional `run_telemetry`) and pass `--report-schema v2` to `validate_report.py`. V1 remains the default and fails closed on unknown fields.
+
+## Offline Eval Harness & Lifecycle Protocol
+
+Read [references/eval-lifecycle.md](references/eval-lifecycle.md) for cross-rubric error analysis, versioned stratified golden datasets ([schemas/golden-dataset.schema.json](schemas/golden-dataset.schema.json)), untrusted-evidence isolation, and non-compensatory CI regression gates.
+
+```sh
+# Calibrate a pinned LLM judge on a held-out test split (TPR/TNR, Wilson 95% CI, kappa, IRR)
+python scripts/calibrate_judge.py \
+  --dataset /path/to/golden-dataset.json \
+  --runs /path/to/judge-runs.json \
+  --positive-class FAIL
+
+# Compare candidate vs baseline runs (pass@k, pass^k, swap-order pairwise, bootstrap CI, McNemar, cost/latency)
+python scripts/compare_runs.py \
+  --baseline /path/to/baseline-runs.json \
+  --candidate /path/to/candidate-runs.json \
+  --seed 42
+```
 
 Run the built-in checks from this directory with `python3 -m unittest discover -s tests -v`.
 

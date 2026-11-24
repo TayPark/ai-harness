@@ -1,0 +1,246 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "report-v2.schema.json",
+  "title": "Calibrated Rubric Evaluation Report (v2.0)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "report_schema_version",
+    "packet_id",
+    "rubric_version",
+    "target_type",
+    "judge_metadata",
+    "dimensions",
+    "critical_conditions",
+    "summary"
+  ],
+  "properties": {
+    "report_schema_version": {
+      "const": "2.0"
+    },
+    "packet_id": {
+      "type": "string",
+      "pattern": "^pkt_[0-9a-f]{64}$"
+    },
+    "rubric_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "judge_metadata": {
+      "$ref": "#/$defs/judgeMetadata"
+    },
+    "run_telemetry": {
+      "$ref": "#/$defs/runTelemetry"
+    },
+    "dimensions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/dimension"
+      }
+    },
+    "critical_conditions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/criticalCondition"
+      }
+    },
+    "summary": {
+      "$ref": "#/$defs/summary"
+    }
+  },
+  "$defs": {
+    "evidenceRefs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^E[0-9]{4,}$"
+      }
+    },
+    "judgeMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model_id",
+        "model_version",
+        "prompt_sha256",
+        "rubric_sha256",
+        "temperature"
+      ],
+      "properties": {
+        "provider": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reasoning_effort": {
+          "type": "string",
+          "minLength": 1
+        },
+        "prompt_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "rubric_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "temperature": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 2
+        },
+        "run_index": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "runTelemetry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "blocking_deterministic_checks_passed": {
+          "type": "boolean"
+        },
+        "non_blocking_warnings": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "input_tokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "output_tokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "latency_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "cost_usd": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "dimension": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "evidence_refs",
+        "rationale",
+        "status",
+        "score"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]{0,47}$"
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/evidenceRefs"
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "SCORED",
+            "NOT_APPLICABLE",
+            "INSUFFICIENT_EVIDENCE"
+          ]
+        },
+        "score": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "criticalCondition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "evidence_refs",
+        "rationale",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]{0,47}$"
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/evidenceRefs"
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "CLEAR",
+            "TRIGGERED",
+            "NOT_APPLICABLE",
+            "INSUFFICIENT_EVIDENCE"
+          ]
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "weighted_score",
+        "decision"
+      ],
+      "properties": {
+        "weighted_score": {
+          "oneOf": [
+            {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "decision": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "INCONCLUSIVE"
+          ]
+        }
+      }
+    }
+  }
+}

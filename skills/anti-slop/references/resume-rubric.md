@@ -13,7 +13,7 @@ Score only observable slop patterns in the supplied resume text. Do not score fa
 
 The Ask-to-ChatGPT answer proposed weights for broad resume quality: factuality/evidence 25, individual contribution 20, specificity/metric quality 20, job relevance 15, information density/non-repetition 10, and naturalness/restraint 10. Those are not AI-slop weights. The table above adapts the proposal's weight pattern to observable slop only; it does not score factuality, completeness, or fit. These weights are a research-informed local adaptation, not an established standard.
 
-Record the text location and visible slop pattern for each score. A missing metric, action, result, skill, or qualification is not slop and does not lower this score.
+Record the exact text location and visible slop span **before** assigning each percentage score (critique-before-score). Run `scripts/check_slop.py --strict` first; calibrate any future weight revisions from stratified EN/KO error analysis rather than ad hoc intuition. A missing metric, action, result, skill, or qualification is not slop and does not lower this score.
 
 ## Research basis
 

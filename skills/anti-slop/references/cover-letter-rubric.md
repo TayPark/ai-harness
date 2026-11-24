@@ -12,7 +12,7 @@ Score only observable slop patterns in supplied or chat-drafted letter text. Do 
 
 The Ask-to-ChatGPT answer supplied qualitative priorities: company/job specificity, evidence-backed fit, and avoiding resume repetition. It supplied no point weights. The equal weights and slop-pattern interpretation above are local design choices, not research-derived weights or a letter quality standard.
 
-Record the text location and visible slop pattern for each score. If company or role facts were not supplied, do not invent them and do not lower the slop score for their absence. Flag any separate factual concern without changing it.
+Record the exact text location and visible slop span **before** assigning each percentage score (critique-before-score). Run `scripts/check_slop.py --strict` first; calibrate any future weight revisions from stratified EN/KO error analysis rather than ad hoc intuition. If company or role facts were not supplied, do not invent them and do not lower the slop score for their absence. Flag any separate factual concern without changing it.
 
 Keep all letter text in chat. Never create, edit, or save a cover-letter file.
 

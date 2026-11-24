@@ -12,7 +12,7 @@ Evaluate and gate software engineering deliverables across the four Software Dev
 3. **Verification (`V1`–`V7`)**: Does the frozen release candidate work under independent oracles and deployment-equivalent conditions?
 4. **Operation (`O1`–`O7`)**: Does the deployed service remain reliable, observable, secure, and recoverable in production?
 
-Read the full normative specification in [references/sdlc-rubrics-v2.md](references/sdlc-rubrics-v2.md) and the machine-readable rubric definition in [rubrics/sdlc-stages.json](rubrics/sdlc-stages.json).
+Read the full normative specification in [references/sdlc-rubrics-v2.md](references/sdlc-rubrics-v2.md), the conditional AI/LLM/Agent evaluation profile in [references/ai-evals-profile.md](references/ai-evals-profile.md), and the machine-readable rubric definition in [rubrics/sdlc-stages.json](rubrics/sdlc-stages.json).
 
 ## Common Scoring & Decision Rules
 

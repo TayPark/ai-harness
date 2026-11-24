@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import os
 import re
 import stat
@@ -49,6 +50,13 @@ def _reject_constant(value: str) -> None:
     raise ValueError(f"invalid JSON constant: {value}")
 
 
+def _finite_float(raw: str) -> float:
+    parsed = float(raw)
+    if not math.isfinite(parsed):
+        raise ValueError(f"non-finite JSON float: {raw}")
+    return parsed
+
+
 def _unique_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
     result: dict[str, Any] = {}
     for key, value in pairs:
@@ -59,7 +67,12 @@ def _unique_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
 
 
 def load_json(path: Path) -> Any:
-    return json.loads(path.read_text(encoding="utf-8"), object_pairs_hook=_unique_object, parse_constant=_reject_constant)
+    return json.loads(
+        path.read_text(encoding="utf-8"),
+        object_pairs_hook=_unique_object,
+        parse_constant=_reject_constant,
+        parse_float=_finite_float,
+    )
 
 
 def normalize_timestamp(value: str | None) -> str:
@@ -400,12 +413,7 @@ def _valid_refs(refs: Any, evidence_by_id: dict[str, dict[str, Any]], require_on
             errors.append(f"{label} cites evidence without included content: {ref}")
 
 
-def evaluate_report(packet: dict[str, Any], report: Any) -> tuple[list[str], float | None, str | None]:
-    errors: list[str] = []
-    if not isinstance(report, dict) or set(report) != {
-        "packet_id", "rubric_version", "target_type", "dimensions", "critical_conditions", "summary"
-    }:
-        return ["report must contain only the required report fields"], None, None
+def _evaluate_report_body(packet: dict[str, Any], report: dict[str, Any], errors: list[str]) -> tuple[float | None, str]:
     rubric = packet["rubric"]
     if report.get("packet_id") != packet["packet_id"]:
         errors.append("report packet_id does not match packet")
@@ -524,4 +532,111 @@ def evaluate_report(packet: dict[str, Any], report: Any) -> tuple[list[str], flo
             errors.append(f"summary weighted_score must equal locally calculated {weighted_score}")
         if summary.get("decision") != decision:
             errors.append(f"summary decision must equal locally calculated {decision}")
+    return weighted_score, decision
+
+
+def evaluate_report(packet: dict[str, Any], report: Any) -> tuple[list[str], float | None, str | None]:
+    errors: list[str] = []
+    if not isinstance(report, dict) or set(report) != {
+        "packet_id", "rubric_version", "target_type", "dimensions", "critical_conditions", "summary"
+    }:
+        return ["report must contain only the required report fields"], None, None
+    weighted_score, decision = _evaluate_report_body(packet, report, errors)
+    return errors, weighted_score, decision
+
+
+_SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
+_V2_REQUIRED_KEYS = {
+    "report_schema_version", "packet_id", "rubric_version", "target_type",
+    "judge_metadata", "dimensions", "critical_conditions", "summary",
+}
+_V2_OPTIONAL_KEYS = {"run_telemetry"}
+_JUDGE_META_REQUIRED = {"model_id", "model_version", "prompt_sha256", "rubric_sha256", "temperature"}
+_JUDGE_META_OPTIONAL = {"provider", "reasoning_effort", "run_index"}
+_TELEMETRY_KEYS = {
+    "blocking_deterministic_checks_passed", "non_blocking_warnings",
+    "input_tokens", "output_tokens", "latency_ms", "cost_usd",
+}
+
+
+def _validate_judge_metadata(meta: Any, packet_rubric_sha: str, errors: list[str]) -> None:
+    if not isinstance(meta, dict):
+        errors.append("judge_metadata must be a JSON object")
+        return
+    keys = set(meta)
+    missing = _JUDGE_META_REQUIRED - keys
+    extra = keys - (_JUDGE_META_REQUIRED | _JUDGE_META_OPTIONAL)
+    if missing:
+        errors.append(f"judge_metadata missing required fields: {sorted(missing)}")
+    if extra:
+        errors.append(f"judge_metadata has unknown fields: {sorted(extra)}")
+    for field in ("model_id", "model_version"):
+        val = meta.get(field)
+        if not isinstance(val, str) or not val.strip():
+            errors.append(f"judge_metadata.{field} must be a non-empty string")
+    for field in ("provider", "reasoning_effort"):
+        if field in meta and (not isinstance(meta[field], str) or not meta[field].strip()):
+            errors.append(f"judge_metadata.{field} must be a non-empty string")
+    for field in ("prompt_sha256", "rubric_sha256"):
+        val = meta.get(field)
+        if not isinstance(val, str) or not _SHA256_RE.fullmatch(val):
+            errors.append(f"judge_metadata.{field} must be a 64-character lowercase hex sha256")
+    if isinstance(meta.get("rubric_sha256"), str) and meta["rubric_sha256"] != packet_rubric_sha:
+        errors.append("judge_metadata.rubric_sha256 does not match packet rubric_sha256")
+    temp = meta.get("temperature")
+    if isinstance(temp, bool) or not isinstance(temp, (int, float)) or not math.isfinite(temp) or not 0 <= temp <= 2:
+        errors.append("judge_metadata.temperature must be a finite number from 0 through 2")
+    if "run_index" in meta:
+        idx = meta["run_index"]
+        if isinstance(idx, bool) or not isinstance(idx, int) or idx < 1:
+            errors.append("judge_metadata.run_index must be an integer >= 1")
+
+
+def _validate_run_telemetry(telemetry: Any, errors: list[str]) -> bool | None:
+    if not isinstance(telemetry, dict):
+        errors.append("run_telemetry must be a JSON object")
+        return None
+    extra = set(telemetry) - _TELEMETRY_KEYS
+    if extra:
+        errors.append(f"run_telemetry has unknown fields: {sorted(extra)}")
+    blocking_ok: bool | None = None
+    if "blocking_deterministic_checks_passed" in telemetry:
+        val = telemetry["blocking_deterministic_checks_passed"]
+        if not isinstance(val, bool):
+            errors.append("run_telemetry.blocking_deterministic_checks_passed must be a boolean")
+        else:
+            blocking_ok = val
+    if "non_blocking_warnings" in telemetry:
+        warnings = telemetry["non_blocking_warnings"]
+        if not isinstance(warnings, list) or not all(isinstance(w, str) and w.strip() for w in warnings):
+            errors.append("run_telemetry.non_blocking_warnings must be a list of non-empty strings")
+    for int_field in ("input_tokens", "output_tokens"):
+        if int_field in telemetry:
+            val = telemetry[int_field]
+            if isinstance(val, bool) or not isinstance(val, int) or val < 0:
+                errors.append(f"run_telemetry.{int_field} must be an integer >= 0")
+    for num_field in ("latency_ms", "cost_usd"):
+        if num_field in telemetry:
+            val = telemetry[num_field]
+            if isinstance(val, bool) or not isinstance(val, (int, float)) or not math.isfinite(val) or val < 0:
+                errors.append(f"run_telemetry.{num_field} must be a finite number >= 0")
+    return blocking_ok
+
+
+def evaluate_report_v2(packet: dict[str, Any], report: Any) -> tuple[list[str], float | None, str | None]:
+    errors: list[str] = []
+    if not isinstance(report, dict):
+        return ["report must be a JSON object"], None, None
+    keys = set(report)
+    if not (_V2_REQUIRED_KEYS <= keys <= (_V2_REQUIRED_KEYS | _V2_OPTIONAL_KEYS)):
+        return ["v2 report has missing or unknown fields"], None, None
+    if report.get("report_schema_version") != "2.0":
+        return [f"unsupported report_schema_version: {report.get('report_schema_version')!r}"], None, None
+    _validate_judge_metadata(report.get("judge_metadata"), packet["rubric_sha256"], errors)
+    blocking_ok: bool | None = None
+    if "run_telemetry" in report:
+        blocking_ok = _validate_run_telemetry(report.get("run_telemetry"), errors)
+    weighted_score, decision = _evaluate_report_body(packet, report, errors)
+    if blocking_ok is False and decision == "PASS":
+        errors.append("blocking_deterministic_checks_passed=false cannot certify PASS")
     return errors, weighted_score, decision

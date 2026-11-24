@@ -1,0 +1,140 @@
+{
+  "dataset_version": "1.0.0",
+  "scope": "deterministic check_slop.py precision and recall regression only (not full contextual rubric validation)",
+  "strata": {
+    "en_positive": 4,
+    "ko_positive": 4,
+    "en_negative_control": 4,
+    "ko_negative_control": 4
+  },
+  "cases": [
+    {
+      "item_id": "en-pos-01",
+      "locale": "en",
+      "stratum": "en_positive",
+      "expected_strict_pass": false,
+      "expected_categories": ["en_negative_parallelism"],
+      "text": "It's not just a migration; it's a platform transformation."
+    },
+    {
+      "item_id": "en-pos-02",
+      "locale": "en",
+      "stratum": "en_positive",
+      "expected_strict_pass": false,
+      "expected_categories": ["en_chat_residue"],
+      "text": "Certainly! Let's dive in to the architecture overview."
+    },
+    {
+      "item_id": "en-pos-03",
+      "locale": "en",
+      "stratum": "en_positive",
+      "expected_strict_pass": false,
+      "expected_categories": ["en_buzzword_cliche"],
+      "text": "We leverage a seamless, robust, and groundbreaking tapestry to foster velocity."
+    },
+    {
+      "item_id": "en-pos-04",
+      "locale": "en",
+      "stratum": "en_positive",
+      "expected_strict_pass": false,
+      "expected_categories": ["en_dramatic_closer"],
+      "text": "The latency fell by 12%. Let that sink in."
+    },
+    {
+      "item_id": "ko-pos-01",
+      "locale": "ko",
+      "stratum": "ko_positive",
+      "expected_strict_pass": false,
+      "expected_categories": ["ko_negative_parallelism"],
+      "text": "단순한 캐시 교체를 넘어 운영 문화의 전환으로 이어졌다."
+    },
+    {
+      "item_id": "ko-pos-02",
+      "locale": "ko",
+      "stratum": "ko_positive",
+      "expected_strict_pass": false,
+      "expected_categories": ["ko_translationese"],
+      "text": "이 결과는 처리량이 증가되어졌다는 점을 시사합니다."
+    },
+    {
+      "item_id": "ko-pos-03",
+      "locale": "ko",
+      "stratum": "ko_positive",
+      "expected_strict_pass": false,
+      "expected_categories": ["ko_chat_residue"],
+      "text": "좋은 질문입니다! 이 글에서는 배포 절차를 살펴보겠습니다."
+    },
+    {
+      "item_id": "ko-pos-04",
+      "locale": "ko",
+      "stratum": "ko_positive",
+      "expected_strict_pass": false,
+      "expected_categories": ["ko_dramatic_closer"],
+      "text": "배포 자동화가 끝났다. 결론적으로 말씀드리자면 지금이 전환할 시점입니다."
+    },
+    {
+      "item_id": "en-neg-01",
+      "locale": "en",
+      "stratum": "en_negative_control",
+      "expected_strict_pass": true,
+      "expected_categories": [],
+      "text": "Batching database writes cut p95 latency from 420ms to 180ms across 12,000 requests."
+    },
+    {
+      "item_id": "en-neg-02",
+      "locale": "en",
+      "stratum": "en_negative_control",
+      "expected_strict_pass": true,
+      "expected_categories": [],
+      "text": "The auditor said, \"It's not just a patch; it's a policy change,\" in the signed memo."
+    },
+    {
+      "item_id": "en-neg-03",
+      "locale": "en",
+      "stratum": "en_negative_control",
+      "expected_strict_pass": true,
+      "expected_categories": [],
+      "text": "Run `python3 scripts/check_slop.py --strict` before merging the release branch."
+    },
+    {
+      "item_id": "en-neg-04",
+      "locale": "en",
+      "stratum": "en_negative_control",
+      "expected_strict_pass": true,
+      "expected_categories": [],
+      "text": "The change may reduce retries under peak load, though we have not tested failover yet."
+    },
+    {
+      "item_id": "ko-neg-01",
+      "locale": "ko",
+      "stratum": "ko_negative_control",
+      "expected_strict_pass": true,
+      "expected_categories": [],
+      "text": "배치 쓰기를 적용해 p95 지연 시간을 420ms에서 180ms로 줄였다."
+    },
+    {
+      "item_id": "ko-neg-02",
+      "locale": "ko",
+      "stratum": "ko_negative_control",
+      "expected_strict_pass": true,
+      "expected_categories": [],
+      "text": "담당자는 \"단순한 개선이 아니라 구조 변경이다\"라고 밝혔다."
+    },
+    {
+      "item_id": "ko-neg-03",
+      "locale": "ko",
+      "stratum": "ko_negative_control",
+      "expected_strict_pass": true,
+      "expected_categories": [],
+      "text": "이 방식이 아직 완전히 검증된 건 아닌데요, 일단 스테이징에서 먼저 확인해 볼게요."
+    },
+    {
+      "item_id": "ko-neg-04",
+      "locale": "ko",
+      "stratum": "ko_negative_control",
+      "expected_strict_pass": true,
+      "expected_categories": [],
+      "text": "인덱스 재구성 후 쿼리 실행 시간이 1.4초에서 0.3초로 내려갔다."
+    }
+  ]
+}

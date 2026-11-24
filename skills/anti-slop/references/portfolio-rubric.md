@@ -12,7 +12,7 @@ Score only observable slop patterns in the supplied portfolio text and captions.
 
 The Ask-to-ChatGPT answer supplied qualitative priorities: problem, ownership, decisions/trade-offs, implementation, and verification. It supplied no point weights. The equal weights and slop-pattern interpretation above are local design choices, not research-derived weights or a portfolio quality standard.
 
-Record the text or caption location and visible slop pattern for each score. A missing problem detail, ownership detail, decision, implementation detail, verification, or result is not slop and does not lower this score. A diagram alone does not establish facts; flag any evidence concern separately.
+Record the exact text or caption location and visible slop span **before** assigning each percentage score (critique-before-score). Run `scripts/check_slop.py --strict` first; calibrate any future weight revisions from stratified EN/KO error analysis rather than ad hoc intuition. A missing problem detail, ownership detail, decision, implementation detail, verification, or result is not slop and does not lower this score. A diagram alone does not establish facts; flag any evidence concern separately.
 
 ## Research basis
 

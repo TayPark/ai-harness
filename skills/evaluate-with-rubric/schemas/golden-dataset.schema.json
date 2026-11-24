@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "golden-dataset.schema.json",
+  "title": "Versioned Stratified Golden Evaluation Dataset",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "dataset_schema_version",
+    "dataset_id",
+    "dataset_version",
+    "dataset_sha256",
+    "rubric_version",
+    "rubric_sha256",
+    "prompt_sha256",
+    "strata",
+    "cases"
+  ],
+  "properties": {
+    "dataset_schema_version": {
+      "const": "1.0"
+    },
+    "dataset_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+    },
+    "dataset_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "dataset_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "rubric_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "rubric_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "prompt_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "code_revision": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tool_config_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "error_analysis_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "strata": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 1
+      }
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/goldenCase"
+      }
+    }
+  },
+  "$defs": {
+    "goldenCase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "item_id",
+        "split",
+        "category",
+        "severity",
+        "source",
+        "adjudication_provenance",
+        "input_sha256",
+        "expected_label"
+      ],
+      "properties": {
+        "item_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"
+        },
+        "cluster_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "split": {
+          "enum": [
+            "train",
+            "dev",
+            "test"
+          ]
+        },
+        "category": {
+          "type": "string",
+          "minLength": 1
+        },
+        "severity": {
+          "enum": [
+            "critical",
+            "major",
+            "minor"
+          ]
+        },
+        "source": {
+          "enum": [
+            "human",
+            "synthetic",
+            "prod_failure"
+          ]
+        },
+        "adjudication_provenance": {
+          "type": "string",
+          "minLength": 1
+        },
+        "input_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "expected_label": {
+          "enum": [
+            "PASS",
+            "FAIL"
+          ]
+        },
+        "expected_score": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "dimensions_tuple": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "is_adversarial": {
+          "type": "boolean"
+        },
+        "incident_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

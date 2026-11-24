@@ -9,7 +9,16 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from common import digest, canonical_json, evaluate_report, load_json, packet_errors, packet_snapshot_matches, validate_rubric
+from common import (
+    canonical_json,
+    digest,
+    evaluate_report,
+    evaluate_report_v2,
+    load_json,
+    packet_errors,
+    packet_snapshot_matches,
+    validate_rubric,
+)
 
 
 def emit(status: str, decision: str | None = None, score: float | None = None, errors: list[str] | None = None) -> None:
@@ -27,6 +36,12 @@ def main() -> int:
     parser.add_argument("--report", required=True, type=Path)
     parser.add_argument("--target", required=True, type=Path, help="same file or directory used to create the packet")
     parser.add_argument("--rubric", type=Path, help="pass the same custom rubric used to create the packet")
+    parser.add_argument(
+        "--report-schema",
+        choices=("v1", "v2"),
+        default="v1",
+        help="select report schema version (default: v1; v2 requires report_schema_version 2.0 and judge_metadata)",
+    )
     args = parser.parse_args()
 
     try:
@@ -57,7 +72,8 @@ def main() -> int:
         emit("STALE", errors=[f"cannot verify current target or rubric: {exc}"])
         return 2
 
-    report_errors, score, decision = evaluate_report(packet, report)
+    evaluator = evaluate_report_v2 if args.report_schema == "v2" else evaluate_report
+    report_errors, score, decision = evaluator(packet, report)
     if report_errors:
         emit("INVALID", errors=report_errors)
         return 1

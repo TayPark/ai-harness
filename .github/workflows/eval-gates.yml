@@ -1,0 +1,57 @@
+name: Offline Evaluation & Package Gates
+
+on:
+  pull_request:
+    paths:
+      - "AGENTS.md"
+      - "README.md"
+      - "scripts/**"
+      - "skills/**/SKILL.md"
+      - "skills/**/PROMPT*.md"
+      - "skills/**/rubrics/**"
+      - "skills/**/schemas/**"
+      - "skills/**/scripts/**"
+      - "skills/**/references/**"
+      - "skills/**/tests/**"
+      - "tests/**"
+
+jobs:
+  offline-eval-gates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install repository verification dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r skills/spec-driven-development/02-assessment/sdd-02-assess-implementation-spec/requirements.txt
+
+      - name: Guard against silent PR self-weakening of golden fixtures or verifiers
+        run: |
+          changed=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
+          echo "Changed files:"
+          echo "$changed"
+          if echo "$changed" | grep -qE '(golden-.*\.json|validate_public_package\.py|calibrate_judge\.py|compare_runs\.py|evaluate_sdlc_gate\.py|validate_assessment\.py)'; then
+            echo "::warning::PR modifies golden fixtures or deterministic verifier scripts; require independent maintainer review before merge."
+          fi
+
+      - name: Run package, anti-slop, and deterministic test gates
+        run: |
+          python scripts/validate_public_package.py
+          python3 skills/anti-slop/scripts/check_slop.py --strict --file AGENTS.md
+          changed_md=$(git diff --name-only --diff-filter=AM origin/${{ github.base_ref }}...HEAD -- '*.md')
+          for md in $changed_md; do
+            python3 skills/anti-slop/scripts/check_slop.py --strict --file "$md"
+          done
+          python -m pytest -q tests
+          python -m pytest -q skills/spec-driven-development/02-assessment/sdd-02-assess-implementation-spec/tests
+          python -m pytest -q skills/spec-driven-development/05-release-readiness/sdd-05-assess-release-readiness/tests
+          python -m pytest -q skills/anti-slop/tests
+          python -m unittest discover -s skills/evaluate-with-rubric/tests -v
+          git diff origin/${{ github.base_ref }}...HEAD --check

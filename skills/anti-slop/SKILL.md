@@ -82,7 +82,7 @@ Check only these five observable slop patterns as `present` or `not observed` (n
 
 ### Format-Specific Scoring Modules
 
-For each criterion, assign `0%` (pervasive), `25%` (frequent), `50%` (several clear instances), `75%` (one isolated minor instance), or `100%` (not observed) of the listed weight. Each module totals 100 points; `90/100` passes the slop-removal gate only and does not certify factual quality, JD fit, or hiring outcomes. Do not combine scores across documents.
+For each criterion, list exact text locations and observable slop spans **before** assigning `0%` (pervasive), `25%` (frequent), `50%` (several clear instances), `75%` (one isolated minor instance), or `100%` (not observed) of the listed weight. Run `scripts/check_slop.py --strict` first as the deterministic pre-check; deterministic checker metrics measure regex/rule precision and recall only and do not certify contextual rubric quality. Each module totals 100 points; `90/100` passes the slop-removal gate only and does not certify factual quality, JD fit, or hiring outcomes. Do not combine scores across documents.
 
 - Resume: [references/resume-rubric.md](references/resume-rubric.md)
 - Portfolio: [references/portfolio-rubric.md](references/portfolio-rubric.md)
