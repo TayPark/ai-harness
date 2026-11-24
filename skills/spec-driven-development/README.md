@@ -1,6 +1,6 @@
 # Spec Driven Development
 
-Start with the Orchestrator for substantial implementation work. The Planner may draft a read-only plan before the assessment gates so its exact requirement map is available to both reports. Keep the specification/input packet and plan as separate sources.
+Start with the Orchestrator for substantial implementation work. When requirements, user flows, constraints, or acceptance criteria are unclear, `sdd-00` invokes [`interview-for-requirements`](../interview-for-requirements/SKILL.md) first to produce a frozen `COMPLETE_BRIEF` (or `PARTIAL_BRIEF` for read-only `Safe Parallel Work`). The Planner may draft a read-only plan before the assessment gates so its exact requirement map is available to both reports. Keep the specification/input packet and plan as separate sources.
 
 1. `00-orchestration/sdd-00-orchestrate-implementation`: coordinate the workflow and record state.
 2. `01-plan/sdd-01-plan-repository-implementation`: inspect the repository and draft a read-only plan.

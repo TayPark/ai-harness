@@ -58,7 +58,7 @@ Unmodified third-party skills are linked upstream rather than embedded in this r
 
 For substantial work, start with the Orchestrator. It coordinates this sequence:
 
-1. Establish the exact user specification or build a source-labeled input packet from the request and read-only repository observations.
+1. Establish the exact user specification. When goals, user flows, constraints, or acceptance criteria are unclear, run `interview-for-requirements` first to produce a frozen `COMPLETE_BRIEF` (or `PARTIAL_BRIEF` with read-only `Safe Parallel Work`), preserving the original user request and derived brief separately.
 2. Ask the Planner to draft a read-only plan from that input. Keep the plan source separate from the specification/input packet. The draft plan's authoritative requirement map supports the Spec report but does not count as Plan Gate approval.
 3. Run the Assessor's Spec Gate on the exact specification/input packet. Spec Assessment must reach `READY` before Plan Assessment.
 4. If Spec Assessment needs revision or is blocked, stop before Plan Assessment, approval, and implementation. Ask the Planner to revise the specification/plan draft, then reassess.
@@ -130,7 +130,7 @@ Every packaged skill enforces explicit activation boundaries and pre-flight gate
 | `debate-models` | High-stakes decision needing 2-node ACH falsification (up to 3 rounds) | Single-shot lookup (`ask-to-*`) or rubric scoring (`evaluate-with-rubric`) | Explicitly declare Peer A, Peer B, and transport (`web-pair` vs `local-pair` vs `hybrid-pair`) before Round 1 |
 | `evaluate-with-rubric` | Reproducible weighted rubric scoring of a file or directory | Unstructured Q&A (`ask-to-*`) or open-ended debate (`debate-models`) | Pass deterministic checks first; declare critic backend; inspect packet before sharing; validate JSON locally |
 | `orchestrate-agents` | Bounded parallel workers (Tier 1) or multi-team delivery (Tier 2) | Short, single-file, or tightly sequential work | Declare Tier 1 vs Tier 2; enforce one writer per file; require JSON contracts and frozen-revision review |
-| `interview-for-requirements` | Unclear goals, flows, constraints, or acceptance criteria | Requirements are already clear, or structured tutoring (`socratic-tutor`) | Complete elicitation before planning |
+| `interview-for-requirements` | Unclear goals, flows, constraints, acceptance criteria, or hidden system context | Requirements are already clear, or structured tutoring (`socratic-tutor`) | Inspect system facts read-only first; enforce 5-label provenance (`OBSERVED_FACT` separate from `R-NN`) and Slice 1 IDs before `sdd-01`/`sdd-02` |
 | `sdlc-stage-rubrics` | Risk-tiered (T1-T3) 4-stage SDLC scoring and gating | Generic non-SDLC rubrics | Run `evaluate_sdlc_gate.py` for T2/T3 thresholds, critical floors, and human sign-off |
 | `sdd-00`..`sdd-05` | Formal Spec-Driven Development from plan through release readiness | Small direct edits that do not need formal gates | Keep planning read-only; require `READY` Spec/Plan Gates + explicit approval before execution; freeze candidate before independent verification |
 
