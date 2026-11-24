@@ -1,0 +1,3 @@
+interface:
+  display_name: "Ask to Gemini"
+  short_description: "Query Web Gemini (Neon High) via Aside CLI to conserve local tokens"

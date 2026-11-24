@@ -569,9 +569,9 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description="Evaluate normative T1-T3 SDLC stage gates against rubrics/sdlc-stages.json."
     )
-    parser.add_argument("--report", required=True, type=Path, help="Path to SDLC v2 or evaluate-with-chatgpt report JSON.")
+    parser.add_argument("--report", required=True, type=Path, help="Path to SDLC v2 or evaluate-with-rubric report JSON.")
     parser.add_argument("--rubric", type=Path, default=DEFAULT_RUBRIC_PATH, help="Path to sdlc-stages.json.")
-    parser.add_argument("--stage", choices=["requirement", "implementation", "verification", "operation"], help="Override/provide stage for evaluate-with-chatgpt reports.")
+    parser.add_argument("--stage", choices=["requirement", "implementation", "verification", "operation"], help="Override/provide stage for evaluate-with-rubric reports.")
     parser.add_argument("--risk-tier", choices=["T1", "T2", "T3"], help="Risk tier (required if absent from report JSON).")
     parser.add_argument("--now", help="Timezone-aware ISO-8601 time for exception expiry checks (default: current UTC time).")
     parser.add_argument("--stale", action="store_true", help="Mark subject/evidence as invalidated (STALE).")
@@ -588,7 +588,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--stateless-exemption",
         action="store_true",
-        help="Acknowledge preapproved stateless exemption for conditional_optional I6/O4 when using evaluate-with-chatgpt reports.",
+        help="Acknowledge preapproved stateless exemption for conditional_optional I6/O4 when using evaluate-with-rubric reports.",
     )
     parser.add_argument(
         "--strict-pass",

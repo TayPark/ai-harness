@@ -1,4 +1,0 @@
-interface:
-  display_name: "Subagent Delegation"
-  short_description: "Delegate with task-scoped skills and evidence"
-  default_prompt: "Use $by-subagent to split work into independent tasks with minimal context."

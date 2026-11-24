@@ -1,0 +1,3 @@
+interface:
+  display_name: "Orchestrate Agents"
+  short_description: "Delegate bounded subagent tasks and coordinate multi-team software delivery"

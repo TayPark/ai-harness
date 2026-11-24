@@ -1,3 +1,0 @@
-interface:
-  display_name: "Debate Web Models"
-  short_description: "Two-model falsification review (ChatGPT vs. Web Gemini Neon High) with partial-result reporting"

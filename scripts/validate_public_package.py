@@ -17,15 +17,13 @@ except ImportError as exc:  # pragma: no cover - exercised by missing dependency
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS = (
-    "skills/remove-ai-slop",
     "skills/anti-slop",
     "skills/ask-to-chatgpt",
-    "skills/ask-to-web-gemini",
-    "skills/debate-web-models",
+    "skills/ask-to-gemini",
+    "skills/debate-models",
+    "skills/evaluate-with-rubric",
+    "skills/orchestrate-agents",
     "skills/sdlc-stage-rubrics",
-    "skills/by-subagent",
-    "skills/orchestrate-agent-team",
-    "skills/evaluate-with-chatgpt",
     "skills/interview-for-requirements",
     "skills/spec-driven-development/00-orchestration/sdd-00-orchestrate-implementation",
     "skills/spec-driven-development/01-plan/sdd-01-plan-repository-implementation",

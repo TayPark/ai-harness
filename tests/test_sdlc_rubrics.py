@@ -16,8 +16,8 @@ from unittest.mock import patch
 sys.dont_write_bytecode = True
 
 ROOT = Path(__file__).resolve().parents[1]
-COMMON_PATH = ROOT / "skills" / "evaluate-with-chatgpt" / "scripts" / "common.py"
-SPEC = importlib.util.spec_from_file_location("eval_chatgpt_common", COMMON_PATH)
+COMMON_PATH = ROOT / "skills" / "evaluate-with-rubric" / "scripts" / "common.py"
+SPEC = importlib.util.spec_from_file_location("eval_rubric_common", COMMON_PATH)
 common = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(common)
 
@@ -27,7 +27,7 @@ sdlc_gate = importlib.util.module_from_spec(GATE_SPEC)
 GATE_SPEC.loader.exec_module(sdlc_gate)
 
 CANONICAL_RUBRIC = ROOT / "skills" / "sdlc-stage-rubrics" / "rubrics" / "sdlc-stages.json"
-DUPLICATE_RUBRIC = ROOT / "skills" / "evaluate-with-chatgpt" / "rubrics" / "sdlc-stages.json"
+DUPLICATE_RUBRIC = ROOT / "skills" / "evaluate-with-rubric" / "rubrics" / "sdlc-stages.json"
 NOW = "2026-11-23T12:00:00Z"
 FUTURE = "2026-11-23T21:00:01+09:00"
 OPTIONAL_DIMENSIONS = (

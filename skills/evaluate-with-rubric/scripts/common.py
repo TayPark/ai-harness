@@ -1,4 +1,4 @@
-"""Shared packet and report checks for evaluate-with-chatgpt."""
+"""Shared packet and report checks for evaluate-with-rubric."""
 
 from __future__ import annotations
 

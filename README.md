@@ -12,24 +12,22 @@ Version: `v0.3.0`.
 
 | Skill | Use it when |
 | --- | --- |
-| [`anti-slop`](skills/anti-slop/SKILL.md) | You are drafting your own English or Korean prose and want writing rules plus a deterministic `check_slop.py --strict` check. |
-| [`remove-ai-slop`](skills/remove-ai-slop/SKILL.md) | You need observable AI slop removed while preserving a prose document's format, facts, and voice. |
+| [`anti-slop`](skills/anti-slop/SKILL.md) | You are drafting English or Korean prose (`draft` mode) or cleaning observable AI slop from a user-supplied document (`postprocess` mode) with deterministic `check_slop.py --strict` and format rubrics. |
 
 ### External models and evaluation
 
 | Skill | Use it when |
 | --- | --- |
-| [`ask-to-chatgpt`](skills/ask-to-chatgpt/SKILL.md) | You need to submit a user-provided question through Aside Browser and return the full response. |
-| [`ask-to-web-gemini`](skills/ask-to-web-gemini/SKILL.md) | You need to submit a user-provided question to Web Gemini (`gemini.google.com`) through Aside CLI using Neon at High thinking level and return the full response. |
-| [`debate-web-models`](skills/debate-web-models/SKILL.md) | You need Web ChatGPT (highest reasoning) and Web Gemini (Neon High) to run a falsification-driven debate across up to 3 rounds via Aside CLI and synthesize consensus, ruled-out alternatives, and decision boundaries. |
-| [`evaluate-with-chatgpt`](skills/evaluate-with-chatgpt/SKILL.md) | You need a privacy-filtered packet and locally validated ChatGPT review. |
+| [`ask-to-chatgpt`](skills/ask-to-chatgpt/SKILL.md) | You want to query Web ChatGPT (highest reasoning) via Aside CLI to conserve local CLI/API tokens. |
+| [`ask-to-gemini`](skills/ask-to-gemini/SKILL.md) | You want to query Web Gemini (`Neon High`) via Aside CLI to conserve local CLI/API tokens. |
+| [`debate-models`](skills/debate-models/SKILL.md) | You need a falsification-driven 2-model debate (ACH, up to 3 rounds) with explicitly declared peers and transport (`web-pair` via Aside to save local tokens, or `local-pair` via `codex` + `gemini` CLI when tokens are ample). |
+| [`evaluate-with-rubric`](skills/evaluate-with-rubric/SKILL.md) | You need a privacy-filtered evidence packet, an independent read-only critic (Aside Web or local CLI), and local deterministic JSON validation. |
 
 ### Agent collaboration
 
 | Skill | Use it when |
 | --- | --- |
-| [`by-subagent`](skills/by-subagent/SKILL.md) | You need bounded independent workers and want each worker to load only its task-specific skills and evidence. |
-| [`orchestrate-agent-team`](skills/orchestrate-agent-team/SKILL.md) | You need to coordinate a product owner and agent teams for a software project. |
+| [`orchestrate-agents`](skills/orchestrate-agents/SKILL.md) | You need bounded subagent delegation with JSON contracts (Tier 1) or multi-team software delivery across a product owner, team leaders, implementers, and independent reviewers (Tier 2). |
 
 ### Requirements, implementation, and release
 
@@ -102,10 +100,13 @@ Existing invocation names do not remain as compatibility aliases. Remove or relo
 
 | Previous name | New name |
 | --- | --- |
-| `ai-slop-postprocess` | `remove-ai-slop` |
+| `ai-slop-postprocess`, `remove-ai-slop` | `anti-slop` (`postprocess` mode) |
 | `ask-chatgpt` | `ask-to-chatgpt` |
-| `chatgpt-rubric-evaluator` | `evaluate-with-chatgpt` |
-| `codex-team-orchestration` | `orchestrate-agent-team` |
+| `ask-to-web-gemini` | `ask-to-gemini` |
+| `debate-web-models` | `debate-models` (explicit peer/transport declaration) |
+| `chatgpt-rubric-evaluator`, `evaluate-with-chatgpt` | `evaluate-with-rubric` |
+| `by-subagent` | `orchestrate-agents` (Tier 1) |
+| `codex-team-orchestration`, `orchestrate-agent-team` | `orchestrate-agents` (Tier 2) |
 | `requirements-interview` | `interview-for-requirements` |
 | `teach-socratically` | Upstream [`socratic-tutor`](https://github.com/janestreet/agent_skills/blob/master/socratic-tutor/SKILL.md) (linked upstream, not packaged locally) |
 | `implementation-workflow-orchestrator` | `sdd-00-orchestrate-implementation` |
@@ -115,15 +116,27 @@ Existing invocation names do not remain as compatibility aliases. Remove or relo
 | `independent-workflow-verifier` | `sdd-04-verify-implementation-independently` |
 | `release-readiness-assessor` | `sdd-05-assess-release-readiness` |
 
-`by-subagent` keeps its name. SDD `00` is the entry point; `02` assesses both specifications and plans. Numbers show a common order, not mandatory steps for every task.
+SDD `00` is the entry point; `02` assesses both specifications and plans. Numbers show a common order, not mandatory steps for every task.
 
-### Selection boundaries
+### Skill harness and routing guardrails
 
-Use each skill for the trigger in the list above. Use `by-subagent` only when delegation is allowed; use `orchestrate-agent-team` for coordinating a team, not a single bounded worker. Use `interview-for-requirements` for unclear requirements, not when sufficient requirements already exist (for structured instruction or practice, install upstream `socratic-tutor`). Use `remove-ai-slop` for observable prose issues in a supplied document, not factual rewriting; use `anti-slop` while drafting your own prose and for its deterministic checker. Use `ask-to-chatgpt` to submit a supplied question to ChatGPT, `ask-to-web-gemini` to submit a supplied question to Web Gemini (Neon High), and `debate-web-models` to run a multi-round consensus debate between both web models; use `sdlc-stage-rubrics` for portable 4-stage SDLC scoring and gating definitions; use `evaluate-with-chatgpt` for a bounded, locally validated evaluation. The SDD skills have separate planning, assessment, execution, independent verification and release decisions; skip the formal workflow for a small direct request.
+Every packaged skill enforces explicit activation boundaries and pre-flight gates so agents invoke the right tool without burning local tokens unnecessarily or crossing role boundaries:
+
+| Skill | Use when | Do NOT use when | Mandatory pre-flight guardrail |
+| --- | --- | --- | --- |
+| `anti-slop` | Drafting EN/KO prose (`draft`) or stripping observable slop from supplied docs (`postprocess`) | Factual rewriting or code review | Declare `draft` vs `postprocess`; never save cover letters to disk; run `check_slop.py --strict` |
+| `ask-to-chatgpt` | Single-shot Web ChatGPT query via Aside CLI | Multi-round debate (`debate-models`) or rubric scoring (`evaluate-with-rubric`) | Confirm Aside CLI, login, and highest reasoning before sending; never substitute models silently |
+| `ask-to-gemini` | Single-shot Web Gemini (`Neon High`) query via Aside CLI | Multi-round debate (`debate-models`) or rubric scoring (`evaluate-with-rubric`) | Confirm Aside CLI, login, Chat mode, and `Neon` + `High` before sending; use Quill-safe `insertText` |
+| `debate-models` | High-stakes decision needing 2-node ACH falsification (up to 3 rounds) | Single-shot lookup (`ask-to-*`) or rubric scoring (`evaluate-with-rubric`) | Explicitly declare Peer A, Peer B, and transport (`web-pair` vs `local-pair` vs `hybrid-pair`) before Round 1 |
+| `evaluate-with-rubric` | Reproducible weighted rubric scoring of a file or directory | Unstructured Q&A (`ask-to-*`) or open-ended debate (`debate-models`) | Pass deterministic checks first; declare critic backend; inspect packet before sharing; validate JSON locally |
+| `orchestrate-agents` | Bounded parallel workers (Tier 1) or multi-team delivery (Tier 2) | Short, single-file, or tightly sequential work | Declare Tier 1 vs Tier 2; enforce one writer per file; require JSON contracts and frozen-revision review |
+| `interview-for-requirements` | Unclear goals, flows, constraints, or acceptance criteria | Requirements are already clear, or structured tutoring (`socratic-tutor`) | Complete elicitation before planning |
+| `sdlc-stage-rubrics` | Risk-tiered (T1-T3) 4-stage SDLC scoring and gating | Generic non-SDLC rubrics | Run `evaluate_sdlc_gate.py` for T2/T3 thresholds, critical floors, and human sign-off |
+| `sdd-00`..`sdd-05` | Formal Spec-Driven Development from plan through release readiness | Small direct edits that do not need formal gates | Keep planning read-only; require `READY` Spec/Plan Gates + explicit approval before execution; freeze candidate before independent verification |
 
 ## Requirements
 
-The Planner, Executor, Orchestrator, Independent Workflow Verifier, and Release Readiness Assessor use Markdown instructions. The Assessor's scripts and tests require Python 3.11 or newer. The ChatGPT Rubric Evaluator requires Python 3.10 or newer and uses the standard library. Install the Assessor and repository test dependencies in an isolated environment:
+The Planner, Executor, Orchestrator, Independent Workflow Verifier, and Release Readiness Assessor use Markdown instructions. The Assessor's scripts and tests require Python 3.11 or newer. The `evaluate-with-rubric` scripts require Python 3.10 or newer and use the standard library. Install the Assessor and repository test dependencies in an isolated environment:
 
 ```sh
 python3.11 -m venv .venv

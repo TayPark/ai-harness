@@ -1,0 +1,3 @@
+interface:
+  display_name: "Evaluate with Rubric"
+  short_description: "Build privacy-filtered packets and locally validate external critic rubric reports"

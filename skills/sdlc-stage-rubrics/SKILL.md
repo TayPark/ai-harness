@@ -43,9 +43,9 @@ python3 skills/sdlc-stage-rubrics/scripts/evaluate_sdlc_gate.py \
   --report /path/to/sdlc-report.json \
   --strict-pass
 
-# Apply normative T2 Verification gating on top of an evaluate-with-chatgpt report JSON
+# Apply normative T2 Verification gating on top of an evaluate-with-rubric report JSON
 python3 skills/sdlc-stage-rubrics/scripts/evaluate_sdlc_gate.py \
-  --report /path/to/chatgpt-report.json \
+  --report /path/to/rubric-report.json \
   --stage verification \
   --risk-tier T2 \
   --strict-pass
@@ -62,13 +62,13 @@ An exception for `I6` or `O4` needs a named approver and a timezone-aware `expir
 Suppose a `T2 Standard` Verification report scores every dimension (`V1`–`V7`) at `3` with all hard-fails `CLEAR`:
 
 1. Weighted arithmetic: `(3 * 100) / (4 * 100) * 100 = 75.0`.
-2. Generic `evaluate-with-chatgpt` check: Uses the single baseline `passing_threshold: 75` in `rubrics/sdlc-stages.json`, so it only validates packet integrity, evidence references, hard fails, and baseline arithmetic. It cannot certify T2/T3 SDLC advancement on its own.
+2. Generic `evaluate-with-rubric` check: Uses the single baseline `passing_threshold: 75` in `rubrics/sdlc-stages.json`, so it only validates packet integrity, evidence references, hard fails, and baseline arithmetic. It cannot certify T2/T3 SDLC advancement on its own.
 3. Normative SDLC gate (`evaluate_sdlc_gate.py --stage verification --risk-tier T2`): Enforces the T2 Verification threshold `>= 80.0` and returns `FAIL` (`weighted_score 75.0 < T2 verification threshold 80.0`).
 4. To reach `PASS` at `T2 Verification`, keep every critical dimension (`V1`, `V2`, `V4`, `V5`, `V6`) at `>= 3`, keep all mandatory dimensions at `>= 2`, clear all hard-fails, and raise at least `20%` weight to score `4` (for example `V1=4`, weight 20 -> `(4*20 + 3*80)/400 * 100 = 80.0`).
 
 ## Usage with Companion Skills
 
-- Local Packet & Validator Workflow (`evaluate-with-chatgpt`): Pass `rubrics/sdlc-stages.json` as `--rubric` to `create_packet.py` and `validate_report.py` with `--target-type` set to `requirement`, `implementation`, `verification`, or `operation` to enforce snapshot integrity, redaction, evidence IDs, and hard-fail arithmetic. Then run `scripts/evaluate_sdlc_gate.py` with `--stage` and `--risk-tier` to enforce tier thresholds (`T2 Verification >= 80`, `T3 >= 80/85`), critical floors (`† >= 3`), `STALE`, `PENDING_OBSERVATION`, and T3 human sign-off. Do not treat a `PASS` from `validate_report.py` alone as a valid T2/T3 SDLC gate pass. This file is the only copy of the SDLC rubric; `evaluate-with-chatgpt` does not bundle it.
+- Local Packet & Validator Workflow (`evaluate-with-rubric`): Pass `rubrics/sdlc-stages.json` as `--rubric` to `create_packet.py` and `validate_report.py` with `--target-type` set to `requirement`, `implementation`, `verification`, or `operation` to enforce snapshot integrity, redaction, evidence IDs, and hard-fail arithmetic. Then run `scripts/evaluate_sdlc_gate.py` with `--stage` and `--risk-tier` to enforce tier thresholds (`T2 Verification >= 80`, `T3 >= 80/85`), critical floors (`† >= 3`), `STALE`, `PENDING_OBSERVATION`, and T3 human sign-off. Do not treat a `PASS` from `validate_report.py` alone as a valid T2/T3 SDLC gate pass. This file is the only copy of the SDLC rubric; `evaluate-with-rubric` does not bundle it.
 - Spec-Driven Development (`sdd-01` through `sdd-05`):
   - `sdd-01-plan-repository-implementation` / `sdd-02-assess-implementation-spec` -> Requirement (`R1`–`R7`)
   - `sdd-03-execute-implementation-plan` -> Implementation (`I1`–`I7`)

@@ -19,7 +19,7 @@ Every proposed skill or code change must pass all three admission gates before i
 
 ### Directory Layout and Naming
 
-- Place each standalone skill in a kebab-case directory under `skills/` named with a clear verb phrase or domain role (for example `remove-ai-slop`, `ask-to-chatgpt`, `interview-for-requirements`), or under `skills/spec-driven-development/<stage>/sdd-XX-<name>` for Spec-Driven Development stages.
+- Place each standalone skill in a kebab-case directory under `skills/` named with a clear verb phrase or domain role (for example `anti-slop`, `ask-to-chatgpt`, `ask-to-gemini`, `debate-models`, `evaluate-with-rubric`, `orchestrate-agents`, `interview-for-requirements`), or under `skills/spec-driven-development/<stage>/sdd-XX-<name>` for Spec-Driven Development stages.
 - Do not retain deprecated directory names as compatibility aliases. Record renames in the migration table in [README.md](README.md) and update all internal references in the same change.
 - Keep `SKILL.md` focused on activation triggers, core workflow, guardrails, and input/output contracts. Offload detailed rubrics, schemas, pattern tables, and executable helpers into `references/`, `rubrics/`, `schemas/`, `scripts/`, and `tests/`.
 
@@ -57,7 +57,7 @@ python -m pytest -q tests
 python -m pytest -q skills/spec-driven-development/02-assessment/sdd-02-assess-implementation-spec/tests
 python -m pytest -q skills/spec-driven-development/05-release-readiness/sdd-05-assess-release-readiness/tests
 python -m pytest -q skills/anti-slop/tests
-python -m unittest discover -s skills/evaluate-with-chatgpt/tests -v
+python -m unittest discover -s skills/evaluate-with-rubric/tests -v
 git diff HEAD --check
 ```
 

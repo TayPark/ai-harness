@@ -1,3 +1,0 @@
-interface:
-  display_name: "Ask to Web Gemini"
-  short_description: "Ask Web Gemini (Neon High) through Aside and return its full response"
