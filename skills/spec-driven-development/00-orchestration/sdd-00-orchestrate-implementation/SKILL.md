@@ -6,6 +6,14 @@ description: Coordinate repository planning, specification assessment, user appr
 
 Use this skill as the entry point for substantial, multi-phase repository work. Use the normal implementation workflow for small, direct requests.
 
+## Execution Tracks (Discovery/Spike vs. Production SDD)
+
+Select the track proportional to the lifecycle stage so rapid field exploration does not stall while production changes keep full rigor:
+
+- Track A (Discovery / Spike / PoC): Use when validating feasibility, exploring messy data, or demonstrating an early prototype in an isolated, read-only or disposable sandbox with zero production writes or privileged credentials. Invoke `root-cause-analysis` (5 Whys) and `interview-for-requirements` to clarify the real bottleneck before freezing requirements.
+- Production Graduation Gate: Before any Track A prototype touches production data, shared systems, or customer environments, freeze its scope into a `COMPLETE_BRIEF`, assign risk tier (`T1`/`T2`/`T3`) and applicable domain profiles (`data-cdc`, `systems-integration`, `ai-agent`), and enter Track B from Step 2. Never promote an unassessed prototype directly to production.
+- Track B (Production SDD): Full gated sequence below (`sdd-01` through `sdd-05`), followed by `sdd-06-operate-and-handover` when post-launch stabilization or team/client handover is in scope.
+
 ## Authority and boundaries
 
 - Coordinate the Planner, Assessor, and Executor. Do not replace their work.
@@ -32,6 +40,7 @@ Use this skill as the entry point for substantial, multi-phase repository work. 
 14. After Independent Verification PASS, invoke `skills/spec-driven-development/05-release-readiness/sdd-05-assess-release-readiness` when release is in scope. This is a pre-publication gate. Require evidence for SLO disposition, security, rollback, and operations. `NOT_REQUIRED` is valid only when release is outside scope. Do not merge, push, tag, or publish until Release Readiness PASS.
 15. If a verifier returns `UNVERIFIED`, record `gate_state_map.INDEPENDENT_VERIFICATION.status` as `BLOCKED` (preserving the verifier's `UNVERIFIED` evidence items and missing-independence or unrun-check rationale in the gate report) and keep Release Readiness and publication blocked. If a verifier or release gate returns `FAIL` or `BLOCKED`, record that exact gate status and keep dependent work blocked. If a required gate returns `NEEDS_REVISION`, report findings and reassess before proceeding.
 16. Report completed and incomplete phases, exact checks and results, unverified behavior, failures, and the next safe action.
+17. Post-deployment continuation (after Release Readiness `PASS` and authorized deployment): invoke `skills/spec-driven-development/06-operation-and-handover/sdd-06-operate-and-handover` when post-launch stabilization, observation-window closure, or team/client handover is in scope. This stage consumes the release artifacts read-only and does not modify `sdd-02` workflow-record schemas.
 
 ## Gate status, retries, and invalidation
 

@@ -12,7 +12,7 @@ Evaluate and gate software engineering deliverables across the four Software Dev
 3. **Verification (`V1`–`V7`)**: Does the frozen release candidate work under independent oracles and deployment-equivalent conditions?
 4. **Operation (`O1`–`O7`)**: Does the deployed service remain reliable, observable, secure, and recoverable in production?
 
-Read the full normative specification in [references/sdlc-rubrics-v2.md](references/sdlc-rubrics-v2.md), the conditional AI/LLM/Agent evaluation profile in [references/ai-evals-profile.md](references/ai-evals-profile.md), and the machine-readable rubric definition in [rubrics/sdlc-stages.json](rubrics/sdlc-stages.json).
+Read the full normative specification in [references/sdlc-rubrics-v2.md](references/sdlc-rubrics-v2.md), the conditional domain profiles ([references/ai-evals-profile.md](references/ai-evals-profile.md), [references/data-pipeline-profile.md](references/data-pipeline-profile.md), and [references/systems-integration-profile.md](references/systems-integration-profile.md)), and the machine-readable rubric definition in [rubrics/sdlc-stages.json](rubrics/sdlc-stages.json).
 
 ## Common Scoring & Decision Rules
 
@@ -69,9 +69,10 @@ Suppose a `T2 Standard` Verification report scores every dimension (`V1`–`V7`)
 ## Usage with Companion Skills
 
 - Local Packet & Validator Workflow (`evaluate-with-rubric`): Pass `rubrics/sdlc-stages.json` as `--rubric` to `create_packet.py` and `validate_report.py` with `--target-type` set to `requirement`, `implementation`, `verification`, or `operation` to enforce snapshot integrity, redaction, evidence IDs, and hard-fail arithmetic. Then run `scripts/evaluate_sdlc_gate.py` with `--stage` and `--risk-tier` to enforce tier thresholds (`T2 Verification >= 80`, `T3 >= 80/85`), critical floors (`† >= 3`), `STALE`, `PENDING_OBSERVATION`, and T3 human sign-off. Do not treat a `PASS` from `validate_report.py` alone as a valid T2/T3 SDLC gate pass. This file is the only copy of the SDLC rubric; `evaluate-with-rubric` does not bundle it.
-- Spec-Driven Development (`sdd-01` through `sdd-05`):
+- Spec-Driven Development (`sdd-01` through `sdd-06`):
   - `sdd-01-plan-repository-implementation` / `sdd-02-assess-implementation-spec` -> Requirement (`R1`–`R7`)
   - `sdd-03-execute-implementation-plan` -> Implementation (`I1`–`I7`)
   - `sdd-04-verify-implementation-independently` -> Verification (`V1`–`V7`)
-  - `sdd-05-assess-release-readiness` -> Verification (`V7`/`V-G8`) & Operation (`O1`–`O7`)
+  - `sdd-05-assess-release-readiness` -> Verification (`V7`/`V-G8`) & pre-publication Operational Readiness
+  - `sdd-06-operate-and-handover` -> Operation (`O1`–`O7`), 5 Whys incident closure, and team/client handover
 - Evaluator Safeguards: Untrusted artifacts must be fenced as read-only data; an implementer model or session must never self-certify `T2`/`T3` critical gates.

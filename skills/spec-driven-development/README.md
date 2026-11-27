@@ -11,8 +11,9 @@ Start with the Orchestrator for substantial implementation work. When requiremen
 7. `03-execution-and-verification/sdd-03-execute-implementation-plan`: implement approved phases and record sandbox, trace, checkpoint, and verification evidence.
 8. `04-independent-verification/sdd-04-verify-implementation-independently`: use a different subagent to verify the frozen candidate. Continue only after `PASS`.
 9. `05-release-readiness/sdd-05-assess-release-readiness`: after Independent `PASS`, assess SLO disposition, security, rollback, and operations before publication.
+10. `06-operation-and-handover/sdd-06-operate-and-handover`: after authorized deployment, close the observation window (`O1`–`O7`), run 5 Whys incident feedback closure, and complete internal team or external client handover (including Reverse-Shadowing sign-off).
 
-The Release Gate is pre-publication. It uses existing SLO targets and measurements. A row-level SLO N/A requires source-backed evidence that no service SLO exists. The gate does not invent thresholds or use merge, tag, push, or release results as its evidence.
+The Release Gate (`sdd-05`) is pre-publication; `sdd-06` is strictly post-deployment and consumes release artifacts read-only without modifying `sdd-02` schemas. For rapid feasibility exploration, use `sdd-00`'s Discovery/Spike track and require its Production Graduation Gate before promoting prototypes into production.
 
 For a small, direct implementation request, use the normal implementation workflow without the full sequence.
 

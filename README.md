@@ -26,13 +26,15 @@ Reusable skills for Codex and Claude Code. Use them to edit prose, consult exter
 | Skill | Use it when |
 | --- | --- |
 | [`interview-for-requirements`](skills/interview-for-requirements/SKILL.md) | You need to clarify software requirements before planning. |
-| [`sdlc-stage-rubrics`](skills/sdlc-stage-rubrics/SKILL.md) | You need risk-tiered 0–4 rubrics, non-compensatory hard-fail gates, and evidence contracts across Requirement, Implementation, Verification, and Operation. |
-| [`sdd-00-orchestrate-implementation`](skills/spec-driven-development/00-orchestration/sdd-00-orchestrate-implementation/SKILL.md) | You need to coordinate substantial work from specification through release readiness. |
+| [`root-cause-analysis`](skills/root-cause-analysis/SKILL.md) | You need evidence-bound 5 Whys causal analysis across Analyze, Design, Implement, Verify, or Operate stages to separate symptoms from systemic root causes. |
+| [`sdlc-stage-rubrics`](skills/sdlc-stage-rubrics/SKILL.md) | You need risk-tiered 0–4 rubrics, non-compensatory hard-fail gates, and domain profiles (AI, Data Pipeline, Systems Integration) across Requirement, Implementation, Verification, and Operation. |
+| [`sdd-00-orchestrate-implementation`](skills/spec-driven-development/00-orchestration/sdd-00-orchestrate-implementation/SKILL.md) | You need to coordinate substantial work from specification through release readiness (including Discovery/Spike to Production Graduation). |
 | [`sdd-01-plan-repository-implementation`](skills/spec-driven-development/01-plan/sdd-01-plan-repository-implementation/SKILL.md) | You need a read-only, repository-grounded implementation plan. |
 | [`sdd-02-assess-implementation-spec`](skills/spec-driven-development/02-assessment/sdd-02-assess-implementation-spec/SKILL.md) | You need evidence-based review or refinement of an implementation specification. |
 | [`sdd-03-execute-implementation-plan`](skills/spec-driven-development/03-execution-and-verification/sdd-03-execute-implementation-plan/SKILL.md) | You approved a multi-phase plan and want its work implemented and verified. |
 | [`sdd-04-verify-implementation-independently`](skills/spec-driven-development/04-independent-verification/sdd-04-verify-implementation-independently/SKILL.md) | You need a separate reviewer to verify implementation evidence and acceptance criteria. |
 | [`sdd-05-assess-release-readiness`](skills/spec-driven-development/05-release-readiness/sdd-05-assess-release-readiness/SKILL.md) | You need an evidence-based release decision after Independent Verification and before publication. |
+| [`sdd-06-operate-and-handover`](skills/spec-driven-development/06-operation-and-handover/sdd-06-operate-and-handover/SKILL.md) | You need post-launch stabilization (`O1`–`O7`), 5 Whys incident closure, and structured internal team or external client handover after deployment. |
 
 `career-management` and `.sdd-local/` are local-only and are excluded from the public package.
 
@@ -59,6 +61,7 @@ For substantial work, start with the Orchestrator. It coordinates this sequence:
 7. Ask the Executor to implement the approved phases and record sandbox, trace, checkpoint, and verification evidence.
 8. Ask a different subagent to run Independent Verification against the frozen candidate. Continue only after `PASS`.
 9. Run the Release Readiness Assessor before merge, push, tags, or publication. It requires evidence for SLO disposition, security, rollback, and operations.
+10. After authorized deployment, run `sdd-06-operate-and-handover` when post-launch observation (`O1`–`O7`), 5 Whys incident closure, or internal team/external client handover is in scope.
 
 The Release Gate uses existing SLO targets and measurements. It allows a row-level N/A only when source evidence shows that no service SLO exists. It does not invent thresholds or use publication results as pre-publication evidence. The manual release scenarios are separate from automated tests; they remain `NOT RUN` in this candidate.
 
@@ -140,12 +143,13 @@ Every packaged skill enforces explicit activation boundaries and pre-flight gate
 | `debate-models` | High-stakes decision needing 2-node ACH falsification (up to 3 rounds) | Single-shot lookup (`ask-to-*`) or rubric scoring (`evaluate-with-rubric`) | Explicitly declare Peer A, Peer B, and transport (`web-pair` vs `local-pair` vs `hybrid-pair`) before Round 1 |
 | `evaluate-with-rubric` | Reproducible weighted rubric scoring of a file or directory | Unstructured Q&A (`ask-to-*`) or open-ended debate (`debate-models`) | Pass deterministic checks first; declare critic backend; inspect packet before sharing; validate JSON locally |
 | `interview-for-requirements` | Unclear goals, flows, constraints, acceptance criteria, or hidden system context | Requirements are already clear, or structured tutoring (`socratic-tutor`) | Inspect system facts read-only first; enforce 5-label provenance (`OBSERVED_FACT` separate from `R-NN`) and Slice 1 IDs before `sdd-01`/`sdd-02` |
-| `sdlc-stage-rubrics` | Risk-tiered (T1-T3) 4-stage SDLC scoring and gating | Generic non-SDLC rubrics | Run `evaluate_sdlc_gate.py` for T2/T3 thresholds, critical floors, and human sign-off |
-| `sdd-00`..`sdd-05` | Formal Spec-Driven Development from plan through release readiness | Small direct edits that do not need formal gates | Keep planning read-only; require `READY` Spec/Plan Gates + explicit approval before execution; freeze candidate before independent verification |
+| `root-cause-analysis` | Surface request masks a deeper bottleneck, recurring defect/test failure, or production incident needing 5 Whys causal analysis | Full scope elicitation (`interview-for-requirements`), 2-model debate (`debate-models`), or rubric scoring (`evaluate-with-rubric`) | Inspect evidence read-only; never chain two unverified `HYPOTHESIS` links; pass reverse-causality check before prescribing fixes |
+| `sdlc-stage-rubrics` | Risk-tiered (T1-T3) 4-stage SDLC scoring and gating (with AI, Data Pipeline, and Systems Integration profiles) | Generic non-SDLC rubrics | Run `evaluate_sdlc_gate.py` for T2/T3 thresholds, critical floors, and human sign-off |
+| `sdd-00`..`sdd-06` | Formal Spec-Driven Development from plan through release readiness and post-launch handover (with Discovery/Spike Graduation Gate) | Small direct edits that do not need formal gates | Keep planning read-only; require `READY` Spec/Plan Gates + explicit approval before execution; freeze candidate before independent verification; keep `sdd-06` strictly post-deployment |
 
 ## Requirements
 
-The Planner, Executor, Orchestrator, Independent Workflow Verifier, and Release Readiness Assessor use Markdown instructions. The Assessor's scripts and tests require Python 3.11 or newer. The `evaluate-with-rubric` scripts require Python 3.10 or newer and use the standard library. Install the Assessor and repository test dependencies in an isolated environment:
+The Planner, Executor, Orchestrator, Independent Workflow Verifier, Release Readiness Assessor, Post-Launch Operation & Handover, and Root Cause Analysis skills use Markdown instructions. The Assessor's scripts and tests require Python 3.11 or newer. The `evaluate-with-rubric` scripts require Python 3.10 or newer and use the standard library. Install the Assessor and repository test dependencies in an isolated environment:
 
 ```sh
 python3.11 -m venv .venv

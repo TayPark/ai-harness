@@ -36,6 +36,8 @@ Rules:
 Check these areas read-only or during elicitation when relevant to the domain:
 
 - Permissions and authority: who may trigger the action, who approves policy exceptions, and what fails closed?
+- Tacit workflows and shadow processes: what manual workarounds (spreadsheets, chat approvals, ad hoc scripts) do operators currently rely on that are absent from official docs?
+- Stakeholder conflict boundaries: where do business operators, IT/platform owners, and security/compliance teams hold competing priorities, and who owns the tie-breaking decision?
 - Data integrity and lifecycle: idempotency, partial failure, retention or deletion, and migration compatibility.
 - Scale and bounds: zero-item, single-item, and upper-bound limits; timeouts and backpressure.
 - External interfaces and observability: backward compatibility for callers, error contract, and audit or log redaction.

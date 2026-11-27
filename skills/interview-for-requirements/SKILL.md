@@ -32,6 +32,7 @@ Authority boundary:
 ## Interview Rules
 
 - Facts first, decisions second: inspect available code, schemas, and configuration read-only before asking questions that can be answered from the environment. Dispatch a read-only subagent only when independent exploration adds clear value.
+- Surface-request reframing: when a requester proposes a concrete solution ("build a chatbot/dashboard/script") without verified bottleneck evidence, run `root-cause-analysis` (evidence-bound 5 Whys) before locking Slice 1 requirements so the brief solves the underlying problem rather than a symptom.
 - Conditional Frontier ordering: when decisions have branching dependencies, group only questions whose prerequisites are settled into compact rounds of at most 4 questions (default 2-4; a single blocking question is allowed when the Frontier contains only one). Reconstruct circular dependencies into a higher-level choice.
 - Neutral framing for high-stakes choices: propose `PROPOSED_DEFAULT` only for reversible, low-risk items. For irreversible or high-risk decisions (security, data loss, external contracts, cost), present 2-3 neutral options with trade-offs without nudging `"yes"` acceptance.
 - Bounded rounds: default to 3 rounds (maximum 5 for high complexity). Evaluate completion criteria at the end of every round before asking another round.

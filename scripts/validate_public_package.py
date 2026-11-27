@@ -24,12 +24,14 @@ SKILLS = (
     "skills/evaluate-with-rubric",
     "skills/sdlc-stage-rubrics",
     "skills/interview-for-requirements",
+    "skills/root-cause-analysis",
     "skills/spec-driven-development/00-orchestration/sdd-00-orchestrate-implementation",
     "skills/spec-driven-development/01-plan/sdd-01-plan-repository-implementation",
     "skills/spec-driven-development/02-assessment/sdd-02-assess-implementation-spec",
     "skills/spec-driven-development/03-execution-and-verification/sdd-03-execute-implementation-plan",
     "skills/spec-driven-development/04-independent-verification/sdd-04-verify-implementation-independently",
     "skills/spec-driven-development/05-release-readiness/sdd-05-assess-release-readiness",
+    "skills/spec-driven-development/06-operation-and-handover/sdd-06-operate-and-handover",
 )
 REQUIRED_ROOT_FILES = ("README.md", "LICENSE", ".gitignore")
 MARKDOWN_LINK = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
