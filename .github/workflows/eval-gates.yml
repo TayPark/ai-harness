@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "AGENTS.md"
+      - "CONTRIBUTING.md"
       - "README.md"
       - "scripts/**"
       - "skills/**/SKILL.md"
@@ -44,6 +45,7 @@ jobs:
       - name: Run package, anti-slop, and deterministic test gates
         run: |
           python scripts/validate_public_package.py
+          python3 skills/anti-slop/scripts/check_slop.py --strict --file CONTRIBUTING.md
           python3 skills/anti-slop/scripts/check_slop.py --strict --file AGENTS.md
           changed_md=$(git diff --name-only --diff-filter=AM origin/${{ github.base_ref }}...HEAD -- '*.md')
           for md in $changed_md; do

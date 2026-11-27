@@ -1,4 +1,4 @@
-# TayPark Skills
+# TayPark AI Harness
 
 Reusable skills for Codex and Claude Code. Use them to edit prose, consult external models, coordinate agents, or take a software change from requirements through release. Each skill documents when to invoke it and how to run its workflow.
 
@@ -79,16 +79,16 @@ For a small, direct implementation request that does not need a formal plan, imp
 Clone this repository on any machine and run `install.sh` to back up existing host configs (`~/.ai-harness-backups/`, `chmod 700`/`600`), compile shared rules (`harness/core/`, `harness/overrides/`) into Antigravity, Claude Code, and Codex, copy managed role contracts (`harness/roles/`), link packaged and pinned upstream skills, and register a non-blocking `SessionStart` auto-sync hook:
 
 ```sh
-git clone git@github.com:TayPark/skills.git ~/repositories/skills
-sh ~/repositories/skills/install.sh
+git clone git@github.com:TayPark/ai-harness.git ~/repositories/ai-harness
+sh ~/repositories/ai-harness/install.sh
 ```
 
 Useful maintenance commands (Python 3 standard library only):
 
 ```sh
-python3 ~/repositories/skills/harness/scripts/harness.py doctor
-python3 ~/repositories/skills/harness/scripts/harness.py sync
-python3 ~/repositories/skills/harness/scripts/harness.py restore latest
+python3 ~/repositories/ai-harness/harness/scripts/harness.py doctor
+python3 ~/repositories/ai-harness/harness/scripts/harness.py sync
+python3 ~/repositories/ai-harness/harness/scripts/harness.py restore latest
 ```
 
 ### Manual skills-only symlink loop
@@ -166,7 +166,7 @@ python -m pip install -r skills/spec-driven-development/02-assessment/sdd-02-ass
 ## Contributing
 
 1. Check the catalog for an existing skill that covers the proposed task.
-2. Read [AGENTS.md](AGENTS.md) for admission criteria, package rules, and required checks.
+2. Read [CONTRIBUTING.md](CONTRIBUTING.md) for admission criteria, package rules, and required checks.
 3. Make the change under `skills/`, update affected catalog and validator entries, and run the checks.
 4. Open a pull request describing the use case and the checks you ran.
 

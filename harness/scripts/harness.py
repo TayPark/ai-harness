@@ -25,7 +25,7 @@ ROLES_DIR = HARNESS_DIR / "roles"
 OVERRIDES_DIR = HARNESS_DIR / "overrides"
 UPSTREAM_LOCK = HARNESS_DIR / "upstream-skills.lock.json"
 
-GENERATED_HEADER = "# GENERATED FROM ai-harness (TayPark/skills) - DO NOT EDIT DIRECTLY\n"
+GENERATED_HEADER = "# GENERATED FROM ai-harness (TayPark/ai-harness) - DO NOT EDIT DIRECTLY\n"
 HOOK_MARKER = "# ai-harness-sync"
 ANTIGRAVITY_HOOK_KEY = "ai-harness-sync"
 DEFAULT_TTL_SECONDS = 10800  # 3 hours
