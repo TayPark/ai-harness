@@ -22,7 +22,6 @@ SKILLS = (
     "skills/ask-to-gemini",
     "skills/debate-models",
     "skills/evaluate-with-rubric",
-    "skills/orchestrate-agents",
     "skills/sdlc-stage-rubrics",
     "skills/interview-for-requirements",
     "skills/spec-driven-development/00-orchestration/sdd-00-orchestrate-implementation",

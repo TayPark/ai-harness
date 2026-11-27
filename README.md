@@ -4,8 +4,6 @@ Reusable skills for Codex and Claude Code. Use them to edit prose, consult exter
 
 [`skills/`](skills/) holds the source for every packaged skill. Repository-wide checks live in [`scripts/`](scripts/) and [`tests/`](tests/).
 
-Version: `v0.3.0`.
-
 ## Included skills
 
 ### Writing and editing
@@ -22,12 +20,6 @@ Version: `v0.3.0`.
 | [`ask-to-gemini`](skills/ask-to-gemini/SKILL.md) | You want to query Web Gemini (`Neon High`) via Aside CLI to conserve local CLI/API tokens. |
 | [`debate-models`](skills/debate-models/SKILL.md) | You need a falsification-driven 2-model debate (ACH, up to 3 rounds) with explicitly declared peers and transport (`web-pair` via Aside to save local tokens, or `local-pair` via `codex` + `gemini` CLI when tokens are ample). |
 | [`evaluate-with-rubric`](skills/evaluate-with-rubric/SKILL.md) | You need a privacy-filtered evidence packet, an independent read-only critic (Aside Web or local CLI), and local deterministic JSON validation. |
-
-### Agent collaboration
-
-| Skill | Use it when |
-| --- | --- |
-| [`orchestrate-agents`](skills/orchestrate-agents/SKILL.md) | You need bounded subagent delegation with JSON contracts (Tier 1) or multi-team software delivery across a product owner, team leaders, implementers, and independent reviewers (Tier 2). |
 
 ### Requirements, implementation, and release
 
@@ -124,8 +116,7 @@ Existing invocation names do not remain as compatibility aliases. Remove or relo
 | `ask-to-web-gemini` | `ask-to-gemini` |
 | `debate-web-models` | `debate-models` (explicit peer/transport declaration) |
 | `chatgpt-rubric-evaluator`, `evaluate-with-chatgpt` | `evaluate-with-rubric` |
-| `by-subagent` | `orchestrate-agents` (Tier 1) |
-| `codex-team-orchestration`, `orchestrate-agent-team` | `orchestrate-agents` (Tier 2) |
+| `by-subagent`, `codex-team-orchestration`, `orchestrate-agent-team`, `orchestrate-agents` | Replaced by built-in harness contracts ([`harness/core/CONTRACTS.md`](harness/core/CONTRACTS.md), [`harness/core/ROUTING.md`](harness/core/ROUTING.md), and `harness/roles/`) |
 | `requirements-interview` | `interview-for-requirements` |
 | `teach-socratically` | Upstream [`socratic-tutor`](https://github.com/janestreet/agent_skills/blob/master/socratic-tutor/SKILL.md) (linked upstream, not packaged locally) |
 | `implementation-workflow-orchestrator` | `sdd-00-orchestrate-implementation` |
@@ -148,7 +139,6 @@ Every packaged skill enforces explicit activation boundaries and pre-flight gate
 | `ask-to-gemini` | Single-shot Web Gemini (`Neon High`) query via Aside CLI | Multi-round debate (`debate-models`) or rubric scoring (`evaluate-with-rubric`) | Confirm Aside CLI, login, Chat mode, and `Neon` + `High` before sending; use Quill-safe `insertText` |
 | `debate-models` | High-stakes decision needing 2-node ACH falsification (up to 3 rounds) | Single-shot lookup (`ask-to-*`) or rubric scoring (`evaluate-with-rubric`) | Explicitly declare Peer A, Peer B, and transport (`web-pair` vs `local-pair` vs `hybrid-pair`) before Round 1 |
 | `evaluate-with-rubric` | Reproducible weighted rubric scoring of a file or directory | Unstructured Q&A (`ask-to-*`) or open-ended debate (`debate-models`) | Pass deterministic checks first; declare critic backend; inspect packet before sharing; validate JSON locally |
-| `orchestrate-agents` | Bounded parallel workers (Tier 1) or multi-team delivery (Tier 2) | Short, single-file, or tightly sequential work | Declare Tier 1 vs Tier 2; enforce one writer per file; require JSON contracts and frozen-revision review |
 | `interview-for-requirements` | Unclear goals, flows, constraints, acceptance criteria, or hidden system context | Requirements are already clear, or structured tutoring (`socratic-tutor`) | Inspect system facts read-only first; enforce 5-label provenance (`OBSERVED_FACT` separate from `R-NN`) and Slice 1 IDs before `sdd-01`/`sdd-02` |
 | `sdlc-stage-rubrics` | Risk-tiered (T1-T3) 4-stage SDLC scoring and gating | Generic non-SDLC rubrics | Run `evaluate_sdlc_gate.py` for T2/T3 thresholds, critical floors, and human sign-off |
 | `sdd-00`..`sdd-05` | Formal Spec-Driven Development from plan through release readiness | Small direct edits that do not need formal gates | Keep planning read-only; require `READY` Spec/Plan Gates + explicit approval before execution; freeze candidate before independent verification |
