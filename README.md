@@ -74,7 +74,26 @@ For a small, direct implementation request that does not need a formal plan, imp
 
 ## Install, invoke, and update
 
-Run these commands from a trusted checkout. Codex reads `~/.codex/skills/`; Claude Code reads `~/.claude/skills/`; Antigravity reads `~/.gemini/config/skills/`. For project-only installation use `.claude/skills/` (Claude Code) or `.agents/skills/` (Antigravity) instead. Check destinations first: the loop refuses to overwrite an existing folder or link.
+### One-command multi-host harness bootstrap (Recommended)
+
+Clone this repository on any machine and run `install.sh` to back up existing host configs (`~/.ai-harness-backups/`, `chmod 700`/`600`), compile shared rules (`harness/core/`, `harness/overrides/`) into Antigravity, Claude Code, and Codex, copy managed role contracts (`harness/roles/`), link packaged and pinned upstream skills, and register a non-blocking `SessionStart` auto-sync hook:
+
+```sh
+git clone git@github.com:TayPark/skills.git ~/repositories/skills
+sh ~/repositories/skills/install.sh
+```
+
+Useful maintenance commands (Python 3 standard library only):
+
+```sh
+python3 ~/repositories/skills/harness/scripts/harness.py doctor
+python3 ~/repositories/skills/harness/scripts/harness.py sync
+python3 ~/repositories/skills/harness/scripts/harness.py restore latest
+```
+
+### Manual skills-only symlink loop
+
+Run these commands from a trusted checkout if you only want to link `skills/` without compiling host instructions or hooks. Codex reads `~/.codex/skills/`; Claude Code reads `~/.claude/skills/`; Antigravity reads `~/.gemini/config/skills/`. For project-only installation use `.claude/skills/` (Claude Code) or `.agents/skills/` (Antigravity) instead. Check destinations first: the loop refuses to overwrite an existing folder or link.
 
 ```sh
 skill_home="$HOME/.codex/skills" # Claude Code: "$HOME/.claude/skills" | Antigravity: "$HOME/.gemini/config/skills"

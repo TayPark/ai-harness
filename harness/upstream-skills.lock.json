@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "skills": [
+    {
+      "name": "caveman",
+      "repo_url": "https://github.com/JuliusBrussee/caveman.git",
+      "ref": "main",
+      "subpath": "skills/caveman",
+      "license": "Apache-2.0"
+    },
+    {
+      "name": "ponytail",
+      "repo_url": "https://github.com/DietrichGebert/ponytail.git",
+      "ref": "main",
+      "subpath": "skills/ponytail",
+      "license": "MIT"
+    },
+    {
+      "name": "socratic-tutor",
+      "repo_url": "https://github.com/janestreet/agent_skills.git",
+      "ref": "master",
+      "subpath": "socratic-tutor",
+      "license": "MIT"
+    }
+  ]
+}
